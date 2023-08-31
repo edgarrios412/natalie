@@ -1,16 +1,28 @@
 .nav{
     width: 100vw;
     height: 11vh;
-    background-color: red;
+    background-color: rgb(255, 255, 255);
     position: fixed;
+    display: flex;
+    gap: 50px;
+    align-items: center;
 }
 
 .navigator{
     margin-top: 11vh;
     width: 20vw;
     height: 89vh;
-    background-color: blue;
+    background-color: rgb(206, 206, 206);
     position: fixed;
+}
+
+.logo{
+    width: 75px;
+    filter: grayscale(1);
+}
+
+.findInput{
+    height: 30px;
 }
 
 .ul{

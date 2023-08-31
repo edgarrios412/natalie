@@ -6,6 +6,7 @@ import Agenda from './Agenda/Agenda';
 import Control from './Control/Control';
 import Pacientes from './Pacientes/Pacientes';
 import { useNavigate } from 'react-router-dom';
+import logo from "../../assets/logonata.jpeg"
  
 const Panel = () => {
 
@@ -15,7 +16,9 @@ const Panel = () => {
   return(
     <>
       <nav className={style.nav}>
-
+      <img className={style.logo} src={logo}/>
+      <h1>Hola Natalie!</h1>
+      <input className={style.findInput}/>
       </nav>
       <div className={style.flexContainer}>
       <div className={style.navigator}>
