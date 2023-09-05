@@ -31,7 +31,7 @@ const Home = () => {
       <div className={style.container}>
         <h1 className={style.titleName}>Natalie Ariza</h1>
         <h2 className={style.titleProfesion}>ODONTOLOGA</h2>
-        <button className={style.buttonReserva}>Reserva tu valoracion</button>
+        <button className={style.buttonReserva}><a className={style.noLink} target="_blank" href="https://wa.link/sdh5gu">Reserva tu valoracion</a></button>
         <img className={style.logoNata} src={logoNata2}/>
         <div className={style.pantallaNegra} style={{zIndex:"1"}}></div>
         <Carousel width="100%" infiniteLoop={true} renderIndicator={() => {}} renderThumbs={() => {}} renderArrowNext={() => {}} renderArrowPrev={() => {}} interval="6000" autoPlay={true} showStatus={false}>
@@ -99,7 +99,7 @@ const Home = () => {
           <p className={style.subtitleTexto}>Una sonrisa para cada rostro</p>
 
           <p className={style.descTexto}>Deseas diseño de sonrisa pero te da temor que no se vea natural ? Que son los laminados cerámicos? Que son las carillas indirectas en resina? En la actualidad el éxito de la estética es lograr resultados lo más parecidos a la naturaleza posible.</p>
-          <button className={style.buttonValoracion}>Pide tu valoracion</button>
+          <button className={style.buttonValoracion}><a className={style.noLink} target="_blank" href="https://wa.link/sdh5gu">Pide tu valoracion</a></button>
         </div>
           </Fade>
         </div>
@@ -116,7 +116,7 @@ const Home = () => {
         <div className={style.texto}>
           <p className={style.descTexto} style={{fontSize:"2em", textAlign:"center"}}>
 Bienvenidos al consultorio dental de la Dra. Natalie Ariza y su equipo de especialistas, donde no solo diseñamos sonrisas, te devolvemos la seguridad y la tranquilidad al reír y masticar.</p>
-          <button className={style.buttonValoracion}>Pide tu valoracion</button>
+          <button className={style.buttonValoracion}><a className={style.noLink} target="_blank" href="https://wa.link/sdh5gu">Pide tu valoracion</a></button>
         </div>
         </Fade>
         </div>
