@@ -16,6 +16,8 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from 'react-responsive-carousel';
 import fotocelular from "../../assets/celularfoto.jpg"
 
+import { Fade } from "react-awesome-reveal";
+
 const Home = () => {
   return(
     <div className={style.home}>
@@ -45,6 +47,7 @@ const Home = () => {
     <div className={style.navDiv}></div>
       <div className={style.resumeContainer}>
         <div className={style.especialidades}>
+           <Fade damping="0.2" direction='right' triggerOnce={true} cascade={true}>
             <div className={style.especialidad}>
               <img className={style.espeImg} src={ortodoncia}/>
               <h1 className={style.espeTitle}>Ortodoncia</h1>
@@ -69,11 +72,13 @@ const Home = () => {
             <img className={style.espeImg} src={ortodoncia}/>
               <h1 className={style.espeTitle}>Ortopediatra</h1>
             </div>
+            </Fade>
 
         </div>
       </div>
       <div className={style.resumeContainer}>
         <div className={style.disenoSonrisa}>
+          <Fade triggerOnce direction='left' fraction={0.5}>
         <Carousel width="400px" infiniteLoop={true} interval="3000" autoPlay={true} showStatus={false}>
                 <div>
                     <img src={ortodoncia} />
@@ -85,6 +90,8 @@ const Home = () => {
                     <img src={ortodoncia} />
                 </div>
             </Carousel>
+          </Fade>
+          <Fade triggerOnce direction='right' fraction={0.5}>
         <div className={style.texto}>
           <h1 className={style.titleTexto}>Diseño de sonrisa</h1>
           <p className={style.subtitleTexto}>Ultima tecnologia</p>
@@ -94,19 +101,24 @@ const Home = () => {
           <p className={style.descTexto}>Deseas diseño de sonrisa pero te da temor que no se vea natural ? Que son los laminados cerámicos? Que son las carillas indirectas en resina? En la actualidad el éxito de la estética es lograr resultados lo más parecidos a la naturaleza posible.</p>
           <button className={style.buttonValoracion}>Pide tu valoracion</button>
         </div>
+          </Fade>
         </div>
       </div>
       <div className={style.resumeContainer}>
         <div className={style.disenoSonrisa}>
+        <Fade triggerOnce direction='left' fraction={0.5}>
           <div className={style.containerTlf}>
         <img className={style.carrusel} style={{backgroundColor:"transparent"}} src={telefono}/>
         <img className={style.imgTlf} src={fotocelular}/>
           </div>
+        </Fade>
+        <Fade triggerOnce direction='right' fraction={0.5}>
         <div className={style.texto}>
           <p className={style.descTexto} style={{fontSize:"2em", textAlign:"center"}}>
 Bienvenidos al consultorio dental de la Dra. Natalie Ariza y su equipo de especialistas, donde no solo diseñamos sonrisas, te devolvemos la seguridad y la tranquilidad al reír y masticar.</p>
           <button className={style.buttonValoracion}>Pide tu valoracion</button>
         </div>
+        </Fade>
         </div>
       </div>
         <div className={style.final}>
