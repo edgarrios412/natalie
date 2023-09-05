@@ -4,6 +4,7 @@ import natalie4 from "../../assets/natalie4.jpg"
 import natalie6 from "../../assets/natalie6.jpg" 
 import {FaArrowDown} from "react-icons/fa"
 import logoNata from "../../assets/logonatalie.png"
+import logoNata2 from "../../assets/logonatalie2.png"
 import logoMini from "../../assets/logonata.png"
 import Footer from '../Footer/Footer'
 import ortodoncia from "../../assets/ortodoncia.jpg"
@@ -26,11 +27,10 @@ const Home = () => {
     </ul>
     </nav>
       <div className={style.container}>
-        {/* <p><FaArrowDown/></p> */}
         <h1 className={style.titleName}>Natalie Ariza</h1>
         <h2 className={style.titleProfesion}>ODONTOLOGA</h2>
         <button className={style.buttonReserva}>Reserva tu valoracion</button>
-        <img className={style.logoNata} src={logoNata}/>
+        <img className={style.logoNata} src={logoNata2}/>
         <div className={style.pantallaNegra} style={{zIndex:"1"}}></div>
         <Carousel width="100%" infiniteLoop={true} renderIndicator={() => {}} renderThumbs={() => {}} renderArrowNext={() => {}} renderArrowPrev={() => {}} interval="6000" autoPlay={true} showStatus={false}>
                 <div>
@@ -39,9 +39,7 @@ const Home = () => {
                 <div>
                 <img className={style.img} alt="Natalie" src={natalie4}/>
                 </div>
-                {/* <div>
-                <img className={style.img} alt="Natalie" src={natalie6}/>
-                </div> */}
+
             </Carousel>
       </div>
     <div className={style.navDiv}></div>

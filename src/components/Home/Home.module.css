@@ -46,7 +46,7 @@
     width: 100%;
     margin-top: -700px;
     /* z-index: 1; */
-    animation: entrada 2s 2s forwards;
+    animation: entrada 2s forwards;
 }
 
 @keyframes entrada {
@@ -174,12 +174,12 @@ background: linear-gradient(90deg, rgba(255, 255, 255, 0.509) 0%, rgba(0, 0, 0, 
 }
 
 .li:hover::before{
-    background-color: rgb(255, 163, 25);
+    background-color: rgb(63, 63, 63);
     width: 100%;
 }
 
 .li:hover{
-    color: rgb(255, 163, 25);
+    color: rgb(63, 63, 63);
 }
 
 /* RESUME */
