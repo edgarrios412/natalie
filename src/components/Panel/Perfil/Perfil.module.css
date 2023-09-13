@@ -1,6 +1,7 @@
 .perfilContainerTop{
     display: flex;
     gap:50px;
+    margin-bottom: 50px;
 }
 
 .img{
@@ -27,4 +28,16 @@
 
 .button:hover{
     background-color: orange;
+}
+
+.container{
+    position: absolute;
+    margin-left:20vw;
+    margin-top:11vh;
+    /* background-color: red; */
+    margin: 0 auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: fit-content;
 }

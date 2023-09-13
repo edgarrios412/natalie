@@ -31,11 +31,13 @@ const Panel = () => {
             <li className={style.li} onClick={() => navigate("/login")}>Cerrar sesion</li>
         </ul>
       </div>
+      <div className={style.panelContainer}>
       {page == 1 && <Perfil/>}
       {page == 2 && <Financiero/>}
       {page == 3 && <Agenda/>}
       {page == 4 && <Control/>}
       {page == 5 && <Pacientes/>}
+      </div>
       </div>
     </>
   )

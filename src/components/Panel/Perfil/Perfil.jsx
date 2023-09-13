@@ -3,7 +3,7 @@ import style from './Perfil.module.css'
 const Perfil = () => {
   return(
     <>
-    <div style={{marginLeft:"20vw", marginTop:"11vh"}}>
+    <div className={style.container}>
       <div className={style.perfilContainerTop}>
         <img className={style.img}/>
         <div className={style.dataUser}>
