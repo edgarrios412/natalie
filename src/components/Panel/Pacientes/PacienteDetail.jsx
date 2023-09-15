@@ -33,6 +33,8 @@ const PacienteDetail = ({user, back}) => {
     return (
         <>
         { !evolucion ? <div className={style.detailPaciente}>
+          <br></br>
+          <br></br>
         <button className={style.button} onClick={back}>Volver</button>
             <div className={style.clinicHistory}>
           <div className={style.column}>

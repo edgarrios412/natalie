@@ -17,15 +17,19 @@ import { Carousel } from 'react-responsive-carousel';
 import fotocelular from "../../assets/celularfoto.jpg"
 
 import { Fade } from "react-awesome-reveal";
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
+
+  const navigate = useNavigate()
+
   return(
     <div className={style.home}>
       <nav className={style.nav}>
         <img className={style.logoMini} src={logoMini}/>
     <ul className={style.ul}>
         <li className={style.li}>Inicio</li>
-        <li className={style.li}>Trabajos</li>
+        <li onClick={() => navigate("/login")} className={style.li}>Ingresar</li>
     </ul>
     </nav>
       <div className={style.container}>
