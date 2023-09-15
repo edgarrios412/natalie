@@ -8,7 +8,7 @@ const Perfil = () => {
       <div className={style.perfilContainerTop}>
         <img src={natalie} className={style.img}/>
         <div className={style.dataUser}>
-          <p>Natalie Ariza</p>
+          <p>Doc. Natalie Ariza</p>
           <p>Administradora</p>
           <p>Odontologa Estetica</p>
           <p>Tarjeta profesional XXXXX</p>
