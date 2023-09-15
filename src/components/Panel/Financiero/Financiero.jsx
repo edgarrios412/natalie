@@ -1,8 +1,12 @@
+import { useState } from 'react';
 import style from './Financiero.module.css'
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
  
 const Financiero = () => {
+
+  const [chartType, setChartType] = useState(3)
+
   const data = [
     {
       name: 'Enero',
@@ -26,7 +30,13 @@ const Financiero = () => {
     <>
     <div>
       <h1 className={style.titleSection}>Financiero</h1>
-        <BarChart
+      <select onChange={(e) => setChartType(e.target.value)} className={style.select}>
+        <option value={1}>Diario</option>
+        <option value={2}>Semanal</option>
+        <option value={3} selected>Mensual</option>
+        <option value={4}>Anual</option>
+      </select>
+        {chartType == 1 && <BarChart
         style={{marginTop:"120px"}}
           width={600}
           height={400}
@@ -46,7 +56,70 @@ const Financiero = () => {
           <Bar dataKey="Bancolombia" fill="#8884d8" />
           <Bar dataKey="Efectivo" fill="#82ca9d" />
           <Bar dataKey="TDC" fill="#FF5733" />
-        </BarChart>
+        </BarChart>}
+        {chartType == 2 && <BarChart
+        style={{marginTop:"120px"}}
+          width={600}
+          height={400}
+          data={data}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="Bancolombia" fill="#8884d8" />
+          <Bar dataKey="Efectivo" fill="#82ca9d" />
+          <Bar dataKey="TDC" fill="#FF5733" />
+        </BarChart>}
+        {chartType == 3 && <BarChart
+        style={{marginTop:"120px"}}
+          width={600}
+          height={400}
+          data={data}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="Bancolombia" fill="#8884d8" />
+          <Bar dataKey="Efectivo" fill="#82ca9d" />
+          <Bar dataKey="TDC" fill="#FF5733" />
+        </BarChart>}
+        {chartType == 4 && <BarChart
+        style={{marginTop:"120px"}}
+          width={600}
+          height={400}
+          data={data}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="Bancolombia" fill="#8884d8" />
+          <Bar dataKey="Efectivo" fill="#82ca9d" />
+          <Bar dataKey="TDC" fill="#FF5733" />
+        </BarChart>}
     </div>
     </>
   )

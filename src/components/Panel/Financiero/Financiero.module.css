@@ -3,3 +3,8 @@
     /* width: 100%; */
     text-align: center;
 }
+
+.select{
+    font-size: 1.5em;
+    border: 0;
+}

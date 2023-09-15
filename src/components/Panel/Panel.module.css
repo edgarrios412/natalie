@@ -17,6 +17,7 @@
 }
 
 .logo{
+    margin-left: 50px;
     width: 75px;
     filter: grayscale(1);
 }
