@@ -2,3 +2,11 @@
     font-size: 1.5em;
     border: 0;
 }
+
+.control{
+    text-align: center;
+}
+
+.chart{
+    margin:0 auto;
+}

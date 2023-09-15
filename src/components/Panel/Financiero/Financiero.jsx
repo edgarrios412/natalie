@@ -28,7 +28,7 @@ const Financiero = () => {
     }]
   return(
     <>
-    <div>
+    <div className={style.financiero}>
       <h1 className={style.titleSection}>Financiero</h1>
       <select onChange={(e) => setChartType(e.target.value)} className={style.select}>
         <option value={1}>Diario</option>
@@ -37,9 +37,10 @@ const Financiero = () => {
         <option value={4}>Anual</option>
       </select>
         {chartType == 1 && <BarChart
-        style={{marginTop:"120px"}}
+        className={style.grafica}
+        // style={{marginTop:"120px"}}
           width={600}
-          height={400}
+          height={350}
           data={data}
           margin={{
             top: 5,
@@ -58,9 +59,9 @@ const Financiero = () => {
           <Bar dataKey="TDC" fill="#FF5733" />
         </BarChart>}
         {chartType == 2 && <BarChart
-        style={{marginTop:"120px"}}
+        className={style.grafica}
           width={600}
-          height={400}
+          height={350}
           data={data}
           margin={{
             top: 5,
@@ -79,9 +80,9 @@ const Financiero = () => {
           <Bar dataKey="TDC" fill="#FF5733" />
         </BarChart>}
         {chartType == 3 && <BarChart
-        style={{marginTop:"120px"}}
+        className={style.grafica}
           width={600}
-          height={400}
+          height={350}
           data={data}
           margin={{
             top: 5,
@@ -100,9 +101,9 @@ const Financiero = () => {
           <Bar dataKey="TDC" fill="#FF5733" />
         </BarChart>}
         {chartType == 4 && <BarChart
-        style={{marginTop:"120px"}}
+        className={style.grafica}
           width={600}
-          height={400}
+          height={350}
           data={data}
           margin={{
             top: 5,

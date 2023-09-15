@@ -27,9 +27,9 @@ const Pacientes = () => {
 
   return(
     <>
-      <div style={{marginLeft:"20vw", marginTop:"11vh"}}>
+      <div className={style.pacientes}>
         { pacienteId == null ? <><h1>Pacientes</h1>
-        <table>
+        <table className={style.tabla}>
           <tr>
           <td className={style.topTd}>Cedula</td>
           <td className={style.topTd}>Nombre y apellido</td>

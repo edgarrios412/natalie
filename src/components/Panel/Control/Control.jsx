@@ -66,7 +66,7 @@ const Control = () => {
 
   return (
     <>
-      <div style={{ marginLeft: "20vw", marginTop: "11vh" }}>
+      <div className={style.control}>
         <select onChange={(e) => setTypeChart(e.target.value)} className={style.select}>
           <option value={1} selected>Temperatura</option>
           <option value={2}>Humedad</option>
@@ -77,8 +77,9 @@ const Control = () => {
           {typeChart == 1 && <div>
             <h4>Temperatura del mes en la mañana</h4>
             <AreaChart
-              width={500}
-              height={200}
+              className={style.chart}
+              width={400}
+              height={160}
               data={data}
               syncId="anyId"
               margin={{
@@ -96,8 +97,9 @@ const Control = () => {
             </AreaChart>
             <h4>Temperatura del mes en la tarde</h4>
             <AreaChart
-              width={500}
-              height={200}
+              className={style.chart}
+              width={400}
+              height={160}
               data={data}
               syncId="anyId"
               margin={{
@@ -117,8 +119,9 @@ const Control = () => {
           {typeChart == 2 && <div>
             <h4>Humedad del mes en la mañana</h4>
             <AreaChart
-              width={500}
-              height={200}
+              className={style.chart}
+              width={400}
+              height={160}
               data={data}
               syncId="anyId"
               margin={{
@@ -136,8 +139,9 @@ const Control = () => {
             </AreaChart>
             <h4>Humedad del mes en la tarde</h4>
             <AreaChart
-              width={500}
-              height={200}
+              className={style.chart}
+              width={400}
+              height={160}
               data={data}
               syncId="anyId"
               margin={{
@@ -157,8 +161,9 @@ const Control = () => {
           {typeChart == 3 && <div>
             <h4>Cadena de frio del mes en la mañana</h4>
             <AreaChart
-              width={500}
-              height={200}
+              className={style.chart}
+              width={400}
+              height={160}
               data={data}
               syncId="anyId"
               margin={{
@@ -176,8 +181,9 @@ const Control = () => {
             </AreaChart>
             <h4>Cadena de frio del mes en la tarde</h4>
             <AreaChart
-              width={500}
-              height={200}
+              className={style.chart}
+              width={400}
+              height={160}
               data={data}
               syncId="anyId"
               margin={{

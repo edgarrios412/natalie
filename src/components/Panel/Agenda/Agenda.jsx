@@ -32,9 +32,10 @@ const Agenda = () => {
 
   return(
     <>
-      <div style={{marginLeft:"20vw", marginTop:"11vh"}}>
+      <div className={style.agenda}>
         <h1>Agenda</h1>
         <Calendar
+        className={style.calendario}
         messages={{
           next: "Siguiente",
           previous: "Anterior",
@@ -60,7 +61,7 @@ const Agenda = () => {
       startAccessor="start"
       endAccessor="end"
       formats={formats}
-      style={{ height: 500, width: 800 }}
+      style={{ height: 400, width: 650 }}
     />
       </div>
     </>

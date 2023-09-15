@@ -32,7 +32,7 @@ const PacienteDetail = ({user, back}) => {
       const [nuevaEvolucion, setNuevaEvolucion] = useState(false)
     return (
         <>
-        { !evolucion ? <div>
+        { !evolucion ? <div className={style.detailPaciente}>
         <button onClick={back}>Volver</button>
             <div className={style.clinicHistory}>
           <div className={style.column}>
@@ -106,7 +106,7 @@ const PacienteDetail = ({user, back}) => {
         ref={refCanva}
         brushColor="black"
         loadTimeOffset={0}
-        style={{width:"700px"}}
+        style={{width:"700px", margin:"0 auto"}}
         />
         <div className={style.consentimientos}>
           <div>
@@ -114,10 +114,12 @@ const PacienteDetail = ({user, back}) => {
           <textarea className={style.textarea}/>
           </div>
           <div>
+            <br></br>
             <img src={documentos} className={style.imgIcon}/>
             <h4 className={style.texto}>Ver consentimientos</h4>
           </div>
         </div>
+        <br></br>
         <button>Guardar</button>
         </div>
         :
@@ -125,7 +127,7 @@ const PacienteDetail = ({user, back}) => {
         {!nuevaEvolucion ? 
         <div>
         <h1 onClick={() => setEvolucion(false)}>Evolucion</h1>
-        <table>
+        <table className={style.evolucion}>
           <tr>
           <td className={style.topTd}>Fecha</td>
           <td className={style.topTd}>Hora</td>
@@ -141,6 +143,7 @@ const PacienteDetail = ({user, back}) => {
           <td className={style.td}>BOTON</td>
           </tr>
         </table>
+        <br></br>
         <button onClick={() => setNuevaEvolucion(true)}>Agregar</button>
         </div>
         :   

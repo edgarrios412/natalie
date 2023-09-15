@@ -37,6 +37,8 @@ table{
     /* background-color: red; */
     width: 700px;
     justify-content: space-between;
+    text-align: justify;
+    margin: 0 auto;
 }
 
 .column{
@@ -53,10 +55,15 @@ table{
 }
 
 .consentimientos{
-    display: flex;
+    /* display: flex; */
     align-items: center;
     gap: 90px;
+    margin: 0 auto;
     /* justify-content: space-around; */
+}
+
+.evolucion{
+    margin: 0 auto;
 }
 
 .imgIcon{
@@ -66,4 +73,12 @@ table{
 
 .texto{
     margin: 0;
+}
+
+.pacientes{
+    text-align: center;
+}
+
+.tabla{
+    margin: 0 auto;
 }
