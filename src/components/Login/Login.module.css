@@ -1,11 +1,16 @@
+.login{
+    overflow: hidden;
+}
+
 .loginContainer{
     background-color: rgb(255, 255, 255);
     border: 1px solid rgb(236, 236, 236);
     width:300px;
     height: 400px;
-    margin: 100px auto;
+    margin: 0 auto;
+    margin-top: 50vh;
     border-radius: 10px;
-    /* display: flex; */
+    transform: translateY(-50%);
 }
 
 .title{
