@@ -6,6 +6,7 @@
     display: flex;
     gap: 50px;
     align-items: center;
+    z-index: 10;
 }
 
 .navigator{
@@ -16,19 +17,34 @@
     position: fixed;
 }
 
+.saludo{
+    font-weight: 400;
+}
+
 .logo{
     margin-left: 50px;
-    width: 75px;
+    width: 65px;
     filter: grayscale(1);
 }
 
 .findInput{
     height: 30px;
+    border-radius: 5px;
+    border: 1px solid rgb(206, 206, 206);
+    text-align: center;
+    font-size: 1.2em;
+    transition: .1s;
+}
+
+.findInput:focus{
+    border: 1px solid rgb(109, 109, 109);
+    outline: 0;
 }
 
 .ul{
     list-style: none;
     margin: 0;
+    padding-top: 50px;
 }
 
 .li{

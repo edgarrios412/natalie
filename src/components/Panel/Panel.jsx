@@ -17,8 +17,8 @@ const Panel = () => {
     <>
       <nav className={style.nav}>
       <img className={style.logo} src={logo}/>
-      <h1>Hola Natalie!</h1>
-      <input className={style.findInput}/>
+      <h1 className={style.saludo}>Hola Natalie! 👋</h1>
+      <input placeholder="Buscar paciente" className={style.findInput}/>
       </nav>
       <div className={style.flexContainer}>
       <div className={style.navigator}>
