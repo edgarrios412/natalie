@@ -52,6 +52,27 @@ table{
     max-width: 400px;
     max-height: 150px;
     font-size: 1.4em;
+    border-radius: 5px;
+    border: 1px solid rgb(211, 211, 211);
+}
+
+.button{
+    z-index: 2;
+    font-weight: 100;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    transition: .3s;
+    background-color: black;
+    border-radius: 10px;
+    border: 0;
+    padding: 5px 20px;
+    font-size: 1.2em;
+    /* margin-left: 10px; */
+}
+
+.button:hover{
+    background-color: white;
+    color: black;
 }
 
 .consentimientos{

@@ -72,7 +72,7 @@ const Control = () => {
           <option value={2}>Humedad</option>
           <option value={3}>Cadena de frio</option>
         </select>
-        <button onClick={() => setCreator(true)}>Crear</button>
+        <button className={style.button} onClick={() => setCreator(true)}>Crear</button>
         { !creator ? <div>
           {typeChart == 1 && <div>
             <h4>Temperatura del mes en la mañana</h4>

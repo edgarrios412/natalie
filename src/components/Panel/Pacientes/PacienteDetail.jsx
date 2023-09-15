@@ -33,7 +33,7 @@ const PacienteDetail = ({user, back}) => {
     return (
         <>
         { !evolucion ? <div className={style.detailPaciente}>
-        <button onClick={back}>Volver</button>
+        <button className={style.button} onClick={back}>Volver</button>
             <div className={style.clinicHistory}>
           <div className={style.column}>
             <p><b>Cedula:</b> 1057565810</p>
@@ -41,7 +41,7 @@ const PacienteDetail = ({user, back}) => {
             <p><b>Edad:</b> 19 años</p>
             <p><b>Sexo:</b> Femenina</p>
             <p><b>Fecha nacimiento:</b> 16/03/2004</p>
-            <button onClick={() => setEvolucion(true)}>Evolucion</button>
+            <button className={style.button} onClick={() => setEvolucion(true)}>Evolucion</button>
             <br></br>
             <p>¿Le han practicado alguna intervención quirúrgica?<input type='checkbox'/></p>
             <p>Toma algún medicamento <input type='checkbox'/></p>
@@ -96,8 +96,8 @@ const PacienteDetail = ({user, back}) => {
             </div>
         </div>
         <h3>Odontodiagrama</h3>
-        <button onClick={handleSave}>Guardar</button>
-        <button onClick={cargar}>Cargar</button>
+        {/* <button onClick={handleSave}>Guardar</button>
+        <button onClick={cargar}>Cargar</button> */}
         <CanvasDraw
         lazyRadius={0}
         imgSrc={foto}
@@ -120,7 +120,7 @@ const PacienteDetail = ({user, back}) => {
           </div>
         </div>
         <br></br>
-        <button>Guardar</button>
+        <button className={style.button}>Guardar</button>
         </div>
         :
         <div>
@@ -144,14 +144,14 @@ const PacienteDetail = ({user, back}) => {
           </tr>
         </table>
         <br></br>
-        <button onClick={() => setNuevaEvolucion(true)}>Agregar</button>
+        <button className={style.button} onClick={() => setNuevaEvolucion(true)}>Agregar</button>
         </div>
         :   
             <div>
                 <h1 onClick={() => setNuevaEvolucion(false)}>Formulario de creacion</h1>
-                <input placeholder='Hora'/>
+                {/* <input placeholder='Hora'/>
                 <input placeholder='Descripcion'/>
-                <input placeholder='Abono'/>
+                <input placeholder='Abono'/> */}
             </div>
             }
         </div>

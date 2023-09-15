@@ -10,3 +10,22 @@
 .chart{
     margin:0 auto;
 }
+
+.button{
+    z-index: 2;
+    font-weight: 100;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    transition: .3s;
+    background-color: black;
+    border-radius: 10px;
+    border: 0;
+    padding: 5px 20px;
+    font-size: 1.2em;
+    margin-left: 10px;
+}
+
+.button:hover{
+    background-color: white;
+    color: black;
+}
