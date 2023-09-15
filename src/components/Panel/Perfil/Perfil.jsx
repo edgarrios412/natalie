@@ -1,11 +1,12 @@
 import style from './Perfil.module.css'
+import natalie from "../../../assets/natalieperfil.jpg"
  
 const Perfil = () => {
   return(
     <>
     <div className={style.container}>
       <div className={style.perfilContainerTop}>
-        <img className={style.img}/>
+        <img src={natalie} className={style.img}/>
         <div className={style.dataUser}>
           <p>Natalie Ariza</p>
           <p>Administradora</p>
