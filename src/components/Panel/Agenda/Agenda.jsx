@@ -10,9 +10,16 @@ dayjs.locale("es");
 dayjs.extend(localizedFormat);
 const localizer = dayjsLocalizer(dayjs)
 
-const Agenda = () => {
+const Agenda = ({fn}) => {
 
   const [date, setDate] = useState([{
+    id:1,
+    title:"Hola",
+    start:new Date(),
+    end:new Date(),
+    resourceId:1,
+  },{
+    id:2,
     title:"Hola",
     start:new Date(),
     end:new Date(),
@@ -51,6 +58,7 @@ const Agenda = () => {
       localizer={localizer}
       events={date?.map(d => {
         return{
+        id:d.id,
         title:d.title,
         start:d.start,
         end:d.end,
@@ -61,8 +69,10 @@ const Agenda = () => {
       startAccessor="start"
       endAccessor="end"
       formats={formats}
+      onSelectEvent={(e) => fn(e.id)}
       style={{ height: 400, width: 650 }}
     />
+    <button className={style.button}>Nuevo evento</button>
       </div>
     </>
   )

@@ -19,8 +19,8 @@ const Perfil = ({fn}) => {
         </div>
       </div>
       <div className={style.perfilContainerBottom}>
-        <button className={style.button}>Guardar</button>
         <button className={style.button} onClick={fn}>Cambiar contraseña</button>
+        {/* <button className={style.button}>Guardar</button> */}
       </div>
       </div>
     </>

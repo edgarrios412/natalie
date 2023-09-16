@@ -72,7 +72,7 @@ const Control = () => {
           <option value={2}>Humedad</option>
           <option value={3}>Cadena de frio</option>
         </select>
-        <button className={style.button} onClick={() => setCreator(true)}>Crear</button>
+        { !creator && <button className={style.button} onClick={() => setCreator(true)}>Crear</button>}
         { !creator ? <div>
           {typeChart == 1 && <div>
             <h4>Temperatura del mes en la mañana</h4>
@@ -202,9 +202,60 @@ const Control = () => {
           </div>}
         </div>:
         <div>
-          {typeChart == 1 && <h1>Temperatura form</h1>}
-          {typeChart == 2 && <h1>Humedad form</h1>}
-          {typeChart == 3 && <h1>Cadena form</h1>}
+          {typeChart == 1 && <>
+          <br></br>
+            {/* <h1>Temperatura form</h1> */}
+            <div className={style.inputContainer}>
+            <input className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Temperatura</label>
+          </div>
+          <div className={style.inputContainer}>
+            <input className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Fecha</label>
+          </div>
+          <div className={style.inputContainer}>
+            <input className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Hora</label>
+          </div>
+          <br></br>
+          <button onClick={() => setCreator(false)} className={style.button}>Guardar</button>
+          </>}
+          {typeChart == 2 && <>
+            {/* <h1>Humedad form</h1> */}
+            <br></br>
+            <div className={style.inputContainer}>
+            <input className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Humedad</label>
+          </div>
+          <div className={style.inputContainer}>
+            <input className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Fecha</label>
+          </div>
+          <div className={style.inputContainer}>
+            <input className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Hora</label>
+          </div>
+          <br></br>
+          <button onClick={() => setCreator(false)} className={style.button}>Guardar</button>
+          </>}
+          {typeChart == 3 && <>
+            {/* <h1>Cadena form</h1> */}
+            <br></br>
+            <div className={style.inputContainer}>
+            <input className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Cadena</label>
+          </div>
+          <div className={style.inputContainer}>
+            <input className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Fecha</label>
+          </div>
+          <div className={style.inputContainer}>
+            <input className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Hora</label>
+          </div>
+          <br></br>
+          <button onClick={() => setCreator(false)} className={style.button}>Guardar</button>
+          </>}
         </div>
         }
       </div>

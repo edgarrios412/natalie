@@ -55,6 +55,69 @@
     /* text-align: center; */
 }
 
+.li{
+    position: relative;
+    transition: .3s;
+    cursor: pointer;
+    color:rgb(0, 0, 0);
+    width: fit-content;
+}
+
+.li::before{
+    content:"";
+    position:absolute;
+    /* background-color: red; */
+    border-radius: 20px;
+    color: black;
+    margin-top: 33px;
+    height: 3px;
+    width: 0px;
+    transition: .3s;
+}
+
+.li:hover::before{
+    background-color: rgb(63, 63, 63);
+    width: calc(100% - 30px);
+}
+
+.li:hover{
+    color: rgb(63, 63, 63);
+}
+
+
+
+.liSelected{
+    margin: 0;
+    font-size: 1.3em;
+    padding: 15px;
+    cursor: pointer;
+    /* text-align: center; */
+}
+
+.liSelected{
+    position: relative;
+    transition: .3s;
+    cursor: pointer;
+    color:rgb(0, 0, 0);
+    width: fit-content;
+}
+
+.liSelected::before{
+    content:"";
+    position:absolute;
+    background-color: rgb(63, 63, 63);
+    border-radius: 20px;
+    color: black;
+    margin-top: 33px;
+    height: 3px;
+    width: calc(100% - 30px);
+    transition: .3s;
+}
+
+.liSelected:hover{
+    color: rgb(63, 63, 63);
+}
+
 .flexContainer{
     display: flex;
 }
@@ -154,8 +217,8 @@
 
 .title{
     text-align: center;
-    padding-top: 30px;
-    padding-bottom: 40px;
+    padding-top: 20px;
+    padding-bottom: 30px;
 }
 
 .button{
@@ -176,4 +239,25 @@
 .button:hover{
     background-color: rgb(255, 255, 255);
     color: black;
+}
+
+.buttonDelete{
+    z-index: 2;
+    font-weight: 100;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    transition: .3s;
+    background-color: rgb(213, 54, 54);
+    border-radius: 10px;
+    border: 0;
+    padding: 5px 20px;
+    font-size: 1.2em;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top:10px;
+}
+
+.buttonDelete:hover{
+    background-color: rgb(255, 255, 255);
+    color: rgb(213, 54, 54);
 }
