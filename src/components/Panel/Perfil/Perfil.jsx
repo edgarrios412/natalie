@@ -1,12 +1,15 @@
 import style from './Perfil.module.css'
 import natalie from "../../../assets/natalieperfil.jpg"
  
-const Perfil = () => {
+const Perfil = ({fn}) => {
   return(
     <>
     <div className={style.container}>
       <div className={style.perfilContainerTop}>
+        <div>
+        <input className={style.inputFile} type="file"/>
         <img src={natalie} className={style.img}/>
+        </div>
         <div className={style.dataUser}>
           <p>Doc. Natalie Ariza</p>
           <p>Administradora</p>
@@ -17,7 +20,7 @@ const Perfil = () => {
       </div>
       <div className={style.perfilContainerBottom}>
         <button className={style.button}>Guardar</button>
-        <button className={style.button}>Cambiar contraseña</button>
+        <button className={style.button} onClick={fn}>Cambiar contraseña</button>
       </div>
       </div>
     </>

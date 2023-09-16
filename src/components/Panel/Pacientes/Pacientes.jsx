@@ -5,6 +5,8 @@ import PacienteDetail from './PacienteDetail';
 const Pacientes = () => {
 
   const [pacienteId, setPacienteId] = useState(null)
+  const [create, setCreate] = useState(false)
+
 
   const pacientes = [
     {
@@ -28,7 +30,7 @@ const Pacientes = () => {
   return(
     <>
       <div className={style.pacientes}>
-        { pacienteId == null ? <><h1>Pacientes</h1>
+        { create == false && pacienteId == null && <><h1>Pacientes</h1>
         <table className={style.tabla}>
           <tr>
           <td className={style.topTd}>Cedula</td>
@@ -38,15 +40,19 @@ const Pacientes = () => {
           <td className={style.topTd}>Proxima cita</td>
           </tr>
           {pacientes?.map( u =>
-          <tr onClick={() => setPacienteId(1)}>
+          <tr className={style.tr} onClick={() => setPacienteId(1)}>
           <td className={style.td}>{u.cedula}</td>
           <td className={style.td}>{u.name} {u.lastname}</td>
           <td className={style.td}>{u.fecha}</td>
           <td className={style.td}>{u.ultipro}</td>
           <td className={style.td}>{u.proxci}</td>
           </tr>)}
-        </table></>
-        : <PacienteDetail back={() => setPacienteId(null)}/>}
+        </table>
+        <br></br>
+        <button onClick={() => setCreate(true)} className={style.button}>Nuevo paciente</button>
+        </>}
+        {create && <h1 onClick={() => setCreate(false)}>Form creacion</h1>}
+        {pacienteId ==! null && <PacienteDetail back={() => setPacienteId(null)}/>}
         <br></br>
       </div>
     </>

@@ -8,6 +8,7 @@
     width: 200px;
     height: 200px;
     border-radius: 50%;
+    /* position: absolute; */
     /* background-color: red; */
 }
 
@@ -44,4 +45,13 @@
     left: 50%;
     transform: translate(-50%,-50%);
     width: fit-content;
+}
+
+.inputFile{
+    background-color: red;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    position: absolute;
+    opacity: 0;
 }
