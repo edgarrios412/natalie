@@ -6,7 +6,7 @@ import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Resp
 const Financiero = () => {
 
   const [chartType, setChartType] = useState(3)
-
+  const [creatorPay, setCreatorPay] = useState(false)
   const data = [
     {
       name: 'Enero',
@@ -28,7 +28,7 @@ const Financiero = () => {
     }]
   return(
     <>
-    <div className={style.financiero}>
+    {!creatorPay ? <div className={style.financiero}>
       <h1 className={style.titleSection}>Financiero</h1>
       <select onChange={(e) => setChartType(e.target.value)} className={style.select}>
         <option value={1}>Diario</option>
@@ -42,6 +42,7 @@ const Financiero = () => {
           width={600}
           height={350}
           data={data}
+          onClick={(e) => alert("Mostrar detalles de " + e.activeTooltipIndex)}
           margin={{
             top: 5,
             right: 30,
@@ -121,7 +122,29 @@ const Financiero = () => {
           <Bar dataKey="Efectivo" fill="#82ca9d" />
           <Bar dataKey="TDC" fill="#FF5733" />
         </BarChart>}
-    </div>
+        <br></br>
+        <button className={style.button} onClick={() => setCreatorPay(true)}>Nuevo pago</button>
+    </div>:
+    <div className={style.financiero}>
+      <h1 onClick={() => setCreatorPay(false)}>Nuevo pago</h1>
+      <div className={style.inputContainer}>
+            <input className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Persona</label>
+          </div>
+          <div className={style.inputContainer}>
+            <input className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Fecha</label>
+          </div>
+          <div className={style.inputContainer}>
+            <input className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Hora</label>
+          </div>
+          <div className={style.inputContainer}>
+            <input className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Monto</label>
+          </div>
+          <button className={style.button} onClick={() => setCreatorPay(false)}>Guardar</button>
+      </div>}
     </>
   )
 };

@@ -1,49 +1,9 @@
-.titleSection{
-    /* background-color: red; */
-    /* width: 100%; */
-    text-align: center;
-}
-
-.select{
-    font-size: 1.5em;
-    border: 0;
-}
-
-.financiero{
-    text-align: center;
-}
-
-.grafica{
-    margin: 0 auto;
-    margin-top: 20px;
-}
-
-.button{
-    z-index: 2;
-    font-weight: 100;
-    color: rgb(255, 255, 255);
-    cursor: pointer;
-    transition: .3s;
-    background-color: black;
-    border-radius: 10px;
-    border: 0;
-    padding: 5px 20px;
-    font-size: 1.2em;
-    /* margin-left: 10px; */
-}
-
-.button:hover{
-    background-color: white;
-    color: black;
-}
-
 .inputContainer{
+    /* margin-left: 50%; */
+    /* transform: translateX(-50%); */
     width: 200px;
     height: 30px;
     margin-bottom: 30px;
-    margin: 30px auto;
-    /* margin-left: 50%; */
-    transform: translateX(-50%);
     /* background-color: red; */
     position: relative;
 }
@@ -92,4 +52,18 @@
     background-color: white;
     padding: 0px 6px;
     z-index: 2;
+}
+
+.clinicHistory{
+    display: flex;
+    /* background-color: red; */
+    width: 700px;
+    justify-content: space-between;
+    text-align: justify;
+    margin: 0 auto;
+}
+
+.column{
+    max-width: 300px;
+    min-width: 300px;
 }

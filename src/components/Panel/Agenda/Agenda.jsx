@@ -10,21 +10,7 @@ dayjs.locale("es");
 dayjs.extend(localizedFormat);
 const localizer = dayjsLocalizer(dayjs)
 
-const Agenda = ({fn}) => {
-
-  const [date, setDate] = useState([{
-    id:1,
-    title:"Hola",
-    start:new Date(),
-    end:new Date(),
-    resourceId:1,
-  },{
-    id:2,
-    title:"Hola",
-    start:new Date(),
-    end:new Date(),
-    resourceId:1,
-  }])
+const Agenda = ({fn, newDate, date}) => {
 
   const formats = {
     timeGutterFormat: (date, culture, localizer) =>
@@ -72,7 +58,7 @@ const Agenda = ({fn}) => {
       onSelectEvent={(e) => fn(e.id)}
       style={{ height: 400, width: 650 }}
     />
-    <button className={style.button}>Nuevo evento</button>
+    <button className={style.button} onClick={newDate}>Nuevo evento</button>
       </div>
     </>
   )

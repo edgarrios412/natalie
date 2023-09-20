@@ -1,6 +1,7 @@
 import style from './Pacientes.module.css'
 import { useState } from 'react';
 import PacienteDetail from './PacienteDetail';
+import PacienteForm from './PacienteForm';
  
 const Pacientes = () => {
 
@@ -51,7 +52,7 @@ const Pacientes = () => {
         <br></br>
         <button onClick={() => setCreate(true)} className={style.button}>Nuevo paciente</button>
         </>}
-        {create && <h1 onClick={() => setCreate(false)}>Form creacion</h1>}
+        {create && <PacienteForm/>}
         {pacienteId ==! null && <PacienteDetail back={() => setPacienteId(null)}/>}
         <br></br>
       </div>

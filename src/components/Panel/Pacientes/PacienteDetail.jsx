@@ -115,7 +115,7 @@ const PacienteDetail = ({user, back}) => {
           <h3>Diagnostico y plan de tratamiento</h3>
           <textarea className={style.textarea}/>
           </div>
-          <div>
+          <div onClick={() => alert("Aca debes mostrar los consentimientos")}>
             <br></br>
             <img src={documentos} className={style.imgIcon}/>
             <h4 className={style.texto}>Ver consentimientos</h4>
@@ -142,18 +142,42 @@ const PacienteDetail = ({user, back}) => {
           <td className={style.td}>9:30 am</td>
           <td className={style.td}>Al paciente se le realizo una tomografia intraversal</td>
           <td className={style.td}>$96.000</td>
-          <td className={style.td}>BOTON</td>
+          <td className={style.td}><button className={style.button} onClick={() => alert("Mostrar prueba de esterilizacion")}>Ver</button></td>
           </tr>
         </table>
         <br></br>
+        <div className={style.buttons}>
         <button className={style.button} onClick={() => setNuevaEvolucion(true)}>Agregar</button>
+        <button className={style.button} onClick={() => setEvolucion(false)}>Volver</button>
+        </div>
         </div>
         :   
-            <div>
-                <h1 onClick={() => setNuevaEvolucion(false)}>Formulario de creacion</h1>
-                {/* <input placeholder='Hora'/>
-                <input placeholder='Descripcion'/>
-                <input placeholder='Abono'/> */}
+            <div className={style.form}>
+                <h1 onClick={() => setNuevaEvolucion(false)}>Nueva evolucion</h1>
+                <div className={style.inputContainer}>
+            <input className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Fecha</label>
+          </div>
+          <div className={style.inputContainer}>
+            <input className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Hora</label>
+          </div>
+          <div className={style.inputContainer}>
+            <input className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Evolucion</label>
+          </div>
+          <div className={style.inputContainer}>
+            <input className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Abono</label>
+          </div>
+          <div className={style.inputContainer}>
+            <input className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Prueba</label>
+          </div>
+          <div className={style.buttons}>
+          <button className={style.button} onClick={() => setNuevaEvolucion(false)}>Guardar</button>
+          <button className={style.button} onClick={() => setNuevaEvolucion(false)}>Volver</button>
+          </div>
             </div>
             }
         </div>
