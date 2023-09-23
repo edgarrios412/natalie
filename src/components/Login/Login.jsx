@@ -18,6 +18,9 @@ const Login = () => {
         <label className={style.textInput}>Contraseña</label>
         </div>
         <button className={style.button} onClick={() => navigate("/panel")}>Ingresar</button>
+        {/* <br></br> */}
+        {/* <br></br> */}
+        {/* <button className={style.button} onClick={() => navigate("/")}>Volver</button> */}
         <p className={style.olvidemipass}>Olvide mi contraseña</p>
         <p className={style.text}>¿Aun no tienes cuenta?</p>
         <p className={style.registro}>Registrate</p>

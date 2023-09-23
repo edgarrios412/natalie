@@ -52,7 +52,7 @@ const Pacientes = () => {
         <br></br>
         <button onClick={() => setCreate(true)} className={style.button}>Nuevo paciente</button>
         </>}
-        {create && <PacienteForm/>}
+        {create && <PacienteForm back={() => setCreate(false)}/>}
         {pacienteId ==! null && <PacienteDetail back={() => setPacienteId(null)}/>}
         <br></br>
       </div>

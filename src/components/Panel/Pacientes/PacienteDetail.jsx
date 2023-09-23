@@ -122,7 +122,7 @@ const PacienteDetail = ({user, back}) => {
           </div>
         </div>
         <br></br>
-        <button className={style.button}>Guardar</button>
+        <button className={style.button} onClick={back}>Guardar</button>
         </div>
         :
         <div>

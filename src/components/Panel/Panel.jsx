@@ -49,6 +49,7 @@ const Panel = () => {
   })
 
   const handleForm = (name, value) => {
+    console.log(value)
     setForm({
       ...form,
       [name]:value
@@ -105,16 +106,20 @@ const Panel = () => {
             <label className={style.textInput}>Titulo</label>
           </div>
           <div className={style.inputContainer}>
-            <input type="date" name="start" onChange={(e) => handleForm(e.target.name, new Date(e.target.value+"T10:00"))} className={style.input} placeholder=' '></input>
-            <label className={style.textInput}>Fecha</label>
+            <input name="hour" onChange={(e) => handleForm(e.target.name, e.target.value)} className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Hora inicio</label>
           </div>
           <div className={style.inputContainer}>
-            <input type="date" name="end" onChange={(e) => handleForm(e.target.name, new Date(e.target.value+"T10:00"))} className={style.input} placeholder=' '></input>
-            <label className={style.textInput}>Fecha</label>
+            <input type="date" name="start" onChange={(e) => handleForm(e.target.name, new Date(e.target.value+"T"+form.hour))} className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Fecha inicio</label>
+          </div>
+          <div className={style.inputContainer}>
+            <input type="date" name="end" onChange={(e) => handleForm(e.target.name, new Date(e.target.value+"T"+form.hour))} className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Fecha fin</label>
           </div>
           <div className={style.buttons}>
           <button className={style.button} onClick={() => nuevaFecha()}>Guardar</button>
-          <button className={style.buttonDelete} onClick={() => setNewDate(false)}>Eliminar</button>
+          <button className={style.buttonDelete} onClick={() => setNewDate(false)}>Cerrar</button>
           </div>
         </div>
       </div>}

@@ -1,11 +1,14 @@
+import { useNavigate } from 'react-router-dom'
 import style from './PacienteForm.module.css'
 
-const PacienteForm = () => {
+const PacienteForm = ({back}) => {
 
     return (
         <>
             <div className={style.clinicHistory}>
           <div className={style.column}>
+              <button className={style.button} onClick={back}>Volver</button>
+              <br></br>
                 <br></br>
           <div className={style.inputContainer}>
             <input className={style.input} placeholder=' '></input>
