@@ -219,6 +219,7 @@ const Control = () => {
           </div>
           <br></br>
           <button onClick={() => setCreator(false)} className={style.button}>Guardar</button>
+          <button onClick={() => setCreator(false)} className={style.button}>Volver</button>
           </>}
           {typeChart == 2 && <>
             {/* <h1>Humedad form</h1> */}
@@ -237,6 +238,7 @@ const Control = () => {
           </div>
           <br></br>
           <button onClick={() => setCreator(false)} className={style.button}>Guardar</button>
+          <button onClick={() => setCreator(false)} className={style.button}>Volver</button>
           </>}
           {typeChart == 3 && <>
             {/* <h1>Cadena form</h1> */}
@@ -255,6 +257,7 @@ const Control = () => {
           </div>
           <br></br>
           <button onClick={() => setCreator(false)} className={style.button}>Guardar</button>
+          <button onClick={() => setCreator(false)} className={style.button}>Volver</button>
           </>}
         </div>
         }

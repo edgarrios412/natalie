@@ -55,12 +55,16 @@
 }
 
 .clinicHistory{
-    display: flex;
+    /* display: flex; */
     /* background-color: red; */
     width: 700px;
     justify-content: space-between;
     text-align: justify;
     margin: 0 auto;
+}
+
+.row{
+    display: flex; gap: 100px;
 }
 
 .column{

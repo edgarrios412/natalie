@@ -5,12 +5,14 @@ import { useEffect } from 'react'
 import CanvasDraw from "react-canvas-draw";
 import foto from "../../../assets/diagrama.jpg"
 import documentos from "../../../assets/documentos.png"
+import { HexColorPicker } from 'react-colorful';
 
 const PacienteDetail = ({user, back}) => {
 
     const refCanva = useRef(null)
 
     const [code, setCode] = useState()
+    const [color, setColor] = useState("#aabbcc");
 
     useEffect(() => {
         if(code){
@@ -98,15 +100,17 @@ const PacienteDetail = ({user, back}) => {
             </div>
         </div>
         <h3>Odontodiagrama</h3>
-        {/* <button onClick={handleSave}>Guardar</button>
-        <button onClick={cargar}>Cargar</button> */}
+        <button onClick={handleSave}>Guardar</button>
+        <button onClick={cargar}>Cargar</button>
+        <HexColorPicker color={color} onChange={setColor} style={{margin:"50px auto"}}/>
         <CanvasDraw
+        // onChange={handleSave}
         lazyRadius={0}
         imgSrc={foto}
         brushRadius={4}
         hideInteenablePanAndZoom={true}
         ref={refCanva}
-        brushColor="black"
+        brushColor={color}
         loadTimeOffset={0}
         style={{width:"700px", margin:"0 auto"}}
         />
@@ -114,6 +118,18 @@ const PacienteDetail = ({user, back}) => {
           <div>
           <h3>Diagnostico y plan de tratamiento</h3>
           <textarea className={style.textarea}/>
+          <h4 className={style.textFe}>Doy fe que la información suministrada es verídica y autorizo a la Dra. Natalie Ariza y su equipo de trabajo a realizar los tratamientos pertinentes</h4>
+          <CanvasDraw
+        // onChange={handleSave}
+        lazyRadius={0}
+        // imgSrc={foto}
+        brushRadius={1.5}
+        hideInteenablePanAndZoom={true}
+        ref={refCanva}
+        brushColor="black"
+        loadTimeOffset={0}
+        style={{width:"400px", height:"180px", margin:"0 auto"}}
+        />
           </div>
           <div onClick={() => alert("Aca debes mostrar los consentimientos")}>
             <br></br>
@@ -135,6 +151,7 @@ const PacienteDetail = ({user, back}) => {
           <td className={style.topTd}>Hora</td>
           <td className={style.topTd}>Evolucion</td>
           <td className={style.topTd}>Abono</td>
+          <td className={style.topTd}>Firma</td>
           <td className={style.topTd}>Prueba esterilizacion</td>
           </tr>
           <tr>
@@ -142,6 +159,7 @@ const PacienteDetail = ({user, back}) => {
           <td className={style.td}>9:30 am</td>
           <td className={style.td}>Al paciente se le realizo una tomografia intraversal</td>
           <td className={style.td}>$96.000</td>
+          <td className={style.td}>FIRMA</td>
           <td className={style.td}><button className={style.button} onClick={() => alert("Mostrar prueba de esterilizacion")}>Ver</button></td>
           </tr>
         </table>
@@ -174,6 +192,9 @@ const PacienteDetail = ({user, back}) => {
             <input className={style.input} placeholder=' '></input>
             <label className={style.textInput}>Prueba</label>
           </div>
+          <input type="file" style={{width:"200px"}}></input>
+          <br></br><br></br>
+          
           <div className={style.buttons}>
           <button className={style.button} onClick={() => setNuevaEvolucion(false)}>Guardar</button>
           <button className={style.button} onClick={() => setNuevaEvolucion(false)}>Volver</button>

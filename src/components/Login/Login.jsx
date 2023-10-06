@@ -1,23 +1,48 @@
 import style from './Login.module.css'
 import logo from "../../assets/logonata.jpeg"
 import { useNavigate } from 'react-router-dom';
+import axios from "axios"
+import { useEffect, useState } from 'react';
 
 const Login = () => {
   const navigate = useNavigate()
+
+  const [form, setForm] = useState()
+
+  const authenticate = async () => {
+    const {data} = await axios.post("http://localhost:3001/user/verify", form)
+    if(data.status) {
+      localStorage.setItem("token", data.token)
+      return navigate("/panel")
+    }
+    alert("Credenciales invalidas")
+  }
+
+  const auth = async () => {
+    if(!localStorage.getItem("token")) return
+    const {data} = await axios.post("http://localhost:3001/user/auth", {token:localStorage.getItem("token")})
+      if(data.status) return navigate("/panel")
+      return
+  }
+  
+  useEffect(() => {
+    auth()
+  },[])
+
   return(
     <div className={style.login}>
       <div className={style.loginContainer}>
         <img className={style.logo} src={logo}/>
         {/* <h1 className={style.title}>Iniciar sesion</h1> */}
         <div className={style.inputContainer}>
-        <input className={style.input} placeholder=' '></input>
+        <input name="email" value={form?.email} onChange={(e) => setForm({...form, [e.target.name]: e.target.value})} className={style.input} placeholder=' '></input>
         <label className={style.textInput}>Usuario</label>
         </div>
         <div className={style.inputContainer}>
-        <input className={style.input} placeholder=' '></input>
+        <input name="password" value={form?.password} onChange={(e) => setForm({...form, [e.target.name]: e.target.value})} className={style.input} placeholder=' '></input>
         <label className={style.textInput}>Contraseña</label>
         </div>
-        <button className={style.button} onClick={() => navigate("/panel")}>Ingresar</button>
+        <button className={style.button} onClick={authenticate}>Ingresar</button>
         {/* <br></br> */}
         {/* <br></br> */}
         {/* <button className={style.button} onClick={() => navigate("/")}>Volver</button> */}

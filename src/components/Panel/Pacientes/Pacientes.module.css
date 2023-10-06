@@ -176,3 +176,8 @@ table{
     flex-direction: column;
     /* width: 200px; */
 }
+
+.textFe{
+    font-weight: 400;
+    padding: 0px 300px;
+}

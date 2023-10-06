@@ -153,7 +153,7 @@
 
 .windows{
     width: 350px;
-    height: 400px;
+    height: fit-content;
     background-color: white;
     border-radius: 10px;
     margin: 200px auto;
@@ -167,6 +167,18 @@
     margin-bottom: 30px;
     /* background-color: red; */
     position: relative;
+}
+
+.inputContainerHour{
+    display: flex;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 30px;
+    margin-bottom: 30px;
+    gap: 10%;
+    /* background-color: red; */
+    /* position: relative; */
 }
 
 .textInput{
@@ -185,6 +197,18 @@
     width: 180px;
     background-color: transparent;
     position: absolute;
+    transition: .3s;
+    padding: 0px 10px;
+    outline: 1px solid transparent;
+}
+
+.inputHour{
+    border: 1px solid rgb(209, 209, 209);
+    height: 35px;
+    border-radius: 2px;
+    width: 45%;
+    background-color: transparent;
+    /* position: absolute; */
     transition: .3s;
     padding: 0px 10px;
     outline: 1px solid transparent;
@@ -255,6 +279,7 @@
     margin-left: 50%;
     transform: translateX(-50%);
     margin-top:10px;
+    margin-bottom: 30px;
 }
 
 .buttonDelete:hover{
