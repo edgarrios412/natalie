@@ -142,3 +142,14 @@ table{
 .tabla{
     margin: 0 auto;
 }
+
+.tooltip{
+    background-color: rgb(255, 255, 255);
+    padding: 0px 10px;
+    border-radius: 1px;
+    border: 1px solid rgb(184, 184, 184);
+}
+
+.intro{
+    color:#8884d8;
+}
