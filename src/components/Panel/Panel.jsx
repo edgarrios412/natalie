@@ -187,9 +187,9 @@ const Panel = () => {
       <div className={style.flexContainer}>
         <div className={style.navigator}>
           <ul className={style.ul}>
-            <li className={page == 1 ? style.liSelected : style.li} onClick={() => setPage(1)}>Perfil</li>
-            <li className={page == 2 ? style.liSelected : style.li} onClick={() => setPage(2)}>Control financiero</li>
-            <li className={page == 3 ? style.liSelected : style.li} onClick={() => setPage(3)}>Agenda</li>
+            {/* <li className={page == 1 ? style.liSelected : style.li} onClick={() => setPage(1)}>Perfil</li> */}
+            {/* <li className={page == 2 ? style.liSelected : style.li} onClick={() => setPage(2)}>Control financiero</li> */}
+            {/* <li className={page == 3 ? style.liSelected : style.li} onClick={() => setPage(3)}>Agenda</li> */}
             <li className={page == 4 ? style.liSelected : style.li} onClick={() => setPage(4)}>Control ambiental y limpieza</li>
             <li className={page == 5 ? style.liSelected : style.li} onClick={() => setPage(5)}>Pacientes</li>
             <li className={style.li} onClick={logout}>Cerrar sesion</li>
