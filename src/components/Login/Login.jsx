@@ -7,12 +7,16 @@ import { useEffect, useState } from 'react';
 const Login = () => {
   const navigate = useNavigate()
 
-  const [form, setForm] = useState()
+  const [form, setForm] = useState({
+    email:"",
+    password:""
+  })
 
   const authenticate = async () => {
     const {data} = await axios.post("http://localhost:3001/user/verify", form)
     if(data.status) {
       localStorage.setItem("token", data.token)
+      localStorage.setItem("user",JSON.stringify(data.user))
       return navigate("/panel")
     }
     alert("Credenciales invalidas")
@@ -21,7 +25,12 @@ const Login = () => {
   const auth = async () => {
     if(!localStorage.getItem("token")) return
     const {data} = await axios.post("http://localhost:3001/user/auth", {token:localStorage.getItem("token")})
-      if(data.status) return navigate("/panel")
+    console.log(data)
+      if(data.status) {
+        navigate("/panel")
+        localStorage.setItem("user",JSON.stringify(data.user))
+        return
+      }
       return
   }
   

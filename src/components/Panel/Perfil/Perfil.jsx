@@ -5,19 +5,22 @@ import { useState } from 'react';
  
 const Perfil = ({fn}) => {
 
-  const [image, setImage] = useState()
+  const [image, setImage] = useState(localStorage.getItem("image") || JSON.parse(localStorage.getItem("user")).image)
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")))
 
   const uploadUserImage = async (e) => {
     const files = e.target.files;
-    // console.log(files[0])
-    const data = new FormData();
-    data.append("file", files[0]);
-    data.append("upload_preset","natalie")
-    data.append("api_key","612393625364863")
-    data.append("timestamp", 0)
-    const res = await axios.post("https://api.cloudinary.com/v1_1/dftvenl2z/image/upload", data)
+    const dato = new FormData();
+    dato.append("file", files[0]);
+    dato.append("upload_preset","natalie")
+    dato.append("api_key","612393625364863")
+    dato.append("timestamp", 0)
+    const res = await axios.post("https://api.cloudinary.com/v1_1/dftvenl2z/image/upload", dato)
+    await axios.put("http://localhost:3001/user", {id:JSON.parse(localStorage.getItem("user")).id, image:res.data.secure_url})
+    localStorage.setItem("image", res.data.secure_url)
     setImage(res.data.secure_url)
   }
+
 
   return(
     <>
@@ -28,11 +31,11 @@ const Perfil = ({fn}) => {
         <img src={image ? image : natalie} className={style.img}/>
         </div>
         <div className={style.dataUser}>
-          <p>Doc. Natalie Ariza</p>
+          <p>Doc. {user.name} {user.lastname}</p>
           <p>Administradora</p>
           <p>Odontologa Estetica</p>
           <p>Tarjeta profesional XXXXX</p>
-          <p>docnatalieariza@doc.com</p>
+          <p>{user.email}</p>
         </div>
       </div>
       <div className={style.perfilContainerBottom}>

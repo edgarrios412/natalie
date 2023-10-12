@@ -24,12 +24,18 @@ const Panel = () => {
   const auth = async () => {
     if(!localStorage.getItem("token")) return navigate("/login")
     const {data} = await axios.post("http://localhost:3001/user/auth", {token:localStorage.getItem("token")})
-      if(data.status) return
+      if(data.status){
+        localStorage.setItem("image", data.user.image)
+        localStorage.setItem("user",JSON.stringify(data.user))
+        return
+      }
       return navigate("/login")
   }
 
   const logout = () => {
     localStorage.removeItem("token")
+    localStorage.removeItem("user")
+    localStorage.removeItem("image")
     navigate("/login")
   }
   
@@ -78,7 +84,7 @@ const Panel = () => {
   })
 
   const [formPass, setFormPass] = useState({
-    id:2,
+    id:JSON.parse(localStorage.getItem("user")).id,
     newpass:"",
     newpass2:"",
     oldpass:""
@@ -104,7 +110,8 @@ const Panel = () => {
   }
 
   const saveChangePass = async () => {
-    if(form.newpass != form.newpass2) return alert("Las contraseñas no coinciden")
+    console.log(formPass)
+    if(formPass.newpass !== formPass.newpass2) return alert("Las contraseñas no coinciden")
     const {data} = await axios.put("http://localhost:3001/user", formPass)
     setChangePass(false)
     alert(data.users)
@@ -190,7 +197,7 @@ const Panel = () => {
             {/* <li className={page == 1 ? style.liSelected : style.li} onClick={() => setPage(1)}>Perfil</li> */}
             {/* <li className={page == 2 ? style.liSelected : style.li} onClick={() => setPage(2)}>Control financiero</li> */}
             {/* <li className={page == 3 ? style.liSelected : style.li} onClick={() => setPage(3)}>Agenda</li> */}
-            <li className={page == 4 ? style.liSelected : style.li} onClick={() => setPage(4)}>Control ambiental y limpieza</li>
+            {/* <li className={page == 4 ? style.liSelected : style.li} onClick={() => setPage(4)}>Control ambiental y limpieza</li> */}
             <li className={page == 5 ? style.liSelected : style.li} onClick={() => setPage(5)}>Pacientes</li>
             <li className={style.li} onClick={logout}>Cerrar sesion</li>
           </ul>
