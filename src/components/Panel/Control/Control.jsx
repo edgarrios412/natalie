@@ -42,7 +42,7 @@ const Control = () => {
   }
 
   const createTemp = async () => {
-    await axios.post("http://localhost:3001/temperatura", tempForm)
+    await axios.post("/temperatura", tempForm)
     setTemp([
       ...temp,
       tempForm
@@ -59,7 +59,7 @@ const Control = () => {
   }
 
   const createHume = async () => {
-    await axios.post("http://localhost:3001/temperatura", humeForm)
+    await axios.post("/temperatura", humeForm)
     setHume([
       ...hume,
       humeForm
@@ -76,7 +76,7 @@ const Control = () => {
   }
 
   const createFrio = async () => {
-    await axios.post("http://localhost:3001/temperatura", frioForm)
+    await axios.post("/temperatura", frioForm)
     setFrio([
       ...frio,
       frioForm
@@ -84,7 +84,7 @@ const Control = () => {
   }
 
   const getData = async () => {
-    const {data} = await axios.get("http://localhost:3001/temperatura")
+    const {data} = await axios.get("/temperatura")
     console.log(data)
     setTemp(data.temp)
     setHume(data.hume)
@@ -111,7 +111,7 @@ const Control = () => {
               className={style.chart}
               width={400}
               height={160}
-              data={temp}
+              data={temp.sort((a, b) => a.name - b.name)}
               syncId="anyId"
               margin={{
                 top: 10,
@@ -122,7 +122,7 @@ const Control = () => {
             >
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
-              <YAxis />
+              <YAxis domain={[0, Math.max(...temp.map((item) => item.mañana))]}/>
               <Tooltip />
               <Area type="monotone" dataKey="mañana" stroke="#8884d8" fill="#8884d8" />
             </AreaChart>
@@ -131,7 +131,7 @@ const Control = () => {
               className={style.chart}
               width={400}
               height={160}
-              data={temp}
+              data={temp.sort((a, b) => a.name - b.name)}
               syncId="anyId"
               margin={{
                 top: 10,
@@ -142,7 +142,7 @@ const Control = () => {
             >
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
-              <YAxis />
+              <YAxis domain={[0, Math.max(...temp.map((item) => item.tarde))]}/>
               <Tooltip />
               <Area type="monotone" dataKey="tarde" stroke="#82ca9d" fill="#82ca9d" />
             </AreaChart>
@@ -153,7 +153,7 @@ const Control = () => {
               className={style.chart}
               width={400}
               height={160}
-              data={hume}
+              data={hume.sort((a, b) => a.name - b.name)}
               syncId="anyId"
               margin={{
                 top: 10,
@@ -164,7 +164,7 @@ const Control = () => {
             >
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
-              <YAxis />
+              <YAxis domain={[0, Math.max(...hume.map((item) => item.mañana))]}/>
               <Tooltip />
               <Area type="monotone" dataKey="mañana" stroke="#8884d8" fill="#8884d8" />
             </AreaChart>
@@ -173,7 +173,7 @@ const Control = () => {
               className={style.chart}
               width={400}
               height={160}
-              data={hume}
+              data={hume.sort((a, b) => a.name - b.name)}
               syncId="anyId"
               margin={{
                 top: 10,
@@ -184,7 +184,7 @@ const Control = () => {
             >
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
-              <YAxis />
+              <YAxis domain={[0, Math.max(...hume.map((item) => item.tarde))]}/>
               <Tooltip />
               <Area type="monotone" dataKey="tarde" stroke="#82ca9d" fill="#82ca9d" />
             </AreaChart>
@@ -195,7 +195,7 @@ const Control = () => {
               className={style.chart}
               width={400}
               height={160}
-              data={frio}
+              data={frio.sort((a, b) => a.name - b.name)}
               syncId="anyId"
               margin={{
                 top: 10,
@@ -206,7 +206,7 @@ const Control = () => {
             >
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
-              <YAxis />
+              <YAxis domain={[0, Math.max(...frio.map((item) => item.mañana))]}/>
               <Tooltip />
               <Area type="monotone" dataKey="mañana" stroke="#8884d8" fill="#8884d8" />
             </AreaChart>
@@ -215,7 +215,7 @@ const Control = () => {
               className={style.chart}
               width={400}
               height={160}
-              data={frio}
+              data={frio.sort((a, b) => a.name - b.name)}
               syncId="anyId"
               margin={{
                 top: 10,
@@ -226,7 +226,7 @@ const Control = () => {
             >
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
-              <YAxis />
+              <YAxis domain={[0, Math.max(...frio.map((item) => item.tarde))]}/>
               <Tooltip />
               <Area type="monotone" dataKey="tarde" stroke="#82ca9d" fill="#82ca9d" />
             </AreaChart>
@@ -235,6 +235,10 @@ const Control = () => {
           <div>
             {typeChart == 1 && <>
               <br></br>
+              <div className={style.inputContainer}>
+                <input type="number" min={1} max={31} name="name" onChange={handleTempForm} className={style.input} placeholder=' '></input>
+                <label className={style.textInput}>Dia</label>
+              </div>
               <div className={style.inputContainer}>
                 <input name="mañana" onChange={handleTempForm} className={style.input} placeholder=' '></input>
                 <label className={style.textInput}>Mañana</label>
@@ -251,6 +255,10 @@ const Control = () => {
               {/* <h1>Humedad form</h1> */}
               <br></br>
               <div className={style.inputContainer}>
+                <input type="number" min={1} max={31} name="name" onChange={handleHumeForm} className={style.input} placeholder=' '></input>
+                <label className={style.textInput}>Dia</label>
+              </div>
+              <div className={style.inputContainer}>
                 <input name="mañana" onChange={handleHumeForm} className={style.input} placeholder=' '></input>
                 <label className={style.textInput}>Mañana</label>
               </div>
@@ -265,6 +273,10 @@ const Control = () => {
             {typeChart == 3 && <>
               {/* <h1>Cadena form</h1> */}
               <br></br>
+              <div className={style.inputContainer}>
+                <input type="number" min={1} max={31} name="name" onChange={handleFrioForm} className={style.input} placeholder=' '></input>
+                <label className={style.textInput}>Dia</label>
+              </div>
               <div className={style.inputContainer}>
                 <input name="mañana" onChange={handleFrioForm} className={style.input} placeholder=' '></input>
                 <label className={style.textInput}>Mañana</label>

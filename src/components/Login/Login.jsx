@@ -13,7 +13,7 @@ const Login = () => {
   })
 
   const authenticate = async () => {
-    const {data} = await axios.post("http://localhost:3001/user/verify", form)
+    const {data} = await axios.post("/user/verify", form)
     if(data.status) {
       localStorage.setItem("token", data.token)
       localStorage.setItem("user",JSON.stringify(data.user))
@@ -24,7 +24,7 @@ const Login = () => {
 
   const auth = async () => {
     if(!localStorage.getItem("token")) return
-    const {data} = await axios.post("http://localhost:3001/user/auth", {token:localStorage.getItem("token")})
+    const {data} = await axios.post("/user/auth", {token:localStorage.getItem("token")})
     console.log(data)
       if(data.status) {
         navigate("/panel")
@@ -45,10 +45,10 @@ const Login = () => {
         {/* <h1 className={style.title}>Iniciar sesion</h1> */}
         <div className={style.inputContainer}>
         <input name="email" value={form?.email} onChange={(e) => setForm({...form, [e.target.name]: e.target.value})} className={style.input} placeholder=' '></input>
-        <label className={style.textInput}>Usuario</label>
+        <label className={style.textInput}>Email</label>
         </div>
         <div className={style.inputContainer}>
-        <input name="password" value={form?.password} onChange={(e) => setForm({...form, [e.target.name]: e.target.value})} className={style.input} placeholder=' '></input>
+        <input type="password" name="password" value={form?.password} onChange={(e) => setForm({...form, [e.target.name]: e.target.value})} className={style.input} placeholder=' '></input>
         <label className={style.textInput}>Contraseña</label>
         </div>
         <button className={style.button} onClick={authenticate}>Ingresar</button>

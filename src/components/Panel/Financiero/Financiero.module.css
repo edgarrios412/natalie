@@ -153,3 +153,8 @@ table{
 .intro{
     color:#8884d8;
 }
+
+.notPays{
+    padding: 50px 0px;
+    color: grey;
+}

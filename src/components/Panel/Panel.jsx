@@ -23,7 +23,7 @@ const Panel = () => {
 
   const auth = async () => {
     if(!localStorage.getItem("token")) return navigate("/login")
-    const {data} = await axios.post("http://localhost:3001/user/auth", {token:localStorage.getItem("token")})
+    const {data} = await axios.post("/user/auth", {token:localStorage.getItem("token")})
       if(data.status){
         localStorage.setItem("image", data.user.image)
         localStorage.setItem("user",JSON.stringify(data.user))
@@ -46,7 +46,7 @@ const Panel = () => {
   const [date, setDate] = useState([{id:"a"},{id:1}])
 
   const getDates = async () => {
-    const {data} = await axios.get("http://localhost:3001/calendar")
+    const {data} = await axios.get("/calendar")
     const fechas = data?.map(d => {
       return{
         id:d.id,
@@ -60,7 +60,7 @@ const Panel = () => {
   }
 
   const nuevaFecha = async () => {
-    await axios.post("http://localhost:3001/calendar", {
+    await axios.post("/calendar", {
       title: form.title,
       start: new Date(form.start + "T" + form.hour + ":" + form.min),
       end: new Date(form.start + "T" + form.endhour + ":" + form.endmin),
@@ -98,7 +98,7 @@ const Panel = () => {
   }
 
   const deleteDate = async () => {
-    await axios.delete("http://localhost:3001/calendar/"+changeDate)
+    await axios.delete("/calendar/"+changeDate)
     getDates()
   } 
 
@@ -112,7 +112,7 @@ const Panel = () => {
   const saveChangePass = async () => {
     console.log(formPass)
     if(formPass.newpass !== formPass.newpass2) return alert("Las contraseñas no coinciden")
-    const {data} = await axios.put("http://localhost:3001/user", formPass)
+    const {data} = await axios.put("/user", formPass)
     setChangePass(false)
     alert(data.users)
   }
@@ -123,15 +123,15 @@ const Panel = () => {
         <div className={style.windows}>
           <h2 className={style.title}>Cambiar contraseña</h2>
           <div className={style.inputContainer}>
-            <input onChange={handleFormPass} name="oldpass" value={formPass.oldpass} className={style.input} placeholder=' '></input>
+            <input type="password" onChange={handleFormPass} name="oldpass" value={formPass.oldpass} className={style.input} placeholder=' '></input>
             <label className={style.textInput}>Contraseña anterior</label>
           </div>
           <div className={style.inputContainer}>
-            <input onChange={handleFormPass} name="newpass" value={formPass.newpass} className={style.input} placeholder=' '></input>
+            <input type="password" onChange={handleFormPass} name="newpass" value={formPass.newpass} className={style.input} placeholder=' '></input>
             <label className={style.textInput}>Nueva contraseña</label>
           </div>
           <div className={style.inputContainer}>
-            <input onChange={handleFormPass} name="newpass2" value={formPass.newpass2} className={style.input} placeholder=' '></input>
+            <input type="password" onChange={handleFormPass} name="newpass2" value={formPass.newpass2} className={style.input} placeholder=' '></input>
             <label className={style.textInput}>Repite la contraseña</label>
           </div>
           <button className={style.button} onClick={saveChangePass}>Confirmar</button>
@@ -181,24 +181,25 @@ const Panel = () => {
           <label className={style.textInput}>Hora fin</label>
           </div>
           <div className={style.buttons}>
-            <button className={style.button} onClick={() => nuevaFecha()}>Guardar</button>
+            <button className={style.button} onClick={() => {nuevaFecha(); setNewDate(false)}}>Guardar</button>
             <button className={style.buttonDelete} onClick={() => setNewDate(false)}>Cerrar</button>
           </div>
         </div>
       </div>}
       <nav className={style.nav}>
         <img className={style.logo} src={logo} />
-        <h1 className={style.saludo}>Hola Natalie! 👋</h1>
-        <input onChange={(e) => alert("Filtrando usuarios con cedula: " + e.target.value)} onClick={() => setPage(5)} placeholder="Buscar paciente" className={style.findInput} />
+        <h1 className={style.saludo}>Hola {JSON.parse(localStorage.getItem("user")).name}! 👋</h1>
+        {/* <input onChange={(e) => alert("Filtrando usuarios con cedula: " + e.target.value)} onClick={() => setPage(5)} placeholder="Buscar paciente" className={style.findInput} /> */}
+        <input placeholder="Buscar paciente" className={style.findInput} />
       </nav>
       <div className={style.flexContainer}>
         <div className={style.navigator}>
           <ul className={style.ul}>
-            {/* <li className={page == 1 ? style.liSelected : style.li} onClick={() => setPage(1)}>Perfil</li> */}
-            {/* <li className={page == 2 ? style.liSelected : style.li} onClick={() => setPage(2)}>Control financiero</li> */}
-            {/* <li className={page == 3 ? style.liSelected : style.li} onClick={() => setPage(3)}>Agenda</li> */}
-            {/* <li className={page == 4 ? style.liSelected : style.li} onClick={() => setPage(4)}>Control ambiental y limpieza</li> */}
-            <li className={page == 5 ? style.liSelected : style.li} onClick={() => setPage(5)}>Pacientes</li>
+            <li className={page == 1 ? style.liSelected : style.li} onClick={() => setPage(1)}>Perfil</li>
+            <li className={page == 2 ? style.liSelected : style.li} onClick={() => setPage(2)}>Control financiero</li>
+            <li className={page == 3 ? style.liSelected : style.li} onClick={() => setPage(3)}>Agenda</li>
+            <li className={page == 4 ? style.liSelected : style.li} onClick={() => setPage(4)}>Control ambiental y limpieza</li>
+            {/* <li className={page == 5 ? style.liSelected : style.li} onClick={() => setPage(5)}>Pacientes</li> */}
             <li className={style.li} onClick={logout}>Cerrar sesion</li>
           </ul>
         </div>

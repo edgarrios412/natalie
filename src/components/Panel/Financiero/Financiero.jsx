@@ -13,13 +13,13 @@ const Financiero = () => {
   const [pagos, setPagos] = useState()
 
   const getPagos = async () => {
-    const { data } = await axios.get("http://localhost:3001/financiero")
+    const { data } = await axios.get("/financiero")
     setPagos(data)
   }
 
   const newPay = async () => {
-    const { data } = await axios.post("http://localhost:3001/financiero", formPay)
-    alert(data.status)
+    const { data } = await axios.post("/financiero", formPay)
+    // alert(data.status)
     getPagos()
     setCreatorPay(false)
   }
@@ -138,13 +138,15 @@ const Financiero = () => {
           <option value={2}>Mensual</option>
           <option value={3}>Anual</option>
         </select>
+        {days?.length ?
+        <div>
         {chartType == 1 && <BarChart
           className={style.grafica}
           // style={{marginTop:"120px"}}
           width={600}
           height={350}
           data={days}
-          onClick={(e) => alert("Mostrar detalles de " + e.activeTooltipIndex)}
+          // onClick={(e) => alert("Mostrar detalles de " + e.activeTooltipIndex)}
           margin={{
             top: 5,
             right: 30,
@@ -203,6 +205,8 @@ const Financiero = () => {
           {/* <Bar dataKey="Efectivo" fill="#82ca9d" /> */}
           {/* <Bar dataKey="TDC" fill="#FF5733" /> */}
         </BarChart>}
+        </div>:<h1 className={style.notPays}>No hay pagos registrados</h1>
+}
         {/* {chartType == 4 && <BarChart
         className={style.grafica}
           width={600}

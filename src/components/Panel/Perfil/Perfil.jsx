@@ -16,7 +16,7 @@ const Perfil = ({fn}) => {
     dato.append("api_key","612393625364863")
     dato.append("timestamp", 0)
     const res = await axios.post("https://api.cloudinary.com/v1_1/dftvenl2z/image/upload", dato)
-    await axios.put("http://localhost:3001/user", {id:JSON.parse(localStorage.getItem("user")).id, image:res.data.secure_url})
+    await axios.put("/user", {id:JSON.parse(localStorage.getItem("user")).id, image:res.data.secure_url})
     localStorage.setItem("image", res.data.secure_url)
     setImage(res.data.secure_url)
   }
