@@ -84,7 +84,7 @@ const Panel = () => {
   })
 
   const [formPass, setFormPass] = useState({
-    id:JSON.parse(localStorage.getItem("user")).id,
+    id:JSON.parse(localStorage.getItem("user"))?.id,
     newpass:"",
     newpass2:"",
     oldpass:""
