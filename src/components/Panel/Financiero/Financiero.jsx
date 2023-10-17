@@ -16,6 +16,7 @@ const Financiero = () => {
   const getPagos = async () => {
     const { data } = await axios.get("/financiero")
     setPagos(data)
+    setPagoFilter(data)
   }
 
   const newPay = async () => {
@@ -61,11 +62,15 @@ const Financiero = () => {
   }, [])
 
   const days = pagos?.reduce((accumulator, pago) => {
+    const today = new Date()
     const day = pago.date?.split("-")[2];
     const month = pago.date?.split("-")[1];
     const year = pago.date?.split("-")[0];
   
+    // console.log(totalDays)
+
     if (year == new Date().getUTCFullYear() && month == new Date().getMonth()+1) {
+      if (today.getDate() >= day && day > today.getDate() - 3) {
       const existingMonth = accumulator.find((item) => item.name === day);
       if (existingMonth) {
         if (existingMonth[pago.tipo] === undefined) {
@@ -79,6 +84,7 @@ const Financiero = () => {
         });
       }
     }
+  }
   
     return accumulator;
   }, []);
@@ -167,12 +173,22 @@ const Financiero = () => {
     return null;
   };
 
+  const [desde, setDesde] = useState("2022-10-20")
+  const [hasta, setHasta] = useState("2025-10-20")
+  const [pagoFilter, setPagoFilter] = useState(pagos)
+
+
+  const filtradoPago = () => {
+    const fechasEnRango = pagos.filter((pago) => pago.date >= desde && pago.date <= hasta);
+    setPagoFilter(fechasEnRango)
+  }
+
   return (
     <>
       {(!creatorPay && !creatorGasto && !detail) && <div className={style.financiero}>
         <h1 className={style.titleSection}>Financiero</h1>
         <select onChange={(e) => setChartType(e.target.value)} className={style.select}>
-          <option value={1} selected>Hoy</option>
+          <option value={1} selected>Diario</option>
           {/* <option value={2}>Semanal</option> */}
           <option value={2}>Mensual</option>
           <option value={3}>Anual</option>
@@ -354,6 +370,16 @@ const Financiero = () => {
       </div>}
       {(!creatorPay && detail) && <div className={style.financiero}>
         <h2>Detalle financiero</h2>
+        <div className={style.inputContainer}>
+          <input type="date" name="user" onChange={(e) => setDesde(e.target.value)} className={style.input} placeholder=' '></input>
+          <label className={style.textInput}>Desde</label>
+        </div>
+        <div className={style.inputContainer}>
+          <input type="date" name="user" onChange={(e) => setHasta(e.target.value)} className={style.input} placeholder=' '></input>
+          <label className={style.textInput}>Hasta</label>
+        </div>
+        <button className={style.button} onClick={filtradoPago}>Filtrar</button>
+        <br></br><br></br>
         <table className={style.tabla}>
           <tr>
             <td className={style.topTd}>Fecha</td>
@@ -362,7 +388,7 @@ const Financiero = () => {
             <td className={style.topTd}>Valor pagado</td>
             <td className={style.topTd}>Metodo de pago</td>
           </tr>
-          {pagos?.map(u =>
+          {pagoFilter?.map(u =>
             <tr key={u.id} className={style.tr}>
               <td className={style.td}>{u.date}</td>
               <td className={style.td}>{u.user}</td>
