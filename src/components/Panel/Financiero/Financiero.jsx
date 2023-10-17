@@ -10,6 +10,7 @@ const Financiero = () => {
   const [creatorPay, setCreatorPay] = useState(false)
   const [creatorGasto, setCreatorGasto] = useState(false)
   const [detail, setDetail] = useState(false)
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")))
 
   const [pagos, setPagos] = useState()
 
@@ -20,10 +21,9 @@ const Financiero = () => {
   }
 
   const newPay = async () => {
-    if(formPay.user =="" || formPay.user=="null") return alert("Debes seleccionar un paciente")
-    if(creatorGasto){
+    if (creatorGasto) {
       setCreatorGasto(false)
-      const { data } = await axios.post("/financiero", {...formPay, monto:"-"+formPay.monto})
+      const { data } = await axios.post("/financiero", { ...formPay, monto: "-" + formPay.monto, user: `${user.name} ${user.lastname}` })
       setFormPay({
         user: "",
         monto: "",
@@ -31,9 +31,10 @@ const Financiero = () => {
         tipo: "Bancolombia"
       })
       // alert(data.status)
-      getPagos()  
+      getPagos()
       return;
     }
+    if (formPay.user == "" || formPay.user == "null") return alert("Debes seleccionar un paciente")
     setCreatorPay(false)
     const { data } = await axios.post("/financiero", formPay)
     setFormPay({
@@ -42,8 +43,8 @@ const Financiero = () => {
       reason: "",
       tipo: "Bancolombia"
     })
-      // alert(data.status)
-      getPagos()
+    // alert(data.status)
+    getPagos()
   }
 
   const [formPay, setFormPay] = useState({
@@ -66,26 +67,26 @@ const Financiero = () => {
     const day = pago.date?.split("-")[2];
     const month = pago.date?.split("-")[1];
     const year = pago.date?.split("-")[0];
-  
+
     // console.log(totalDays)
 
-    if (year == new Date().getUTCFullYear() && month == new Date().getMonth()+1) {
+    if (year == new Date().getUTCFullYear() && month == new Date().getMonth() + 1) {
       if (today.getDate() >= day && day > today.getDate() - 3) {
-      const existingMonth = accumulator.find((item) => item.name === day);
-      if (existingMonth) {
-        if (existingMonth[pago.tipo] === undefined) {
-          existingMonth[pago.tipo] = 0; // Inicializa como 0 si es undefined
+        const existingMonth = accumulator.find((item) => item.name === day);
+        if (existingMonth) {
+          if (existingMonth[pago.tipo] === undefined) {
+            existingMonth[pago.tipo] = 0; // Inicializa como 0 si es undefined
+          }
+          existingMonth[pago.tipo] += Number(pago.monto);
+        } else {
+          accumulator.push({
+            name: day,
+            [pago.tipo]: Number(pago.monto),
+          });
         }
-        existingMonth[pago.tipo] += Number(pago.monto);
-      } else {
-        accumulator.push({
-          name: day,
-          [pago.tipo]: Number(pago.monto),
-        });
       }
     }
-  }
-  
+
     return accumulator;
   }, []);
 
@@ -93,20 +94,20 @@ const Financiero = () => {
 
   const years = pagos?.reduce((accumulator, pago) => {
     const year = pago.date?.split("-")[0];
-      const existingMonth = accumulator.find((item) => item.name === year);
-  
-      if (existingMonth) {
-        if (existingMonth[pago.tipo] === undefined) {
-          existingMonth[pago.tipo] = 0; // Inicializa como 0 si es undefined
-        }
-        existingMonth[pago.tipo] += Number(pago.monto);
-      } else {
-        accumulator.push({
-          name: year,
-          [pago.tipo]: Number(pago.monto),
-        });
+    const existingMonth = accumulator.find((item) => item.name === year);
+
+    if (existingMonth) {
+      if (existingMonth[pago.tipo] === undefined) {
+        existingMonth[pago.tipo] = 0; // Inicializa como 0 si es undefined
       }
-  
+      existingMonth[pago.tipo] += Number(pago.monto);
+    } else {
+      accumulator.push({
+        name: year,
+        [pago.tipo]: Number(pago.monto),
+      });
+    }
+
     return accumulator;
   }, []);
 
@@ -115,7 +116,7 @@ const Financiero = () => {
   const months = pagos?.reduce((accumulator, pago) => {
     const year = pago.date?.split("-")[0];
     const month = pago.date?.split("-")[1];
-  
+
     if (year == new Date().getUTCFullYear()) {
       const existingMonth = accumulator.find((item) => item.name === month);
       if (existingMonth) {
@@ -139,9 +140,8 @@ const Financiero = () => {
   const [pacientes, setPacientes] = useState()
 
   useEffect(() => {
-    axios.get("/user").then(({data}) => setPacientes(data))
-    
-  },[])
+    axios.get("/user").then(({ data }) => setPacientes(data))
+  }, [])
 
 
   const CustomYAxisTick = (props) => {
@@ -161,12 +161,12 @@ const Financiero = () => {
       return (
         <div className={style.tooltip}>
           <p className="label">{`${label}`}</p>
-        {payload.map((p) => {
-          const formattedValue = Number(p.value).toLocaleString(); // Formatea el valor con puntos de separación de miles
-          return(<>
-          <p className={style.intro} style={{color:p.fill}}>{`${p.name}: $${formattedValue}`}</p>
-          </>)
-        })}
+          {payload.map((p) => {
+            const formattedValue = Number(p.value).toLocaleString(); // Formatea el valor con puntos de separación de miles
+            return (<>
+              <p className={style.intro} style={{ color: p.fill }}>{`${p.name}: $${formattedValue}`}</p>
+            </>)
+          })}
         </div>
       );
     }
@@ -187,115 +187,96 @@ const Financiero = () => {
     <>
       {(!creatorPay && !creatorGasto && !detail) && <div className={style.financiero}>
         <h1 className={style.titleSection}>Financiero</h1>
-        <select onChange={(e) => setChartType(e.target.value)} className={style.select}>
-          <option value={1} selected>Diario</option>
-          {/* <option value={2}>Semanal</option> */}
-          <option value={2}>Mensual</option>
-          <option value={3}>Anual</option>
-        </select>
-        {days?.length ?
-        <div>
-        {chartType == 1 && <BarChart
-          className={style.grafica}
-          // style={{marginTop:"120px"}}
-          width={600}
-          height={350}
-          data={days}
-          // onClick={(e) => alert("Mostrar detalles de " + e.activeTooltipIndex)}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis tick={CustomYAxisTick}/>
-          <Tooltip content={CustomTooltip} />
-          <Legend />
-          <Bar dataKey="Bancolombia" fill="#8884d8" />
-          <Bar dataKey="Efectivo" fill="#82ca9d" />
-          <Bar dataKey="TDC" fill="#FF5733" />
-        </BarChart>}
-        {chartType == 2 && <BarChart
-          className={style.grafica}
-          width={600}
-          height={350}
-          data={months}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis tick={CustomYAxisTick}/>
-          <Tooltip content={CustomTooltip} />
-          <Legend />
-          <Bar dataKey="Bancolombia" fill="#8884d8" />
-          <Bar dataKey="Efectivo" fill="#82ca9d" />
-          <Bar dataKey="TDC" fill="#FF5733" />
-        </BarChart>}
-        {chartType == 3 && <BarChart
-          className={style.grafica}
-          width={600}
-          height={350}
-          data={years}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis tick={CustomYAxisTick}/>
-          <Tooltip content={CustomTooltip} />
-          <Legend />
-          <Bar dataKey="Bancolombia" fill="#8884d8" />
-          <Bar dataKey="Efectivo" fill="#82ca9d" />
-          <Bar dataKey="TDC" fill="#FF5733" />
-        </BarChart>}
-        </div>:<h1 className={style.notPays}>No hay pagos registrados</h1>
-}
-        {/* {chartType == 4 && <BarChart
-        className={style.grafica}
-          width={600}
-          height={350}
-          data={data}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="Bancolombia" fill="#8884d8" />
-          <Bar dataKey="Efectivo" fill="#82ca9d" />
-          <Bar dataKey="TDC" fill="#FF5733" />
-        </BarChart>} */}
-        <br></br>
-        <button className={style.button} onClick={() => setDetail(true)}>Detalles</button>
-        <br></br>
-        <br></br>
-        <button className={style.button} onClick={() => {setCreatorPay(true); setFormPay({...formPay, user:""})}}>Nuevo pago</button>
-        <br></br>
-        <br></br>
-        <button className={style.button} onClick={() => setCreatorGasto(true)}>Nuevo gasto</button>
+        <div className={style.doblePage}>
+          <div>
+            <select onChange={(e) => setChartType(e.target.value)} className={style.select}>
+              <option value={1} selected>Diario</option>
+              {/* <option value={2}>Semanal</option> */}
+              <option value={2}>Mensual</option>
+              <option value={3}>Anual</option>
+            </select>
+            {days?.length ?
+              <div>
+                {chartType == 1 && <BarChart
+                  className={style.grafica}
+                  // style={{marginTop:"120px"}}
+                  width={600}
+                  height={350}
+                  data={days}
+                  // onClick={(e) => alert("Mostrar detalles de " + e.activeTooltipIndex)}
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis tick={CustomYAxisTick} />
+                  <Tooltip content={CustomTooltip} />
+                  <Legend />
+                  <Bar dataKey="Bancolombia" fill="#8884d8" />
+                  <Bar dataKey="Efectivo" fill="#82ca9d" />
+                  <Bar dataKey="TDC" fill="#FF5733" />
+                </BarChart>}
+                {chartType == 2 && <BarChart
+                  className={style.grafica}
+                  width={600}
+                  height={350}
+                  data={months}
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis tick={CustomYAxisTick} />
+                  <Tooltip content={CustomTooltip} />
+                  <Legend />
+                  <Bar dataKey="Bancolombia" fill="#8884d8" />
+                  <Bar dataKey="Efectivo" fill="#82ca9d" />
+                  <Bar dataKey="TDC" fill="#FF5733" />
+                </BarChart>}
+                {chartType == 3 && <BarChart
+                  className={style.grafica}
+                  width={600}
+                  height={350}
+                  data={years}
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis tick={CustomYAxisTick} />
+                  <Tooltip content={CustomTooltip} />
+                  <Legend />
+                  <Bar dataKey="Bancolombia" fill="#8884d8" />
+                  <Bar dataKey="Efectivo" fill="#82ca9d" />
+                  <Bar dataKey="TDC" fill="#FF5733" />
+                </BarChart>}
+              </div> : <h1 className={style.notPays}>No hay pagos registrados</h1>
+            }
+            <br></br>
+            <button className={style.button} onClick={() => setDetail(true)}>Detalles</button>
+          </div>
+          <div className={style.buttones}>
+            <button className={style.button} onClick={() => { setCreatorPay(true); setFormPay({ ...formPay, user: "" }) }}>Nuevo pago</button>
+            <button className={style.button} onClick={() => setCreatorGasto(true)}>Nuevo gasto</button>
+          </div>
+        </div>
       </div>}
       {(creatorPay && !detail) && <div className={style.financiero}>
         <h1 onClick={() => setCreatorPay(false)}>Nuevo pago</h1>
         <div className={style.inputContainer}>
-          <select name="user" onChange={(e) => {handleForm(e.target.name, e.target.value)}} className={style.input} placeholder=' '>
+          <select name="user" onChange={(e) => { handleForm(e.target.name, e.target.value) }} className={style.input} placeholder=' '>
             <option value="null" selected>Seleccionar</option>
             {pacientes?.map((p) => <option value={`${p.name} ${p.lastname}`}>{p.name} {p.lastname}</option>)
             }
@@ -316,7 +297,7 @@ const Financiero = () => {
         </div>
         <div className={style.inputContainer}>
           <input name="reason" className={style.input} onChange={(e) => handleForm(e.target.name, e.target.value)} placeholder=' '></input>
-          <label className={style.textInput}>Razon</label>
+          <label className={style.textInput}>Procedimiento</label>
         </div>
         <div className={style.inputContainer}>
           {/* <input name="reason" className={style.input} onChange={(e) => handleForm(e.target.name, e.target.value)} placeholder=' '></input> */}
@@ -334,10 +315,10 @@ const Financiero = () => {
       </div>}
       {(creatorGasto && !detail) && <div className={style.financiero}>
         <h1 onClick={() => setCreatorPay(false)}>Nuevo gasto</h1>
-        <div className={style.inputContainer}>
+        {/* <div className={style.inputContainer}>
           <input name="user" onChange={(e) => handleForm(e.target.name, e.target.value)} className={style.input} placeholder=' '></input>
           <label className={style.textInput}>Causante</label>
-        </div>
+        </div> */}
         <div className={style.inputContainer}>
           <input onChange={(e) => handleForm(e.target.name, e.target.value)} type="date" name="date" className={style.input} placeholder=' '></input>
           <label className={style.textInput}>Fecha</label>
@@ -352,7 +333,7 @@ const Financiero = () => {
         </div>
         <div className={style.inputContainer}>
           <input name="reason" className={style.input} onChange={(e) => handleForm(e.target.name, e.target.value)} placeholder=' '></input>
-          <label className={style.textInput}>Razon</label>
+          <label className={style.textInput}>Procedimiento</label>
         </div>
         <div className={style.inputContainer}>
           {/* <input name="reason" className={style.input} onChange={(e) => handleForm(e.target.name, e.target.value)} placeholder=' '></input> */}

@@ -29,6 +29,8 @@ const Agenda = ({fn, newDate, date}) => {
         <h1>Agenda</h1>
         <Calendar
         className={style.calendario}
+        min={new Date(0, 0, 0, 7, 0)}
+        max={new Date(0, 0, 0, 18, 0)}
         messages={{
           next: "Siguiente",
           previous: "Anterior",

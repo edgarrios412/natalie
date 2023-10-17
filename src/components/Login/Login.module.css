@@ -30,7 +30,7 @@
 }
 
 .button{
-    background-color: orange;
+    background-color: rgb(163, 163, 163);
     border: 0;
     border-radius: 3px;
     width: 200px;
@@ -63,12 +63,12 @@
 }
 
 .input:focus{
-    border: 1px solid orange;
-    outline: 1px solid orange;
+    border: 1px solid rgb(163, 163, 163);
+    outline: 1px solid rgb(163, 163, 163);
 }
 
 .input:focus + .textInput{
-    color: orange;
+    color: rgb(163, 163, 163);
     font-size: .8em;
     font-weight: 600;
     transform: translateY(-15px) translateX(-5px);

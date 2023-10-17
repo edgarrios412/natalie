@@ -117,6 +117,20 @@ const Panel = () => {
     alert(data.users)
   }
 
+  const [pacientes, setPacientes] = useState()
+
+  useEffect(() => {
+    axios.get("/user").then(({ data }) => setPacientes(data))
+  }, [])
+
+  const [dateSelected, setDateSelected] = useState()
+
+  useEffect(() => {
+    const dateSelect = date.find(d => d.id == changeDate)
+    setDateSelected(dateSelect)
+    console.log(dateSelected)
+  },[changeDate])
+
   return (
     <>
       {changePass && <div className={style.modal}>
@@ -142,19 +156,8 @@ const Panel = () => {
       </div>}
       {changeDate && <div className={style.modal}>
         <div className={style.windows}>
-          <h2 className={style.title}>Evento #{changeDate}</h2>
-          {/* <div className={style.inputContainer}>
-            <input className={style.input} placeholder=' '></input>
-            <label className={style.textInput}>Titulo</label>
-          </div>
-          <div className={style.inputContainer}>
-            <input className={style.input} placeholder=' '></input>
-            <label className={style.textInput}>Fecha</label>
-          </div>
-          <div className={style.inputContainer}>
-            <input className={style.input} placeholder=' '></input>
-            <label className={style.textInput}>Descripcion</label>
-          </div> */}
+          <h2 className={style.title}>{dateSelected?.title}</h2>
+          <p className={style.title}><b>Procedimiento:</b> {dateSelected?.procedimiento}</p>
           <div className={style.buttons}>
             <button className={style.button} onClick={() => setChangeDate(false)}>Cerrar</button>
             <button className={style.buttonDelete} onClick={deleteDate}>Eliminar</button>
@@ -165,8 +168,15 @@ const Panel = () => {
         <div className={style.windows}>
           <h2 className={style.title}>Nuevo evento</h2>
           <div className={style.inputContainer}>
-            <input name="title" onChange={(e) => handleForm(e.target.name, e.target.value)} className={style.input} placeholder=' '></input>
-            <label className={style.textInput}>Titulo</label>
+            <select name="title" onChange={(e) => handleForm(e.target.name, e.target.value)} className={style.input} placeholder=' '>
+              <select selected value={null}>Seleccionar</select>
+              {pacientes.map(p => <option value={`${p.name} ${p.lastname}`}>{p.name} {p.lastname}</option>)}
+            </select>
+            <label className={style.textInput}>Paciente</label>
+          </div>
+          <div className={style.inputContainer}>
+            <input name="procedimiento" onChange={(e) => handleForm(e.target.name, e.target.value)} className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Procedimiento</label>
           </div>
           <div className={style.inputContainer}>
             <input type="date" name="start" onChange={(e) => handleForm(e.target.name, e.target.value)} className={style.input} placeholder=' '></input>
@@ -180,10 +190,8 @@ const Panel = () => {
           <input type="time" className={style.input} name="endhour" onChange={(e) => handleForm(e.target.name, e.target.value)}/>
           <label className={style.textInput}>Hora fin</label>
           </div>
-          <div className={style.buttons}>
             <button className={style.button} onClick={() => {nuevaFecha(); setNewDate(false)}}>Guardar</button>
             <button className={style.buttonDelete} onClick={() => setNewDate(false)}>Cerrar</button>
-          </div>
         </div>
       </div>}
       <nav className={style.nav}>
