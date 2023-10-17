@@ -53,7 +53,8 @@ const Panel = () => {
         title:d.title,
         start:new Date(d.start),
         end: new Date(d.end),
-        resourceId:1
+        resourceId:1,
+        procedimiento:d.procedimiento
       }
       })
     setDate(fechas)
@@ -64,6 +65,7 @@ const Panel = () => {
       title: form.title,
       start: new Date(form.start + "T" + form.hour + ":" + form.min),
       end: new Date(form.start + "T" + form.endhour + ":" + form.endmin),
+      procedimiento: form.procedimiento
     })
     getDates()
   }
@@ -128,7 +130,7 @@ const Panel = () => {
   useEffect(() => {
     const dateSelect = date.find(d => d.id == changeDate)
     setDateSelected(dateSelect)
-    console.log(dateSelected)
+    console.log(dateSelect)
   },[changeDate])
 
   return (
