@@ -21,16 +21,16 @@ const Financiero = () => {
   const newPay = async () => {
     if(formPay.user =="" || formPay.user=="null") return alert("Debes seleccionar un paciente")
     if(creatorGasto){
+      setCreatorGasto(false)
       const { data } = await axios.post("/financiero", {...formPay, monto:"-"+formPay.monto})
       // alert(data.status)
       getPagos()  
-      setCreatorGasto(false)
       return;
     }
+    setCreatorPay(false)
     const { data } = await axios.post("/financiero", formPay)
       // alert(data.status)
       getPagos()
-      setCreatorPay(false)
   }
 
   const [formPay, setFormPay] = useState({
