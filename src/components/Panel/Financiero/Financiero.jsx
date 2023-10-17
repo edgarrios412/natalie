@@ -23,12 +23,24 @@ const Financiero = () => {
     if(creatorGasto){
       setCreatorGasto(false)
       const { data } = await axios.post("/financiero", {...formPay, monto:"-"+formPay.monto})
+      setFormPay({
+        user: "",
+        monto: "",
+        reason: "",
+        tipo: "Bancolombia"
+      })
       // alert(data.status)
       getPagos()  
       return;
     }
     setCreatorPay(false)
     const { data } = await axios.post("/financiero", formPay)
+    setFormPay({
+      user: "",
+      monto: "",
+      reason: "",
+      tipo: "Bancolombia"
+    })
       // alert(data.status)
       getPagos()
   }
