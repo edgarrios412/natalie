@@ -160,6 +160,7 @@ const Panel = () => {
         <div className={style.windows}>
           <h2 className={style.title}>{dateSelected?.title}</h2>
           <p className={style.title}><b>Procedimiento:</b> {dateSelected?.procedimiento}</p>
+          <p className={style.title}><b>Hora:</b> {new Date(dateSelected?.start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit',hour12: true })} - {new Date(dateSelected?.end).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit',hour12: true })}</p>
           <div className={style.buttons}>
             <button className={style.button} onClick={() => setChangeDate(false)}>Cerrar</button>
             <button className={style.buttonDelete} onClick={deleteDate}>Eliminar</button>
