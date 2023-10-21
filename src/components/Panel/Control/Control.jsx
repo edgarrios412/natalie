@@ -96,9 +96,6 @@ const Control = () => {
     setTemp(data.temp)
     setHume(data.hume)
     setFrio(data.frio)
-    // let tempFil
-    // let humeFil
-    // let frioFil
     const tempFil = data.temp.filter(t => t.date.split("-")[0] == año && t.date.split("-")[1] == mes)
     const humeFil = data.hume.filter(t => t.date.split("-")[0] == año && t.date.split("-")[1] == mes)
     const frioFil = data.frio.filter(t => t.date.split("-")[0] == año && t.date.split("-")[1] == mes)
@@ -111,13 +108,18 @@ const Control = () => {
 
 
   const filtrar = () => {
-    const tempFil = temp?.filter(t => t.date.split("-")[0] == año && t.date.split("-")[1] == mes)
-    const humeFil = hume?.filter(t => t.date.split("-")[0] == año && t.date.split("-")[1] == mes)
-    const frioFil = frio?.filter(t => t.date.split("-")[0] == año && t.date.split("-")[1] == mes)
+    const tempFil = temp.filter(t => t.date.split("-")[0] == año && t.date.split("-")[1] == mes)
+    const humeFil = hume.filter(t => t.date.split("-")[0] == año && t.date.split("-")[1] == mes)
+    const frioFil = frio.filter(t => t.date.split("-")[0] == año && t.date.split("-")[1] == mes)
     setHumeFilter(humeFil)
     setTempFilter(tempFil)
     setFrioFilter(frioFil)
+    console.log(humeFil)
   }
+
+  useEffect(() => {
+    filtrar()
+  },[frio,temp,hume])
 
   useEffect(() => {
     getData()
