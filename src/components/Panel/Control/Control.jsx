@@ -313,8 +313,8 @@ const Control = () => {
               {/* <h1>Humedad form</h1> */}
               <br></br>
               <div className={style.inputContainer}>
-                <input type="number" min={1} max={31} name="name" onChange={handleHumeForm} className={style.input} placeholder=' '></input>
-                <label className={style.textInput}>Dia</label>
+                <input type="date" name="date" onChange={handleHumeForm} className={style.input} placeholder=' '></input>
+                <label className={style.textInput}>Fecha</label>
               </div>
               <div className={style.inputContainer}>
                 <input name="mañana" onChange={handleHumeForm} className={style.input} placeholder=' '></input>
@@ -332,8 +332,8 @@ const Control = () => {
               {/* <h1>Cadena form</h1> */}
               <br></br>
               <div className={style.inputContainer}>
-                <input type="number" min={1} max={31} name="name" onChange={handleFrioForm} className={style.input} placeholder=' '></input>
-                <label className={style.textInput}>Dia</label>
+                <input type="date" name="date" onChange={handleFrioForm} className={style.input} placeholder=' '></input>
+                <label className={style.textInput}>Fecha</label>
               </div>
               <div className={style.inputContainer}>
                 <input name="mañana" onChange={handleFrioForm} className={style.input} placeholder=' '></input>
