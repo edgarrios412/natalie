@@ -12,6 +12,7 @@ const Control = () => {
   const [temp, setTemp] = useState([])
   const [tempForm, setTempForm] = useState({
     name: new Date().getDate(),
+    date: "",
     type:1,
     mañana: 0,
     tarde: 0,
@@ -20,6 +21,7 @@ const Control = () => {
   const [hume, setHume] = useState([])
   const [humeForm, setHumeForm] = useState({
     name: new Date().getDate(),
+    date: "",
     type:2,
     mañana: 0,
     tarde: 0,
@@ -28,6 +30,7 @@ const Control = () => {
   const [frio, setFrio] = useState([])
   const [frioForm, setFrioForm] = useState({
     name: new Date().getDate(),
+    date: "",
     type:3,
     mañana: 0,
     tarde: 0,
@@ -42,12 +45,11 @@ const Control = () => {
   }
 
   const createTemp = async () => {
-    await axios.post("/temperatura", tempForm)
+    await axios.post("/temperatura", {...tempForm, name: tempForm.date.split("-")[2]})
     setTemp([
       ...temp,
-      tempForm
+      {...tempForm, name: tempForm.date.split("-")[2]}
     ])
-    console.log(temp)
   }
 
   const handleHumeForm = (e) => {
@@ -59,12 +61,11 @@ const Control = () => {
   }
 
   const createHume = async () => {
-    await axios.post("/temperatura", humeForm)
+    await axios.post("/temperatura", {...humeForm, name: humeForm.date.split("-")[2]})
     setHume([
       ...hume,
-      humeForm
+      {...humeForm, name: frioForm.date.split("-")[2]}
     ])
-    console.log(hume)
   }
 
   const handleFrioForm = (e) => {
@@ -76,24 +77,53 @@ const Control = () => {
   }
 
   const createFrio = async () => {
-    await axios.post("/temperatura", frioForm)
+    await axios.post("/temperatura", {...frioForm, name: frioForm.date.split("-")[2]})
     setFrio([
       ...frio,
-      frioForm
+      {...frioForm, name: frioForm.date.split("-")[2]}
     ])
   }
 
+  const [humeFilter, setHumeFilter] = useState()
+  const [tempFilter, setTempFilter] = useState()
+  const [frioFilter, setFrioFilter] = useState()
+
+  const [mes, setMes] = useState(new Date().getMonth()+1)
+  const [año, setAño] = useState(new Date().getFullYear())
+
   const getData = async () => {
     const {data} = await axios.get("/temperatura")
-    console.log(data)
     setTemp(data.temp)
     setHume(data.hume)
     setFrio(data.frio)
+    // let tempFil
+    // let humeFil
+    // let frioFil
+    const tempFil = data.temp.filter(t => t.date.split("-")[0] == año && t.date.split("-")[1] == mes)
+    const humeFil = data.hume.filter(t => t.date.split("-")[0] == año && t.date.split("-")[1] == mes)
+    const frioFil = data.frio.filter(t => t.date.split("-")[0] == año && t.date.split("-")[1] == mes)
+    setHumeFilter(humeFil)
+    setTempFilter(tempFil)
+    setFrioFilter(frioFil)
+  }
+
+
+
+
+  const filtrar = () => {
+    const tempFil = temp?.filter(t => t.date.split("-")[0] == año && t.date.split("-")[1] == mes)
+    const humeFil = hume?.filter(t => t.date.split("-")[0] == año && t.date.split("-")[1] == mes)
+    const frioFil = frio?.filter(t => t.date.split("-")[0] == año && t.date.split("-")[1] == mes)
+    setHumeFilter(humeFil)
+    setTempFilter(tempFil)
+    setFrioFilter(frioFil)
   }
 
   useEffect(() => {
     getData()
   },[])
+
+
 
   return (
     <>
@@ -105,13 +135,41 @@ const Control = () => {
         </select>
         {!creator && <button className={style.button} onClick={() => setCreator(true)}>Crear</button>}
         {!creator ? <div>
+          <div className={style.inputContainer}>
+          <select onChange={(e) => setMes(e.target.value)} className={style.input}>
+          <option selected>Selecciona un mes</option>
+            <option value="01">Enero</option>
+            <option value="02">Febrero</option>
+            <option value="03">Marzo</option>
+            <option value="04">Abril</option>
+            <option value="05">Mayo</option>
+            <option value="06">Junio</option>
+            <option value="07">Julio</option>
+            <option value="08">Agosto</option>
+            <option value="09">Septiembre</option>
+            <option value="10">Octubre</option>
+            <option value="11">Noviembre</option>
+            <option value="12">Diciembre</option>
+            </select>
+          <label className={style.textInput}>Mes</label>
+        </div>
+        <div className={style.inputContainer}>
+        <select onChange={(e) => setAño(e.target.value)} className={style.input}>
+          <option selected>Selecciona un año</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+            </select>
+          <label className={style.textInput}>Año</label>
+        </div>
+        <button className={style.button} onClick={filtrar}>Filtrar</button>
           {typeChart == 1 && <div>
             <h4>Temperatura del mes en la mañana</h4>
             <AreaChart
               className={style.chart}
               width={400}
               height={160}
-              data={temp.sort((a, b) => a.name - b.name)}
+              data={tempFilter?.sort((a, b) => a.name - b.name)}
               syncId="anyId"
               margin={{
                 top: 10,
@@ -131,7 +189,7 @@ const Control = () => {
               className={style.chart}
               width={400}
               height={160}
-              data={temp.sort((a, b) => a.name - b.name)}
+              data={tempFilter?.sort((a, b) => a.name - b.name)}
               syncId="anyId"
               margin={{
                 top: 10,
@@ -153,7 +211,7 @@ const Control = () => {
               className={style.chart}
               width={400}
               height={160}
-              data={hume.sort((a, b) => a.name - b.name)}
+              data={humeFilter?.sort((a, b) => a.name - b.name)}
               syncId="anyId"
               margin={{
                 top: 10,
@@ -173,7 +231,7 @@ const Control = () => {
               className={style.chart}
               width={400}
               height={160}
-              data={hume.sort((a, b) => a.name - b.name)}
+              data={humeFilter?.sort((a, b) => a.name - b.name)}
               syncId="anyId"
               margin={{
                 top: 10,
@@ -195,7 +253,7 @@ const Control = () => {
               className={style.chart}
               width={400}
               height={160}
-              data={frio.sort((a, b) => a.name - b.name)}
+              data={frioFilter?.sort((a, b) => a.name - b.name)}
               syncId="anyId"
               margin={{
                 top: 10,
@@ -215,7 +273,7 @@ const Control = () => {
               className={style.chart}
               width={400}
               height={160}
-              data={frio.sort((a, b) => a.name - b.name)}
+              data={frioFilter?.sort((a, b) => a.name - b.name)}
               syncId="anyId"
               margin={{
                 top: 10,
@@ -236,8 +294,8 @@ const Control = () => {
             {typeChart == 1 && <>
               <br></br>
               <div className={style.inputContainer}>
-                <input type="number" min={1} max={31} name="name" onChange={handleTempForm} className={style.input} placeholder=' '></input>
-                <label className={style.textInput}>Dia</label>
+                <input type="date" name="date" onChange={handleTempForm} className={style.input} placeholder=' '></input>
+                <label className={style.textInput}>Fecha</label>
               </div>
               <div className={style.inputContainer}>
                 <input name="mañana" onChange={handleTempForm} className={style.input} placeholder=' '></input>
