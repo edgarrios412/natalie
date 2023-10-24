@@ -187,7 +187,7 @@ const Financiero = () => {
     <>
       {(!creatorPay && !creatorGasto && !detail) && <div className={style.financiero}>
         <h1 className={style.titleSection}>Financiero</h1>
-        <div className={style.doblePage}>
+        <div className={style.doblePage} style={window.innerWidth < 600 ? {display:"initial"}:{display:"flex"}}>
           <div>
             <select onChange={(e) => setChartType(e.target.value)} className={style.select}>
               <option value={1} selected>Diario</option>
@@ -199,9 +199,9 @@ const Financiero = () => {
               <div>
                 {chartType == 1 && <BarChart
                   className={style.grafica}
-                  // style={{marginTop:"120px"}}
-                  width={600}
-                  height={350}
+                  // style={{width:"100vw"}}
+                  width={window.innerWidth < 1300 ? window.innerWidth-window.innerWidth/3 : 500}
+                  height={window.innerWidth > 900 ? 350 : 250}
                   data={days}
                   // onClick={(e) => alert("Mostrar detalles de " + e.activeTooltipIndex)}
                   margin={{
@@ -267,7 +267,7 @@ const Financiero = () => {
             <br></br>
             <button className={style.button} onClick={() => setDetail(true)}>Detalles</button>
           </div>
-          <div className={style.buttones}>
+          <div className={style.buttones} style={window.innerWidth < 600 ? {margin:"20px auto"}:{margin:"0 50px"}}>
             <button className={style.button} onClick={() => { setCreatorPay(true); setFormPay({ ...formPay, user: "" }) }}>Nuevo pago</button>
             <button className={style.button} onClick={() => setCreatorGasto(true)}>Nuevo gasto</button>
           </div>

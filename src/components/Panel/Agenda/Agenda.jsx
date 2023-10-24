@@ -58,7 +58,7 @@ const Agenda = ({fn, newDate, date}) => {
       endAccessor="end"
       formats={formats}
       onSelectEvent={(e) => fn(e.id)}
-      style={{ height: 400, width: 650 }}
+      style={{ height: 400, width:window.innerWidth > 1000 ? 650 : null }}
     />
     <button className={style.button} onClick={newDate}>Nuevo evento</button>
       </div>

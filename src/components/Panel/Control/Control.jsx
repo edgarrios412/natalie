@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import style from './Control.module.css'
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import axios from "axios"
 
 const Control = () => {
@@ -166,7 +166,7 @@ const Control = () => {
         </div>
         <button className={style.button} onClick={filtrar}>Filtrar</button>
           {typeChart == 1 && <div>
-            <h4>Temperatura del mes en la mañana</h4>
+            <h4>Temperatura del mes</h4>
             <AreaChart
               className={style.chart}
               width={400}
@@ -184,31 +184,12 @@ const Control = () => {
               <XAxis dataKey="name" />
               <YAxis domain={[0, Math.max(...temp.map((item) => item.mañana))]}/>
               <Tooltip />
-              <Area type="monotone" dataKey="mañana" stroke="#8884d8" fill="#8884d8" />
-            </AreaChart>
-            <h4>Temperatura del mes en la tarde</h4>
-            <AreaChart
-              className={style.chart}
-              width={400}
-              height={160}
-              data={tempFilter?.sort((a, b) => a.name - b.name)}
-              syncId="anyId"
-              margin={{
-                top: 10,
-                right: 30,
-                left: 0,
-                bottom: 0,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis domain={[0, Math.max(...temp.map((item) => item.tarde))]}/>
-              <Tooltip />
-              <Area type="monotone" dataKey="tarde" stroke="#82ca9d" fill="#82ca9d" />
+              <Area type="monotone" dataKey="mañana" stroke="#8884d8" fill="#8884d838" />
+              <Area type="monotone" dataKey="tarde" stroke="#82ca9d" fill="#82ca9d38" />
             </AreaChart>
           </div>}
           {typeChart == 2 && <div>
-            <h4>Humedad del mes en la mañana</h4>
+            <h4>Humedad del mes</h4>
             <AreaChart
               className={style.chart}
               width={400}
@@ -226,31 +207,12 @@ const Control = () => {
               <XAxis dataKey="name" />
               <YAxis domain={[0, Math.max(...hume.map((item) => item.mañana))]}/>
               <Tooltip />
-              <Area type="monotone" dataKey="mañana" stroke="#8884d8" fill="#8884d8" />
-            </AreaChart>
-            <h4>Humedad del mes en la tarde</h4>
-            <AreaChart
-              className={style.chart}
-              width={400}
-              height={160}
-              data={humeFilter?.sort((a, b) => a.name - b.name)}
-              syncId="anyId"
-              margin={{
-                top: 10,
-                right: 30,
-                left: 0,
-                bottom: 0,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis domain={[0, Math.max(...hume.map((item) => item.tarde))]}/>
-              <Tooltip />
-              <Area type="monotone" dataKey="tarde" stroke="#82ca9d" fill="#82ca9d" />
+              <Area type="monotone" dataKey="mañana" stroke="#8884d8" fill="#8884d838" />
+              <Area type="monotone" dataKey="tarde" stroke="#82ca9d" fill="#82ca9d38" />
             </AreaChart>
           </div>}
           {typeChart == 3 && <div>
-            <h4>Cadena de frio del mes en la mañana</h4>
+            <h4>Cadena de frio del mes</h4>
             <AreaChart
               className={style.chart}
               width={400}
@@ -268,27 +230,8 @@ const Control = () => {
               <XAxis dataKey="name" />
               <YAxis domain={[0, Math.max(...frio.map((item) => item.mañana))]}/>
               <Tooltip />
-              <Area type="monotone" dataKey="mañana" stroke="#8884d8" fill="#8884d8" />
-            </AreaChart>
-            <h4>Cadena de frio del mes en la tarde</h4>
-            <AreaChart
-              className={style.chart}
-              width={400}
-              height={160}
-              data={frioFilter?.sort((a, b) => a.name - b.name)}
-              syncId="anyId"
-              margin={{
-                top: 10,
-                right: 30,
-                left: 0,
-                bottom: 0,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis domain={[0, Math.max(...frio.map((item) => item.tarde))]}/>
-              <Tooltip />
-              <Area type="monotone" dataKey="tarde" stroke="#82ca9d" fill="#82ca9d" />
+              <Area type="monotone" dataKey="mañana" stroke="#8884d8" fill="#8884d838" />
+              <Area type="monotone" dataKey="tarde" stroke="#82ca9d" fill="#82ca9d38" />
             </AreaChart>
           </div>}
         </div> :

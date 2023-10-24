@@ -8,6 +8,8 @@ import Pacientes from './Pacientes/Pacientes';
 import { useNavigate } from 'react-router-dom';
 import logo from "../../assets/logonata.jpeg"
 import axios from "axios"
+import {HiMenu} from "react-icons/hi"
+import {GrClose} from "react-icons/gr"
 
 const Panel = () => {
 
@@ -133,6 +135,8 @@ const Panel = () => {
     console.log(dateSelect)
   },[changeDate])
 
+  const [visible, setVisible] = useState(false)
+
   return (
     <>
       {changePass && <div className={style.modal}>
@@ -197,23 +201,47 @@ const Panel = () => {
             <button className={style.buttonDelete} onClick={() => setNewDate(false)}>Cerrar</button>
         </div>
       </div>}
-      <nav className={style.nav}>
+
+      {window.innerWidth > 1300 ? <nav className={style.nav}>
+        <h3 className={style.title}>Mi perfil</h3>
+        <ul className={style.ul}>
+        {/* <li onClick={() => setPage(0)} className={style.li}><AiOutlineUser className={style.icon}/> Información</li>
+        <li onClick={() => setPage(1)} className={style.li}><MdPayment className={style.icon}/> Mis compras</li>
+        { user?.role == 3 && <li onClick={() => {setPage(2); dispatch(setPagina(1))}} className={style.li}><FiUsers className={style.icon}/> Usuarios</li>}        
+        { user?.role == 3 &&<li onClick={() => {setPage(3) ; dispatch(setPagina(1))}} className={style.li}><BsBoxSeam className={style.icon}/> Paquetes</li>}
+        { user?.role == 3 &&<li onClick={() => setPage(4)} className={style.li}><MdOutlineLocalOffer className={style.icon}/> Promocion</li>}
+        { user?.role >= 2 &&<li onClick={() => {setPage(5) ; dispatch(setPagina(1))}} className={style.li}><FaChalkboardTeacher className={style.icon}/> Capacitaciones</li>}
+        <li onClick={() => navigate("/")} className={style.li}><FaChalkboardTeacher className={style.icon}/> Volver</li>
+        <li onClick={() => {navigate("/"); localStorage.removeItem("token"); dispatch(setUser(false))}} className={style.li}><MdExitToApp className={style.icon}/> Cerrar sesion</li> */}
+        </ul>
+      </nav>: ( visible ? <nav className={style.navMobile}>
+        <h3 className={style.titleMobile} onClick={() => setVisible(false)}><GrClose/></h3>
+        <ul className={style.ul}>
+        <li className={page == 1 ? style.liSelected : style.li} onClick={() => {setPage(1); setVisible(false)}}>Perfil</li>
+            <li className={page == 2 ? style.liSelected : style.li} onClick={() => {setPage(2); setVisible(false)}}>Control financiero</li>
+            <li className={page == 3 ? style.liSelected : style.li} onClick={() => {setPage(3); setVisible(false)}}>Agenda</li>
+            <li className={page == 4 ? style.liSelected : style.li} onClick={() => {setPage(4); setVisible(false)}}>Control ambiental y limpieza</li>
+            {/* <li className={page == 5 ? style.liSelected : style.li} onClick={() => setPage(5)}>Pacientes</li> */}
+            <li className={style.li} onClick={logout}>Cerrar sesion</li>
+        </ul>
+      </nav> : <h1 className={style.close} onClick={() => setVisible(true)}><HiMenu/></h1>)}
+
+      {window.innerWidth > 1300 && <nav className={style.nav}>
         <img className={style.logo} src={logo} />
         <h1 className={style.saludo}>Hola {JSON.parse(localStorage.getItem("user")).name}! 👋</h1>
-        {/* <input onChange={(e) => alert("Filtrando usuarios con cedula: " + e.target.value)} onClick={() => setPage(5)} placeholder="Buscar paciente" className={style.findInput} /> */}
         <input placeholder="Buscar paciente" className={style.findInput} />
-      </nav>
+      </nav>}
       <div className={style.flexContainer}>
-        <div className={style.navigator}>
+        {window.innerWidth > 1300 && <div className={style.navigator}>
           <ul className={style.ul}>
             <li className={page == 1 ? style.liSelected : style.li} onClick={() => setPage(1)}>Perfil</li>
             <li className={page == 2 ? style.liSelected : style.li} onClick={() => setPage(2)}>Control financiero</li>
             <li className={page == 3 ? style.liSelected : style.li} onClick={() => setPage(3)}>Agenda</li>
             <li className={page == 4 ? style.liSelected : style.li} onClick={() => setPage(4)}>Control ambiental y limpieza</li>
-            {/* <li className={page == 5 ? style.liSelected : style.li} onClick={() => setPage(5)}>Pacientes</li> */}
+            <li className={page == 5 ? style.liSelected : style.li} onClick={() => setPage(5)}>Pacientes</li>
             <li className={style.li} onClick={logout}>Cerrar sesion</li>
           </ul>
-        </div>
+        </div>}
         <div className={style.panelContainer}>
           {page == 1 && <Perfil fn={() => setChangePass(true)} />}
           {page == 2 && <Financiero />}

@@ -9,6 +9,35 @@
     z-index: 10;
 }
 
+.title{
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.titleMobile{
+    /* text-align: center; */
+    font-size: 1.5em;
+    margin-left: 50px;
+    cursor: pointer;
+}
+
+.close{
+    margin: 20px 50px;
+    position: absolute;
+    cursor: pointer;
+}
+
+.navMobile{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+    margin: 0;
+    position: fixed;
+    display: block;
+    z-index: 999;
+}
+
+
 .navigator{
     margin-top: 11vh;
     width: 20vw;
@@ -122,9 +151,13 @@
     display: flex;
 }
 
+.noFlexContainer{
+    display:initial;
+}
+
 .panelContainer{
     /* background-color: blue; */
-    margin-left:20vw;
+    margin:0 auto;
     margin-top:11vh;
     width: 80vw;
     height: 89vh;
