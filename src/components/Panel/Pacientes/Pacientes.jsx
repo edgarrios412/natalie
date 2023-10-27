@@ -1,7 +1,8 @@
 import style from './Pacientes.module.css'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PacienteDetail from './PacienteDetail';
 import PacienteForm from './PacienteForm';
+import axios from "axios"
  
 const Pacientes = () => {
 
@@ -9,24 +10,14 @@ const Pacientes = () => {
   const [create, setCreate] = useState(false)
 
 
-  const pacientes = [
-    {
-      name:"Yina",
-      lastname:"Garzon",
-      cedula:"105823823",
-      fecha:"02/04/55",
-      ultipro:"1234",
-      proxci:"mañana"
-    },
-    {
-      name:"Edgar",
-      lastname:"Vilchez",
-      cedula:"105823823",
-      fecha:"05/12/23",
-      ultipro:"1234",
-      proxci:"mañana"
-    }
-  ]
+  const [pacientes, setPacientes] = useState()
+
+  const [paciente, setPaciente] = useState()
+
+  useEffect(() => {
+    axios.get("/client/all")
+    .then(({data}) => setPacientes(data))
+  },[])
 
   return(
     <>
@@ -41,19 +32,19 @@ const Pacientes = () => {
           <td className={style.topTd}>Proxima cita</td>
           </tr>
           {pacientes?.map( u =>
-          <tr className={style.tr} onClick={() => setPacienteId(1)}>
+          <tr className={style.tr} onClick={() => setPacienteId(u.id)}>
           <td className={style.td}>{u.cedula}</td>
-          <td className={style.td}>{u.name} {u.lastname}</td>
-          <td className={style.td}>{u.fecha}</td>
-          <td className={style.td}>{u.ultipro}</td>
-          <td className={style.td}>{u.proxci}</td>
+          <td className={style.td}>{u.name}</td>
+          <td className={style.td}>En proceso</td>
+          <td className={style.td}>En proceso</td>
+          <td className={style.td}>En proceso</td>
           </tr>)}
         </table>
         <br></br>
         <button onClick={() => setCreate(true)} className={style.button}>Nuevo paciente</button>
         </>}
         {create && <PacienteForm back={() => setCreate(false)}/>}
-        {pacienteId ==! null && <PacienteDetail back={() => setPacienteId(null)}/>}
+        {pacienteId !== null && <PacienteDetail pacienteId={pacienteId} back={() => setPacienteId(null)}/>}
         <br></br>
       </div>
     </>
