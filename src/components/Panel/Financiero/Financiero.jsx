@@ -140,7 +140,7 @@ const Financiero = () => {
   const [pacientes, setPacientes] = useState()
 
   useEffect(() => {
-    axios.get("/user").then(({ data }) => setPacientes(data))
+    axios.get("/client/all").then(({ data }) => setPacientes(data))
   }, [])
 
 
@@ -278,7 +278,7 @@ const Financiero = () => {
         <div className={style.inputContainer}>
           <select name="user" onChange={(e) => { handleForm(e.target.name, e.target.value) }} className={style.input} placeholder=' '>
             <option value="null" selected>Seleccionar</option>
-            {pacientes?.map((p) => <option value={`${p.name} ${p.lastname}`}>{p.name} {p.lastname}</option>)
+            {pacientes?.map((p) => <option value={`${p.name}`}>{p.name}</option>)
             }
           </select>
           <label className={style.textInput}>Nombre</label>
