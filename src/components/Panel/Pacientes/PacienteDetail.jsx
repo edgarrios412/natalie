@@ -7,6 +7,8 @@ import foto from "../../../assets/diagrama.jpg"
 import documentos from "../../../assets/documentos.png"
 import { HexColorPicker } from 'react-colorful';
 import axios from "axios"
+// import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+// import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 const PacienteDetail = ({pacienteId, back}) => {
 
@@ -17,15 +19,31 @@ const PacienteDetail = ({pacienteId, back}) => {
 
     const [color, setColor] = useState("#aabbcc");
 
-    useEffect(() => {
+    const reloadUser = () => {
       axios.get("/client/"+pacienteId)
-      .then(({data}) => {setPaciente(data); setTimeout(() => {refCanvaFirm.current.loadSaveData(data.firma,true); refCanva.current.loadSaveData(data.diagrama,true)},1000)})
+      .then(({data}) => {setPaciente(data) ;setTimeout(() => {refCanvaFirm.current.loadSaveData(data.firma,true); refCanva.current.loadSaveData(data.diagrama,true)},1000)})
+    }
+
+    useEffect(() => {
+      reloadUser()
       },[])
   
+      const [formEvo, setFormEvo] = useState()
+
+      const handleFormEvo = (e) => {
+        const {name,value} = e.target
+        console.log(value)
+        setFormEvo({...formEvo, [name]:value})
+      }
+
+      const newEvolution = () => {
+        axios.post("/client/evolucion", {...formEvo, clientId:pacienteId})
+        .then(() => reloadUser())
+      }
+
       const handleSave = () => {
         axios.put("/client", {id:pacienteId, diagrama: refCanva.current.getSaveData()})
       }
-
       const [evolucion, setEvolucion] = useState(false)
       const [nuevaEvolucion, setNuevaEvolucion] = useState(false)
     return (
@@ -43,6 +61,26 @@ const PacienteDetail = ({pacienteId, back}) => {
             <p><b>Fecha nacimiento:</b> {paciente ? paciente.nacimiento : <span style={{color:"grey"}}>Cargando..</span>}</p>
             <button className={style.button} onClick={() => setEvolucion(true)}>Evolucion</button>
             <br></br>
+
+            <h2>Aspecto del paciente</h2>
+        <div className={style.column}>
+        <p><b>Cara:</b> {paciente ? paciente.cara : <span style={{color:"grey"}}>Cargando..</span>}</p>
+        <p><b>Labios y comisuras:</b> {paciente ? paciente.labios : <span style={{color:"grey"}}>Cargando..</span>}</p>
+        <p><b>Palpitacion de ganglios:</b> {paciente ? paciente.palpiganglios : <span style={{color:"grey"}}>Cargando..</span>}</p>
+        <p><b>Regio hiodea y tiroidea:</b> {paciente ? paciente.regio : <span style={{color:"grey"}}>Cargando..</span>}</p>
+        <p><b>Ganglios:</b> {paciente ? paciente.ganglios : <span style={{color:"grey"}}>Cargando..</span>}</p>
+        <p><b>ATM:</b> {paciente ? paciente.atm : <span style={{color:"grey"}}>Cargando..</span>}</p>
+        <p><b>Orejas:</b> {paciente ? paciente.orejas : <span style={{color:"grey"}}>Cargando..</span>}</p>
+        </div>
+        <h2>Examen clinico intrabucal</h2>
+          <div className={style.column}>
+          <p><b>Carillas:</b> {paciente ? paciente.carillas : <span style={{color:"grey"}}>Cargando..</span>}</p>
+          <p><b>Mucosa:</b> {paciente ? paciente.mucosa : <span style={{color:"grey"}}>Cargando..</span>}</p>
+          <p><b>Encias:</b> {paciente ? paciente.encia : <span style={{color:"grey"}}>Cargando..</span>}</p>
+          <p><b>Lengua:</b> {paciente ? paciente.lengua : <span style={{color:"grey"}}>Cargando..</span>}</p>
+          <p><b>Paladar:</b> {paciente ? paciente.paladar : <span style={{color:"grey"}}>Cargando..</span>}</p>
+        </div>
+            
             <p>¿Le han practicado alguna intervención quirúrgica?<input checked={paciente?.form[0]} type='checkbox'/></p>
             <p>Toma algún medicamento <input checked={paciente?.form[1]} type='checkbox'/></p>
             <p>¿Esta usted bajo tratamiento medico??<input checked={paciente?.form[2]} type='checkbox'/></p>
@@ -64,6 +102,9 @@ const PacienteDetail = ({pacienteId, back}) => {
             <p>Yodo<input checked={paciente?.form[16]} type='checkbox'/></p>
             <p>Aspirina<input checked={paciente?.form[17]} type='checkbox'/></p>
 
+            <h3>Observaciones</h3>
+        <textarea value={paciente?.observaciones} name="observaciones" className={style.input} style={{minWidth:"582px", maxWidth:"582px", maxHeight:"100px",minHeight:"100px", position:"relative"}}/>
+
           </div>
           <div className={style.column}>
             <p><b>Direccion:</b> {paciente ? paciente.direccion : <span style={{color:"grey"}}>Cargando..</span>}</p>
@@ -72,6 +113,17 @@ const PacienteDetail = ({pacienteId, back}) => {
             <p><b>Celular:</b> {paciente ? paciente.celular : <span style={{color:"grey"}}>Cargando..</span>}</p>
             <p><b>Email:</b> {paciente ? paciente.email : <span style={{color:"grey"}}>Cargando..</span>}</p>
             <br></br>
+
+        <h2>Examen complementario</h2>
+          <div className={style.column}>
+          <p><b>RX:</b> {paciente ? paciente.rx : <span style={{color:"grey"}}>Cargando..</span>}</p>
+          <p><b>Panoramica:</b> {paciente ? paciente.panoramica : <span style={{color:"grey"}}>Cargando..</span>}</p>
+          <p><b>Coronal:</b> {paciente ? paciente.coronal : <span style={{color:"grey"}}>Cargando..</span>}</p>
+          <p><b>Periapical:</b> {paciente ? paciente.periapical : <span style={{color:"grey"}}>Cargando..</span>}</p>
+          <p><b>Laboratorio:</b> {paciente ? paciente.laboratorio : <span style={{color:"grey"}}>Cargando..</span>}</p>
+          <p><b>Modelo:</b> {paciente ? paciente.modelo : <span style={{color:"grey"}}>Cargando..</span>}</p>
+          <p><b>Tension Arterial:</b> {paciente ? paciente.tension : <span style={{color:"grey"}}>Cargando..</span>}</p>
+        </div>
             <p>¿Ha consumido o consume drogas?<input checked={paciente?.form[18]} type='checkbox'/></p>
             <b>Sufre o ha sufrido de:</b>
             <p>Enfermedades venéreas<input checked={paciente?.form[19]} type='checkbox'/></p>
@@ -144,23 +196,26 @@ const PacienteDetail = ({pacienteId, back}) => {
         {!nuevaEvolucion ? 
         <div>
         <h1 onClick={() => setEvolucion(false)}>Evolucion</h1>
+        
+        
+        
         <table className={style.evolucion}>
           <tr>
           <td className={style.topTd}>Fecha</td>
           <td className={style.topTd}>Hora</td>
           <td className={style.topTd}>Evolucion</td>
           <td className={style.topTd}>Abono</td>
-          <td className={style.topTd}>Firma</td>
-          <td className={style.topTd}>Prueba esterilizacion</td>
+          {/* <td className={style.topTd}>Firma</td> */}
+          {/* <td className={style.topTd}>Prueba esterilizacion</td> */}
           </tr>
-          <tr>
-          <td className={style.td}>12/04/23</td>
-          <td className={style.td}>9:30 am</td>
-          <td className={style.td}>Al paciente se le realizo una tomografia intraversal</td>
-          <td className={style.td}>$96.000</td>
-          <td className={style.td}>FIRMA</td>
-          <td className={style.td}><button className={style.button} onClick={() => alert("Mostrar prueba de esterilizacion")}>Ver</button></td>
-          </tr>
+          {paciente?.evolucions?.map(e => <tr>
+          <td className={style.td}>{e.date}</td>
+          <td className={style.td}>{e.time}</td>
+          <td className={style.td}>{e.evolucion}</td>
+          <td className={style.td}>${Number(e.abono).toLocaleString()}</td>
+          {/* <td className={style.td}>FIRMA</td> */}
+          {/* <td className={style.td}><button className={style.button} onClick={() => alert("Mostrar prueba de esterilizacion")}>Ver</button></td> */}
+          </tr>)}
         </table>
         <br></br>
         <div className={style.buttons}>
@@ -172,30 +227,30 @@ const PacienteDetail = ({pacienteId, back}) => {
             <div className={style.form}>
                 <h1 onClick={() => setNuevaEvolucion(false)}>Nueva evolucion</h1>
                 <div className={style.inputContainer}>
-            <input className={style.input} placeholder=' '></input>
+            <input type="date" name="date" onChange={handleFormEvo} className={style.input} placeholder=' '></input>
             <label className={style.textInput}>Fecha</label>
           </div>
           <div className={style.inputContainer}>
-            <input className={style.input} placeholder=' '></input>
+            <input type="time" name="time" step="60" onChange={handleFormEvo} className={style.input} placeholder=' '></input>
             <label className={style.textInput}>Hora</label>
           </div>
           <div className={style.inputContainer}>
-            <input className={style.input} placeholder=' '></input>
+            <input name="evolucion" onChange={handleFormEvo} className={style.input} placeholder=' '></input>
             <label className={style.textInput}>Evolucion</label>
           </div>
           <div className={style.inputContainer}>
-            <input className={style.input} placeholder=' '></input>
+            <input type="number" name="abono" onChange={handleFormEvo} className={style.input} placeholder=' '></input>
             <label className={style.textInput}>Abono</label>
           </div>
-          <div className={style.inputContainer}>
+          {/* <div className={style.inputContainer}>
             <input className={style.input} placeholder=' '></input>
             <label className={style.textInput}>Prueba</label>
           </div>
-          <input type="file" style={{width:"200px"}}></input>
+          <input type="file" style={{width:"200px"}}></input> */}
           <br></br><br></br>
           
           <div className={style.buttons}>
-          <button className={style.button} onClick={() => setNuevaEvolucion(false)}>Guardar</button>
+          <button className={style.button} onClick={() => {setNuevaEvolucion(false); newEvolution()}}>Guardar</button>
           <button className={style.button} onClick={() => setNuevaEvolucion(false)}>Volver</button>
           </div>
             </div>
