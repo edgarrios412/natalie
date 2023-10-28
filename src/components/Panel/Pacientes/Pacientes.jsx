@@ -35,7 +35,7 @@ const Pacientes = () => {
           <tr className={style.tr} onClick={() => setPacienteId(u.id)}>
           <td className={style.td}>{u.cedula}</td>
           <td className={style.td}>{u.name}</td>
-          <td className={style.td}>En proceso</td>
+          <td className={style.td}>{u.date}</td>
           <td className={style.td}>En proceso</td>
           <td className={style.td}>En proceso</td>
           </tr>)}

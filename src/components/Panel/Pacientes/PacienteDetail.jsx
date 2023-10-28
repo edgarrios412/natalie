@@ -13,15 +13,18 @@ const PacienteDetail = ({pacienteId, back}) => {
 
     const [paciente, setPaciente] = useState()
     const refCanvaFirm = useRef(null)
+    const refCanva = useRef(null)
 
     const [color, setColor] = useState("#aabbcc");
 
     useEffect(() => {
       axios.get("/client/"+pacienteId)
-      .then(({data}) => {setPaciente(data); console.log(data); setTimeout(() => refCanvaFirm.current.loadSaveData(data.firma,true),1000)})
+      .then(({data}) => {setPaciente(data); setTimeout(() => {refCanvaFirm.current.loadSaveData(data.firma,true); refCanva.current.loadSaveData(data.diagrama,true)},1000)})
       },[])
   
-
+      const handleSave = () => {
+        axios.put("/client", {id:pacienteId, diagrama: refCanva.current.getSaveData()})
+      }
 
       const [evolucion, setEvolucion] = useState(false)
       const [nuevaEvolucion, setNuevaEvolucion] = useState(false)
@@ -93,8 +96,10 @@ const PacienteDetail = ({pacienteId, back}) => {
             </div>
         </div>
         <h3>Odontodiagrama</h3>
-        {/* <button onClick={handleSave}>Guardar</button>
-        <button onClick={cargar}>Cargar</button> */}
+        <div className={style.buttons}>
+        <button className={style.button} onClick={handleSave}>Guardar</button>
+        <button className={style.button} onClick={() => refCanva.current.clear()}>Limpiar</button>
+        </div>
         <HexColorPicker color={color} onChange={setColor} style={{margin:"50px auto"}}/>
         <CanvasDraw
         // onChange={handleSave}
@@ -102,7 +107,7 @@ const PacienteDetail = ({pacienteId, back}) => {
         imgSrc={foto}
         brushRadius={4}
         hideInteenablePanAndZoom={true}
-        
+        ref={refCanva}
         brushColor={color}
         loadTimeOffset={0}
         style={{width:"700px", margin:"0 auto"}}

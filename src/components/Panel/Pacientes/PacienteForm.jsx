@@ -32,7 +32,7 @@ const PacienteForm = ({ back }) => {
   },[])
 
   const createClient = async () => {
-    await axios.post("/client", {...form, form: formCheck, firma: refCanva.current.getSaveData()})
+    await axios.post("/client", {...form, form: formCheck, firma: refCanva.current.getSaveData(), date:new Date()})
   }
 
   return (
@@ -53,15 +53,19 @@ const PacienteForm = ({ back }) => {
               <label className={style.textInput}>Nombre y apellido</label>
             </div>
             <div className={style.inputContainer}>
-              <input value={form?.edad} name="edad" onChange={handleForm} className={style.input} placeholder=' '></input>
+              <input type="number" value={form?.edad} name="edad" onChange={handleForm} className={style.input} placeholder=' '></input>
               <label className={style.textInput}>Edad</label>
             </div>
             <div className={style.inputContainer}>
-              <input value={form?.sexo} name="sexo" onChange={handleForm} className={style.input} placeholder=' '></input>
+              <select className={style.input} value={form?.sexo} name="sexo" onChange={handleForm}>
+                <option value="Masculino">Masculino</option>
+                <option value="Femenino">Femenino</option>
+              </select>
               <label className={style.textInput}>Sexo</label>
+              {/* <input value={form?.sexo} name="sexo" onChange={handleForm} className={style.input} placeholder=' '></input> */}
             </div>
             <div className={style.inputContainer}>
-              <input value={form?.nacimiento} name="nacimiento" onChange={handleForm} className={style.input} placeholder=' '></input>
+              <input value={form?.nacimiento} type="date" name="nacimiento" onChange={handleForm} className={style.input} placeholder=' '></input>
               <label className={style.textInput}>Fecha de nacimiento</label>
             </div>
           </div>
@@ -240,12 +244,12 @@ const PacienteForm = ({ back }) => {
           </div>
         </div>
         <div className={style.inputContainer}>
-        <select className={style.input}>
-          <option>Periodoncia</option>
-          <option>Endodoncia</option>
-          <option>Cirugia</option>
-          <option>Radiologia</option>
-          <option>Otro</option>
+        <select name="especialista" onChange={handleForm} className={style.input}>
+          <option value="Periodoncia">Periodoncia</option>
+          <option value="Endodoncia">Endodoncia</option>
+          <option value="Cirugia">Cirugia</option>
+          <option value="Radiologia">Radiologia</option>
+          <option value="Otro">Otro</option>
         </select>
         <label className={style.textInput}>Especialista</label>
         </div>
