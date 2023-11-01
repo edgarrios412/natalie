@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import style from './Control.module.css'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import axios from "axios"
+import toast, {Toaster} from 'react-hot-toast';
 
 const Control = () => {
 
@@ -50,6 +51,7 @@ const Control = () => {
       ...temp,
       {...tempForm, name: tempForm.date.split("-")[2]}
     ])
+    toast.success("Creado con exito")
   }
 
   const handleHumeForm = (e) => {
@@ -66,6 +68,7 @@ const Control = () => {
       ...hume,
       {...humeForm, name: frioForm.date.split("-")[2]}
     ])
+    toast.success("Creado con exito")
   }
 
   const handleFrioForm = (e) => {
@@ -82,6 +85,7 @@ const Control = () => {
       ...frio,
       {...frioForm, name: frioForm.date.split("-")[2]}
     ])
+    toast.success("Creado con exito")
   }
 
   const [humeFilter, setHumeFilter] = useState()
@@ -129,6 +133,7 @@ const Control = () => {
 
   return (
     <>
+    <Toaster position='top-center'/>
       <div className={style.control}>
         <select onChange={(e) => setTypeChart(e.target.value)} className={style.select}>
           <option value={1} selected>Temperatura</option>

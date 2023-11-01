@@ -5,6 +5,7 @@ import { useRef } from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import axios from "axios"
+import toast, { Toaster } from 'react-hot-toast'
 
 const PacienteForm = ({ back }) => {
 
@@ -33,11 +34,13 @@ const PacienteForm = ({ back }) => {
 
   const createClient = async () => {
     await axios.post("/client", {...form, form: formCheck, firma: refCanva.current.getSaveData(), date:new Date()})
+    back()
+    toast.success("Creado con exito")
   }
 
   return (
     <>
-
+    <Toaster/>
 <div className={style.clinicHistory}>
         <button className={style.button} onClick={back}>Volver</button>
         <br></br>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import style from './Financiero.module.css'
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
 
 
@@ -32,6 +33,7 @@ const Financiero = () => {
       })
       // alert(data.status)
       getPagos()
+      toast.success('Gasto creado con exito')
       return;
     }
     if (formPay.user == "" || formPay.user == "null") return alert("Debes seleccionar un paciente")
@@ -43,7 +45,7 @@ const Financiero = () => {
       reason: "",
       tipo: "Bancolombia"
     })
-    // alert(data.status)
+    toast.success('Pago creado con exito')
     getPagos()
   }
 
@@ -68,11 +70,15 @@ const Financiero = () => {
     const month = pago.date?.split("-")[1];
     const year = pago.date?.split("-")[0];
 
-    // console.log(totalDays)
-
+    // console.log(today.getDate() >= day)
+    // console.log(day > today.getDate() - 3)
+    console.log(day)
+    console.log(today.getDate() - 3)
     if (year == new Date().getUTCFullYear() && month == new Date().getMonth() + 1) {
       if (today.getDate() >= day && day > today.getDate() - 3) {
+        console.log(pago)
         const existingMonth = accumulator.find((item) => item.name === day);
+        console.log(accumulator)
         if (existingMonth) {
           if (existingMonth[pago.tipo] === undefined) {
             existingMonth[pago.tipo] = 0; // Inicializa como 0 si es undefined
@@ -185,6 +191,7 @@ const Financiero = () => {
 
   return (
     <>
+    <Toaster position='top-center'/>
       {(!creatorPay && !creatorGasto && !detail) && <div className={style.financiero}>
         <h1 className={style.titleSection}>Financiero</h1>
         <div className={style.doblePage} style={window.innerWidth < 600 ? {display:"initial"}:{display:"flex"}}>
@@ -195,9 +202,8 @@ const Financiero = () => {
               <option value={2}>Mensual</option>
               <option value={3}>Anual</option>
             </select>
-            {days?.length ?
               <div>
-                {chartType == 1 && <BarChart
+                {chartType == 1 && days?.length ? <BarChart
                   className={style.grafica}
                   // style={{width:"100vw"}}
                   width={window.innerWidth < 1300 ? window.innerWidth-window.innerWidth/3 : 500}
@@ -219,8 +225,8 @@ const Financiero = () => {
                   <Bar dataKey="Bancolombia" fill="#8884d8" />
                   <Bar dataKey="Efectivo" fill="#82ca9d" />
                   <Bar dataKey="TDC" fill="#FF5733" />
-                </BarChart>}
-                {chartType == 2 && <BarChart
+                </BarChart> : null}
+                {chartType == 2 && months?.length ? <BarChart
                   className={style.grafica}
                   width={600}
                   height={350}
@@ -240,8 +246,8 @@ const Financiero = () => {
                   <Bar dataKey="Bancolombia" fill="#8884d8" />
                   <Bar dataKey="Efectivo" fill="#82ca9d" />
                   <Bar dataKey="TDC" fill="#FF5733" />
-                </BarChart>}
-                {chartType == 3 && <BarChart
+                </BarChart> : null}
+                {chartType == 3 && years?.length ? <BarChart
                   className={style.grafica}
                   width={600}
                   height={350}
@@ -261,9 +267,8 @@ const Financiero = () => {
                   <Bar dataKey="Bancolombia" fill="#8884d8" />
                   <Bar dataKey="Efectivo" fill="#82ca9d" />
                   <Bar dataKey="TDC" fill="#FF5733" />
-                </BarChart>}
-              </div> : <h1 className={style.notPays}>No hay pagos registrados</h1>
-            }
+                </BarChart> : null}
+              </div>
             <br></br>
             <button className={style.button} onClick={() => setDetail(true)}>Detalles</button>
           </div>

@@ -10,6 +10,7 @@ import logo from "../../assets/logonata.jpeg"
 import axios from "axios"
 import {HiMenu} from "react-icons/hi"
 import {GrClose} from "react-icons/gr"
+import toast , { Toaster } from 'react-hot-toast';
 
 const Panel = () => {
 
@@ -17,6 +18,7 @@ const Panel = () => {
   const [changePass, setChangePass] = useState(false)
   const [changeDate, setChangeDate] = useState(null)
   const [newDate, setNewDate] = useState(false)
+  const [find, setFind] = useState(null)
   const navigate = useNavigate()
 
   const editarEvento = (id) => {
@@ -69,6 +71,7 @@ const Panel = () => {
       end: new Date(form.start + "T" + form.endhour + ":" + form.endmin),
       procedimiento: form.procedimiento
     })
+    toast.success("Cita creada con exito")
     getDates()
   }
 
@@ -103,6 +106,8 @@ const Panel = () => {
 
   const deleteDate = async () => {
     await axios.delete("/calendar/"+changeDate)
+    setChangeDate(false)
+    toast.success("Cita eliminada con exito")
     getDates()
   } 
 
@@ -115,10 +120,10 @@ const Panel = () => {
 
   const saveChangePass = async () => {
     console.log(formPass)
-    if(formPass.newpass !== formPass.newpass2) return alert("Las contraseñas no coinciden")
+    if(formPass.newpass !== formPass.newpass2) return toast.error("Las contraseñas no coinciden")
     const {data} = await axios.put("/user", formPass)
     setChangePass(false)
-    alert(data.users)
+    toast(data.users)
   }
 
   const [pacientes, setPacientes] = useState()
@@ -139,6 +144,7 @@ const Panel = () => {
 
   return (
     <>
+    <Toaster position='top-center'/>
       {changePass && <div className={style.modal}>
         <div className={style.windows}>
           <h2 className={style.title}>Cambiar contraseña</h2>
@@ -229,7 +235,8 @@ const Panel = () => {
       {window.innerWidth > 1300 && <nav className={style.nav}>
         <img className={style.logo} src={logo} />
         <h1 className={style.saludo}>Hola {JSON.parse(localStorage.getItem("user")).name}! 👋</h1>
-        <input placeholder="Buscar paciente" className={style.findInput} />
+        <input placeholder="Buscar paciente" onChange={(e) => {setFind(e.target.value); setPage(5)}} className={style.findInput} />
+        {/* <button onClick={() => setPage(5)}>Buscar</button> */}
       </nav>}
       <div className={style.flexContainer}>
         {window.innerWidth > 1300 && <div className={style.navigator}>
@@ -247,7 +254,7 @@ const Panel = () => {
           {page == 2 && <Financiero />}
           {page == 3 && <Agenda fn={editarEvento} date={date} newDate={() => setNewDate(true)} />}
           {page == 4 && <Control />}
-          {page == 5 && <Pacientes />}
+          {page == 5 && <Pacientes find={find} />}
         </div>
       </div>
     </>

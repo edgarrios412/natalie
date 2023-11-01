@@ -7,6 +7,7 @@ import foto from "../../../assets/diagrama.jpg"
 import documentos from "../../../assets/documentos.png"
 import { HexColorPicker } from 'react-colorful';
 import axios from "axios"
+import toast, { Toaster } from "react-hot-toast"
 // import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 // import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
@@ -39,6 +40,9 @@ const PacienteDetail = ({pacienteId, back}) => {
       const newEvolution = () => {
         axios.post("/client/evolucion", {...formEvo, clientId:pacienteId})
         .then(() => reloadUser())
+        axios.put("/client", {ulpro:formEvo.date, id:pacienteId})
+        .then(() => reloadUser())
+        toast.success("Evolucion creada con exito")
       }
 
       const handleSave = () => {
@@ -48,6 +52,7 @@ const PacienteDetail = ({pacienteId, back}) => {
       const [nuevaEvolucion, setNuevaEvolucion] = useState(false)
     return (
         <>
+        <Toaster/>
         { !evolucion ? <div className={style.detailPaciente}>
           <br></br>
           <br></br>
@@ -182,6 +187,10 @@ const PacienteDetail = ({pacienteId, back}) => {
         style={{width:"400px", height:"180px", margin:"0 auto"}}
         />
           </div>
+          <div className={style.inputContainer}>
+              <input type="date" className={style.input} placeholder=' '></input>
+              <label className={style.textInput}>Proxima cita</label>
+            </div>
           <div onClick={() => alert("Aca debes mostrar los consentimientos")}>
             <br></br>
             <img src={documentos} className={style.imgIcon}/>
