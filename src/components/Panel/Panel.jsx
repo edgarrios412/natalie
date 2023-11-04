@@ -227,7 +227,7 @@ const Panel = () => {
             <li className={page == 2 ? style.liSelected : style.li} onClick={() => {setPage(2); setVisible(false)}}>Control financiero</li>
             <li className={page == 3 ? style.liSelected : style.li} onClick={() => {setPage(3); setVisible(false)}}>Agenda</li>
             <li className={page == 4 ? style.liSelected : style.li} onClick={() => {setPage(4); setVisible(false)}}>Control ambiental y limpieza</li>
-            {/* <li className={page == 5 ? style.liSelected : style.li} onClick={() => setPage(5)}>Pacientes</li> */}
+            <li className={page == 5 ? style.liSelected : style.li} onClick={() => {setPage(5); setVisible(false)}}>Pacientes</li>
             <li className={style.li} onClick={logout}>Cerrar sesion</li>
         </ul>
       </nav> : <h1 className={style.close} onClick={() => setVisible(true)}><HiMenu/></h1>)}

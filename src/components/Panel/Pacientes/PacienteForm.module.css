@@ -64,7 +64,10 @@
 }
 
 .row{
-    display: flex; gap: 100px;
+    display: flex; 
+    flex-direction: column;
+    gap: 100px;
+    /* margin: auto; */
 }
 
 .column{

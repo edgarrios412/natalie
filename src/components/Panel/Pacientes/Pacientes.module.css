@@ -39,11 +39,19 @@ table{
 
 .clinicHistory{
     display: flex;
+    flex-direction: column;
     /* background-color: red; */
     width: 700px;
     justify-content: space-between;
     text-align: justify;
     margin: 0 auto;
+}
+
+.row{
+    display: flex; 
+    flex-direction: row;
+    gap: 100px;
+    /* margin: auto; */
 }
 
 .column{
@@ -179,7 +187,8 @@ table{
 
 .textFe{
     font-weight: 400;
-    padding: 0px 300px;
+    margin: 0 auto;
+    width: 100%;
 }
 
 /* Estilo personalizado para el checkbox */

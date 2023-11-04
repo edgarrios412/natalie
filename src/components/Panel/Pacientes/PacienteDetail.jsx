@@ -58,17 +58,27 @@ const PacienteDetail = ({pacienteId, back}) => {
           <br></br>
         <button className={style.button} onClick={back}>Volver</button>
             <div className={style.clinicHistory}>
+            <div className={style.row} style={window.innerWidth > 1300 ? {flexDirection:"row"} : {flexDirection:"column"}}>
           <div className={style.column}>
-            <p><b>Cedula:</b> {paciente ? paciente.cedula : <span style={{color:"grey"}}>Cargando..</span>}</p>
+          <p><b>Cedula:</b> {paciente ? paciente.cedula : <span style={{color:"grey"}}>Cargando..</span>}</p>
             <p><b>Nombres:</b> {paciente ? paciente.name : <span style={{color:"grey"}}>Cargando..</span>}</p>
             <p><b>Edad:</b> {paciente ? paciente.edad : <span style={{color:"grey"}}>Cargando..</span>}</p>
             <p><b>Sexo:</b> {paciente ? paciente.sexo : <span style={{color:"grey"}}>Cargando..</span>}</p>
             <p><b>Fecha nacimiento:</b> {paciente ? paciente.nacimiento : <span style={{color:"grey"}}>Cargando..</span>}</p>
             <button className={style.button} onClick={() => setEvolucion(true)}>Evolucion</button>
+          </div>
+          <div className={style.column}>
+          <p><b>Direccion:</b> {paciente ? paciente.direccion : <span style={{color:"grey"}}>Cargando..</span>}</p>
+            <p><b>Departamento:</b> {paciente ? paciente.departamento : <span style={{color:"grey"}}>Cargando..</span>}</p>
+            <p><b>Ciudad:</b> {paciente ? paciente.ciudad : <span style={{color:"grey"}}>Cargando..</span>}</p>
+            <p><b>Celular:</b> {paciente ? paciente.celular : <span style={{color:"grey"}}>Cargando..</span>}</p>
+            <p><b>Email:</b> {paciente ? paciente.email : <span style={{color:"grey"}}>Cargando..</span>}</p>
             <br></br>
-
-            <h2>Aspecto del paciente</h2>
-        <div className={style.column}>
+          </div>
+        </div>
+        <div className={style.row} style={window.innerWidth > 1300 ? {flexDirection:"row"} : {flexDirection:"column"}}>
+          <div className={style.column}>
+          <h2>Aspecto del paciente</h2>
         <p><b>Cara:</b> {paciente ? paciente.cara : <span style={{color:"grey"}}>Cargando..</span>}</p>
         <p><b>Labios y comisuras:</b> {paciente ? paciente.labios : <span style={{color:"grey"}}>Cargando..</span>}</p>
         <p><b>Palpitacion de ganglios:</b> {paciente ? paciente.palpiganglios : <span style={{color:"grey"}}>Cargando..</span>}</p>
@@ -76,8 +86,21 @@ const PacienteDetail = ({pacienteId, back}) => {
         <p><b>Ganglios:</b> {paciente ? paciente.ganglios : <span style={{color:"grey"}}>Cargando..</span>}</p>
         <p><b>ATM:</b> {paciente ? paciente.atm : <span style={{color:"grey"}}>Cargando..</span>}</p>
         <p><b>Orejas:</b> {paciente ? paciente.orejas : <span style={{color:"grey"}}>Cargando..</span>}</p>
+          </div>
+          <div className={style.column}>
+          <h2>Examen complementario</h2>
+          <p><b>RX:</b> {paciente ? paciente.rx : <span style={{color:"grey"}}>Cargando..</span>}</p>
+          <p><b>Panoramica:</b> {paciente ? paciente.panoramica : <span style={{color:"grey"}}>Cargando..</span>}</p>
+          <p><b>Coronal:</b> {paciente ? paciente.coronal : <span style={{color:"grey"}}>Cargando..</span>}</p>
+          <p><b>Periapical:</b> {paciente ? paciente.periapical : <span style={{color:"grey"}}>Cargando..</span>}</p>
+          <p><b>Laboratorio:</b> {paciente ? paciente.laboratorio : <span style={{color:"grey"}}>Cargando..</span>}</p>
+          <p><b>Modelo:</b> {paciente ? paciente.modelo : <span style={{color:"grey"}}>Cargando..</span>}</p>
+          <p><b>Tension Arterial:</b> {paciente ? paciente.tension : <span style={{color:"grey"}}>Cargando..</span>}</p>
+          </div>
         </div>
-        <h2>Examen clinico intrabucal</h2>
+        <div className={style.row} style={window.innerWidth > 1300 ? {flexDirection:"row"} : {flexDirection:"column"}}>
+          <div className={style.column}>
+          <h2>Examen clinico intrabucal</h2>
           <div className={style.column}>
           <p><b>Carillas:</b> {paciente ? paciente.carillas : <span style={{color:"grey"}}>Cargando..</span>}</p>
           <p><b>Mucosa:</b> {paciente ? paciente.mucosa : <span style={{color:"grey"}}>Cargando..</span>}</p>
@@ -85,7 +108,10 @@ const PacienteDetail = ({pacienteId, back}) => {
           <p><b>Lengua:</b> {paciente ? paciente.lengua : <span style={{color:"grey"}}>Cargando..</span>}</p>
           <p><b>Paladar:</b> {paciente ? paciente.paladar : <span style={{color:"grey"}}>Cargando..</span>}</p>
         </div>
-            
+          </div>
+        </div>
+            <div className={style.row} style={window.innerWidth > 1300 ? {flexDirection:"row"} : {flexDirection:"column"}}> 
+            <div className={style.column}> 
             <p>¿Le han practicado alguna intervención quirúrgica?<input checked={paciente?.form[0]} type='checkbox'/></p>
             <p>Toma algún medicamento <input checked={paciente?.form[1]} type='checkbox'/></p>
             <p>¿Esta usted bajo tratamiento medico??<input checked={paciente?.form[2]} type='checkbox'/></p>
@@ -109,26 +135,8 @@ const PacienteDetail = ({pacienteId, back}) => {
 
             <h3>Observaciones</h3>
         <textarea value={paciente?.observaciones} name="observaciones" className={style.input} style={{minWidth:"582px", maxWidth:"582px", maxHeight:"100px",minHeight:"100px", position:"relative"}}/>
-
           </div>
           <div className={style.column}>
-            <p><b>Direccion:</b> {paciente ? paciente.direccion : <span style={{color:"grey"}}>Cargando..</span>}</p>
-            <p><b>Departamento:</b> {paciente ? paciente.departamento : <span style={{color:"grey"}}>Cargando..</span>}</p>
-            <p><b>Ciudad:</b> {paciente ? paciente.ciudad : <span style={{color:"grey"}}>Cargando..</span>}</p>
-            <p><b>Celular:</b> {paciente ? paciente.celular : <span style={{color:"grey"}}>Cargando..</span>}</p>
-            <p><b>Email:</b> {paciente ? paciente.email : <span style={{color:"grey"}}>Cargando..</span>}</p>
-            <br></br>
-
-        <h2>Examen complementario</h2>
-          <div className={style.column}>
-          <p><b>RX:</b> {paciente ? paciente.rx : <span style={{color:"grey"}}>Cargando..</span>}</p>
-          <p><b>Panoramica:</b> {paciente ? paciente.panoramica : <span style={{color:"grey"}}>Cargando..</span>}</p>
-          <p><b>Coronal:</b> {paciente ? paciente.coronal : <span style={{color:"grey"}}>Cargando..</span>}</p>
-          <p><b>Periapical:</b> {paciente ? paciente.periapical : <span style={{color:"grey"}}>Cargando..</span>}</p>
-          <p><b>Laboratorio:</b> {paciente ? paciente.laboratorio : <span style={{color:"grey"}}>Cargando..</span>}</p>
-          <p><b>Modelo:</b> {paciente ? paciente.modelo : <span style={{color:"grey"}}>Cargando..</span>}</p>
-          <p><b>Tension Arterial:</b> {paciente ? paciente.tension : <span style={{color:"grey"}}>Cargando..</span>}</p>
-        </div>
             <p>¿Ha consumido o consume drogas?<input checked={paciente?.form[18]} type='checkbox'/></p>
             <b>Sufre o ha sufrido de:</b>
             <p>Enfermedades venéreas<input checked={paciente?.form[19]} type='checkbox'/></p>
@@ -151,6 +159,7 @@ const PacienteDetail = ({pacienteId, back}) => {
             <p>¿Esta usted embarazada?<input checked={paciente?.form[35]} type='checkbox'/></p>
             <p>¿Esta tomando actualmente pastillas anticonceptivas?<input checked={paciente?.form[36]} type='checkbox'/></p>
             </div>
+          </div>
         </div>
         <h3>Odontodiagrama</h3>
         <div className={style.buttons}>
