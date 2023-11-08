@@ -20,6 +20,19 @@ const PacienteDetail = ({pacienteId, back}) => {
 
     const [color, setColor] = useState("#aabbcc");
 
+    const uploadUserImage = async (e) => {
+      const files = e.target.files;
+      const dato = new FormData();
+      dato.append("file", files[0]);
+      dato.append("upload_preset","natalie")
+      dato.append("api_key","612393625364863")
+      dato.append("timestamp", 0)
+      const res = await axios.post("https://api.cloudinary.com/v1_1/dftvenl2z/image/upload", dato)
+      // await axios.put("/user", {id:JSON.parse(localStorage.getItem("user")).id, image:res.data.secure_url})
+      // localStorage.setItem("image", res.data.secure_url)
+      console.log(res.data.secure_url)
+    }
+
     const reloadUser = () => {
       axios.get("/client/"+pacienteId)
       .then(({data}) => {setPaciente(data) ;setTimeout(() => {refCanvaFirm.current.loadSaveData(data.firma,true); refCanva.current.loadSaveData(data.diagrama,true)},1000)})
@@ -260,11 +273,7 @@ const PacienteDetail = ({pacienteId, back}) => {
             <input type="number" name="abono" onChange={handleFormEvo} className={style.input} placeholder=' '></input>
             <label className={style.textInput}>Abono</label>
           </div>
-          {/* <div className={style.inputContainer}>
-            <input className={style.input} placeholder=' '></input>
-            <label className={style.textInput}>Prueba</label>
-          </div>
-          <input type="file" style={{width:"200px"}}></input> */}
+          <input type="file" onChange={uploadUserImage} style={{width:"200px"}}></input>
           <br></br><br></br>
           
           <div className={style.buttons}>

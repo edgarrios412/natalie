@@ -27,6 +27,7 @@ const Agenda = ({fn, newDate, date}) => {
     <>
       <div className={style.agenda}>
         <h1>Agenda</h1>
+        <div style={{display:"flex",flexDirection:window.innerWidth > 1300 ? "row":"column", margin:"auto", width:"fit-content", gap:"50px"}}>
         <Calendar
         className={style.calendario}
         min={new Date(0, 0, 0, 7, 0)}
@@ -58,9 +59,10 @@ const Agenda = ({fn, newDate, date}) => {
       endAccessor="end"
       formats={formats}
       onSelectEvent={(e) => fn(e.id)}
-      style={{ height: 400, width:window.innerWidth > 1000 ? 650 : null }}
+      style={{ height: 400, width:window.innerWidth > 1000 ? 600 : null }}
     />
     <button className={style.button} onClick={newDate}>Nuevo evento</button>
+    </div>
       </div>
     </>
   )

@@ -3,7 +3,7 @@ import natalie from "../../../assets/natalieperfil.jpg"
 import axios from "axios"
 import { useState } from 'react';
  
-const Perfil = ({fn}) => {
+const Perfil = ({fn, createUser}) => {
 
   const [image, setImage] = useState(localStorage.getItem("image") || JSON.parse(localStorage.getItem("user")).image)
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")))
@@ -40,7 +40,7 @@ const Perfil = ({fn}) => {
       </div>
       <div className={style.perfilContainerBottom}>
         <button className={style.button} onClick={fn}>Cambiar contraseña</button>
-        {/* <button className={style.button}>Guardar</button> */}
+        <button className={style.button} onClick={createUser}>Crear usuario</button>
       </div>
       </div>
     </>

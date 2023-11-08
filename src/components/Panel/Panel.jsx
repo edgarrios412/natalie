@@ -19,6 +19,8 @@ const Panel = () => {
   const [changeDate, setChangeDate] = useState(null)
   const [newDate, setNewDate] = useState(false)
   const [find, setFind] = useState(null)
+  const [createUser, setCreateUser] = useState(false)
+
   const navigate = useNavigate()
 
   const editarEvento = (id) => {
@@ -118,6 +120,15 @@ const Panel = () => {
     })
   }
 
+  const [formCreateUser, setFormCreateUser] = useState()
+
+  const handleFormCreateUser = (e) => {
+    setFormCreateUser({
+      ...formCreateUser,
+      [e.target.name]:e.target.value
+    })
+  }
+
   const saveChangePass = async () => {
     console.log(formPass)
     if(formPass.newpass !== formPass.newpass2) return toast.error("Las contraseñas no coinciden")
@@ -142,6 +153,13 @@ const Panel = () => {
 
   const [visible, setVisible] = useState(false)
 
+  const createNewUser = async () => {
+    if(formCreateUser.newpass !== formCreateUser.newpass2) return alert("Las contraseñas no coinciden")
+    await axios.post("/user", {...formCreateUser, password:formCreateUser.newpass})
+    setCreateUser(false)
+    alert("Creado con exito")
+  }
+
   return (
     <>
     <Toaster position='top-center'/>
@@ -164,6 +182,43 @@ const Panel = () => {
           <br></br>
           <br></br>
           <button className={style.button} onClick={() => setChangePass(false)}>Atras</button>
+        </div>
+      </div>}
+      {createUser && <div className={style.modal}>
+        <div className={style.windows}>
+          <h2 className={style.title}>Crear usuario</h2>
+          <div className={style.inputContainer}>
+            <input type="text" onChange={handleFormCreateUser} name="name" value={formCreateUser?.name} className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Nombre</label>
+          </div>
+          <div className={style.inputContainer}>
+            <input type="text" onChange={handleFormCreateUser} name="lastname" value={formCreateUser?.lastname} className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Apellido</label>
+          </div>
+          <div className={style.inputContainer}>
+            <input type="text" onChange={handleFormCreateUser} name="email" value={formCreateUser?.email} className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Email</label>
+          </div>
+          <div className={style.inputContainer}>
+        <select name="role" onChange={handleFormCreateUser} className={style.input}>
+          <option selected>Selecciona un rol</option>
+            <option value="1">Especialista</option>
+            <option value="2">Administrador</option>
+            </select>
+          <label className={style.textInput}>Rol</label>
+        </div>
+          <div className={style.inputContainer}>
+            <input type="password" onChange={handleFormCreateUser} name="newpass" value={formCreateUser?.newpass} className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Contraseña</label>
+          </div>
+          <div className={style.inputContainer}>
+            <input type="password" onChange={handleFormCreateUser} name="newpass2" value={formCreateUser?.newpass2} className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Repite la contraseña</label>
+          </div>
+          <button className={style.button} onClick={createNewUser}>Confirmar</button>
+          <br></br>
+          <br></br>
+          <button className={style.button} onClick={() => setCreateUser(false)}>Atras</button>
         </div>
       </div>}
       {changeDate && <div className={style.modal}>
@@ -250,7 +305,7 @@ const Panel = () => {
           </ul>
         </div>}
         <div className={style.panelContainer}>
-          {page == 1 && <Perfil fn={() => setChangePass(true)} />}
+          {page == 1 && <Perfil createUser={() => setCreateUser(true)} fn={() => setChangePass(true)} />}
           {page == 2 && <Financiero />}
           {page == 3 && <Agenda fn={editarEvento} date={date} newDate={() => setNewDate(true)} />}
           {page == 4 && <Control />}
