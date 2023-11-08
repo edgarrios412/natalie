@@ -8,6 +8,7 @@ import documentos from "../../../assets/documentos.png"
 import { HexColorPicker } from 'react-colorful';
 import axios from "axios"
 import toast, { Toaster } from "react-hot-toast"
+import Consentimiento from './Consentimiento';
 // import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 // import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
@@ -27,10 +28,11 @@ const PacienteDetail = ({pacienteId, back}) => {
       dato.append("upload_preset","natalie")
       dato.append("api_key","612393625364863")
       dato.append("timestamp", 0)
-      const res = await axios.post("https://api.cloudinary.com/v1_1/dftvenl2z/image/upload", dato)
+      const res = await axios.post("https://api.cloudinary.com/v1_1/dftvenl2z/auto/upload", dato)
       // await axios.put("/user", {id:JSON.parse(localStorage.getItem("user")).id, image:res.data.secure_url})
       // localStorage.setItem("image", res.data.secure_url)
       console.log(res.data.secure_url)
+      setFormEvo({...formEvo, url:res.data.secure_url})
     }
 
     const reloadUser = () => {
@@ -58,20 +60,26 @@ const PacienteDetail = ({pacienteId, back}) => {
         toast.success("Evolucion creada con exito")
       }
 
+      const [consen, setConsen] = useState(true)
+
       const handleSave = () => {
         axios.put("/client", {id:pacienteId, diagrama: refCanva.current.getSaveData()})
       }
       const [evolucion, setEvolucion] = useState(false)
       const [nuevaEvolucion, setNuevaEvolucion] = useState(false)
+    
+      if(consen) return <Consentimiento fn={() => setConsen(false)} firma={refCanvaFirm} paciente={paciente}/>
+
     return (
         <>
         <Toaster/>
-        { !evolucion ? <div className={style.detailPaciente}>
+        { !evolucion ? 
+        <div className={style.detailPaciente}>
           <br></br>
           <br></br>
         <button className={style.button} onClick={back}>Volver</button>
             <div className={style.clinicHistory}>
-            <div className={style.row} style={window.innerWidth > 1300 ? {flexDirection:"row"} : {flexDirection:"column"}}>
+            { JSON.parse(localStorage.getItem("user"))?.role >= 2 && <div className={style.row} style={window.innerWidth > 1300 ? {flexDirection:"row"} : {flexDirection:"column"}}>
           <div className={style.column}>
           <p><b>Cedula:</b> {paciente ? paciente.cedula : <span style={{color:"grey"}}>Cargando..</span>}</p>
             <p><b>Nombres:</b> {paciente ? paciente.name : <span style={{color:"grey"}}>Cargando..</span>}</p>
@@ -88,7 +96,7 @@ const PacienteDetail = ({pacienteId, back}) => {
             <p><b>Email:</b> {paciente ? paciente.email : <span style={{color:"grey"}}>Cargando..</span>}</p>
             <br></br>
           </div>
-        </div>
+        </div>}
         <div className={style.row} style={window.innerWidth > 1300 ? {flexDirection:"row"} : {flexDirection:"column"}}>
           <div className={style.column}>
           <h2>Aspecto del paciente</h2>
@@ -177,7 +185,7 @@ const PacienteDetail = ({pacienteId, back}) => {
         <h3>Odontodiagrama</h3>
         <div className={style.buttons}>
         <button className={style.button} onClick={handleSave}>Guardar</button>
-        <button className={style.button} onClick={() => refCanva.current.clear()}>Limpiar</button>
+        { JSON.parse(localStorage.getItem("user"))?.role >= 2 && <button className={style.button} onClick={() => refCanva.current.clear()}>Limpiar</button>}
         </div>
         <HexColorPicker color={color} onChange={setColor} style={{margin:"50px auto"}}/>
         <CanvasDraw
@@ -213,7 +221,11 @@ const PacienteDetail = ({pacienteId, back}) => {
               <input type="date" className={style.input} placeholder=' '></input>
               <label className={style.textInput}>Proxima cita</label>
             </div>
-          <div onClick={() => alert("Aca debes mostrar los consentimientos")}>
+            <div className={style.inputContainer}>
+              <input readOnly value={paciente?.especialista} onChange={null} type="text" className={style.input} placeholder=' '></input>
+              <label className={style.textInput}>Especialista</label>
+            </div>
+          <div onClick={() => setConsen(true)}>
             <br></br>
             <img src={documentos} className={style.imgIcon}/>
             <h4 className={style.texto}>Ver consentimientos</h4>
@@ -237,7 +249,7 @@ const PacienteDetail = ({pacienteId, back}) => {
           <td className={style.topTd}>Evolucion</td>
           <td className={style.topTd}>Abono</td>
           {/* <td className={style.topTd}>Firma</td> */}
-          {/* <td className={style.topTd}>Prueba esterilizacion</td> */}
+          <td className={style.topTd}>Url</td>
           </tr>
           {paciente?.evolucions?.map(e => <tr>
           <td className={style.td}>{e.date}</td>
@@ -245,7 +257,7 @@ const PacienteDetail = ({pacienteId, back}) => {
           <td className={style.td}>{e.evolucion}</td>
           <td className={style.td}>${Number(e.abono).toLocaleString()}</td>
           {/* <td className={style.td}>FIRMA</td> */}
-          {/* <td className={style.td}><button className={style.button} onClick={() => alert("Mostrar prueba de esterilizacion")}>Ver</button></td> */}
+          <td className={style.td}><a className={style.button} href={e.url} target='blank'>Ver</a></td>
           </tr>)}
         </table>
         <br></br>
