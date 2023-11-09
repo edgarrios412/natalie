@@ -60,7 +60,7 @@ const PacienteDetail = ({pacienteId, back}) => {
         toast.success("Evolucion creada con exito")
       }
 
-      const [consen, setConsen] = useState(true)
+      const [consen, setConsen] = useState(false)
 
       const handleSave = () => {
         axios.put("/client", {id:pacienteId, diagrama: refCanva.current.getSaveData()})
@@ -68,7 +68,9 @@ const PacienteDetail = ({pacienteId, back}) => {
       const [evolucion, setEvolucion] = useState(false)
       const [nuevaEvolucion, setNuevaEvolucion] = useState(false)
     
-      if(consen) return <Consentimiento fn={() => setConsen(false)} firma={refCanvaFirm} paciente={paciente}/>
+      const [consenId, setConsenId] = useState()
+
+      if(consen) return <Consentimiento fn={() => setConsen(false)} firma={refCanvaFirm} paciente={paciente} id={consenId}/>
 
     return (
         <>
@@ -79,24 +81,24 @@ const PacienteDetail = ({pacienteId, back}) => {
           <br></br>
         <button className={style.button} onClick={back}>Volver</button>
             <div className={style.clinicHistory}>
-            { JSON.parse(localStorage.getItem("user"))?.role >= 2 && <div className={style.row} style={window.innerWidth > 1300 ? {flexDirection:"row"} : {flexDirection:"column"}}>
+          <div className={style.row} style={window.innerWidth > 1300 ? {flexDirection:"row"} : {flexDirection:"column"}}>
           <div className={style.column}>
-          <p><b>Cedula:</b> {paciente ? paciente.cedula : <span style={{color:"grey"}}>Cargando..</span>}</p>
+          { JSON.parse(localStorage.getItem("user"))?.role >= 2 && <><p><b>Cedula:</b> {paciente ? paciente.cedula : <span style={{color:"grey"}}>Cargando..</span>}</p>
             <p><b>Nombres:</b> {paciente ? paciente.name : <span style={{color:"grey"}}>Cargando..</span>}</p>
             <p><b>Edad:</b> {paciente ? paciente.edad : <span style={{color:"grey"}}>Cargando..</span>}</p>
             <p><b>Sexo:</b> {paciente ? paciente.sexo : <span style={{color:"grey"}}>Cargando..</span>}</p>
-            <p><b>Fecha nacimiento:</b> {paciente ? paciente.nacimiento : <span style={{color:"grey"}}>Cargando..</span>}</p>
+            <p><b>Fecha nacimiento:</b> {paciente ? paciente.nacimiento : <span style={{color:"grey"}}>Cargando..</span>}</p></>}
             <button className={style.button} onClick={() => setEvolucion(true)}>Evolucion</button>
           </div>
           <div className={style.column}>
-          <p><b>Direccion:</b> {paciente ? paciente.direccion : <span style={{color:"grey"}}>Cargando..</span>}</p>
+          { JSON.parse(localStorage.getItem("user"))?.role >= 2 && <><p><b>Direccion:</b> {paciente ? paciente.direccion : <span style={{color:"grey"}}>Cargando..</span>}</p>
             <p><b>Departamento:</b> {paciente ? paciente.departamento : <span style={{color:"grey"}}>Cargando..</span>}</p>
             <p><b>Ciudad:</b> {paciente ? paciente.ciudad : <span style={{color:"grey"}}>Cargando..</span>}</p>
             <p><b>Celular:</b> {paciente ? paciente.celular : <span style={{color:"grey"}}>Cargando..</span>}</p>
-            <p><b>Email:</b> {paciente ? paciente.email : <span style={{color:"grey"}}>Cargando..</span>}</p>
+            <p><b>Email:</b> {paciente ? paciente.email : <span style={{color:"grey"}}>Cargando..</span>}</p></>}
             <br></br>
           </div>
-        </div>}
+        </div>
         <div className={style.row} style={window.innerWidth > 1300 ? {flexDirection:"row"} : {flexDirection:"column"}}>
           <div className={style.column}>
           <h2>Aspecto del paciente</h2>
@@ -225,11 +227,12 @@ const PacienteDetail = ({pacienteId, back}) => {
               <input readOnly value={paciente?.especialista} onChange={null} type="text" className={style.input} placeholder=' '></input>
               <label className={style.textInput}>Especialista</label>
             </div>
-          <div onClick={() => setConsen(true)}>
-            <br></br>
-            <img src={documentos} className={style.imgIcon}/>
-            <h4 className={style.texto}>Ver consentimientos</h4>
-          </div>
+            <h4 onClick={() => {setConsen(true); setConsenId(1)}}>Consentimiento 1</h4>
+            <h4 onClick={() => {setConsen(true); setConsenId(2)}}>Consentimiento 2</h4>
+            <h4 onClick={() => {setConsen(true); setConsenId(3)}}>Consentimiento 3</h4>
+            <h4 onClick={() => {setConsen(true); setConsenId(4)}}>Consentimiento 4</h4>
+            <h4 onClick={() => {setConsen(true); setConsenId(5)}}>Consentimiento 5</h4>
+            <h4 onClick={() => {setConsen(true); setConsenId(6)}}>Consentimiento 6</h4>
         </div>
         <br></br>
         <button className={style.button} onClick={back}>Guardar</button>
