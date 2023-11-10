@@ -1,30 +1,87 @@
-import CanvasDraw from "react-canvas-draw"
-import style from "./Consentimiento.module.css"
-import { useEffect, useState } from "react"
-import { useRef } from "react"
+import { useEffect, useState } from 'react'
+import style from './Pacientes.module.css'
+import Consentimiento from './Consentimiento'
+import CanvasDraw from 'react-canvas-draw'
 import axios from "axios"
 
-const Consentimiento = ({ fn, paciente, id }) => {
+const ConsentimientoTable = ({fn, paciente}) => {
 
+    const [consenId, setConsenId] = useState(null)
+    const [newConsen, setNewConsen] = useState(false)
     const user = JSON.parse(localStorage.getItem("user"))
-    const firma = useRef()
+    const [type, setType] = useState(1)
+    const [hoy, setHoy] = useState()
 
-    const [consentimiento, setConsentimiento] = useState()
+    const [form, setForm] = useState()
 
-    const getConsen = async () => {
-        const {data} = await axios.get("/client/consen/"+id)
-        setConsentimiento(data)
+    const handleForm = (e) => {
+        const {name, value} = e.target
+        setForm({...form, [name]:value})
     }
 
+    
     useEffect(() => {
-        getConsen()
-        setTimeout(() => firma.current.loadSaveData(paciente.firma, true), 1000)
-    }, [])
+        const today = new Date();
+        
+        const day = today.getDate().toString().padStart(2, '0');
+        const month = (today.getMonth() + 1).toString().padStart(2, '0');
+        const year = today.getFullYear().toString().slice(-2);
+        
+        const formattedDate = `${day}/${month}/${year}`;
+        setHoy(formattedDate)
+    },[])
+    
+    if(consenId) return <Consentimiento fn={() => setConsenId(null)} paciente={paciente} id={consenId}/>
+    const crearConsen = async () => {
+        await axios.post("/client/compromiso", {...form,clientId:paciente?.id, type:type, profesional:`${user?.name} ${user?.lastname}`})
+        alert("Creado")
+    }
 
     return (
         <>
-            <h1 onClick={fn}>Consentimientos</h1>
-            {consentimiento?.type == 1 && <p className={style.consen}><h3>INDICACIONES DE CUIDADOS PRE y POST-OPERATORIOS PARA PACIENTES ORTODONTICOS CON MINI IMPLANTES</h3>
+        { !newConsen ? <div>
+        <h1>Consentimientos</h1> 
+        <table className={style.evolucion}>
+          <tr>
+          <td className={style.topTd}>ID</td>
+          <td className={style.topTd}>Fecha</td>
+          <td className={style.topTd}>Tipo</td>
+          <td className={style.topTd}>Firmado</td>
+          </tr>
+          {paciente?.compromisos?.map (consen => <tr onClick={() => setConsenId(consen.id)}>
+          <td className={style.td}>{consen.id}</td>
+          <td className={style.td}>{consen.date}</td>
+          {consen.type == 1 && <td className={style.td}>INDICACIONES MINI IMPLANTES</td>}
+          {consen.type == 2 && <td className={style.td}>ENDODONCIA</td>}
+          {consen.type == 3 && <td className={style.td}>ORTODONTICOS CON MINI-IMPLANTES</td>}
+          {consen.type == 4 && <td className={style.td}>OPERATORIA DENTAL</td>}
+          {consen.type == 5 && <td className={style.td}>ANESTESIA LOCAL</td>}
+          {consen.type == 6 && <td className={style.td}>URGENCIAS ODONTOLOGICAS</td>}
+          <td className={style.td}>Si</td>
+          </tr>)}
+        </table>
+        <br></br>
+        <div className={style.buttons}>
+        <button className={style.button} onClick={() => setNewConsen(true)}>Agregar</button>
+        <button className={style.button} onClick={fn}>Volver</button>
+        </div>
+        </div>:
+        <div className={style.form}>
+        <h1 onClick={() => setNewConsen(false)}>Nueva evolucion</h1>
+        <div className={style.inputContainer}>
+    {/* <input type="date" name="date" className={style.input} placeholder=' '></input> */}
+    <select className={style.input} onChange={(e) => setType(e.target.value)}>
+        <option value={1}>INDICACIONES MINI IMPLANTES</option>
+        <option value={2}>ENDODONCIA</option>
+        <option value={3}>ORTODONTICOS CON MINI-IMPLANTES</option>
+        <option value={4}>OPERATORIA DENTAL</option>
+        <option value={5}>ANESTESIA LOCAL</option>
+        <option value={6}>URGENCIAS ODONTOLOGICAS</option>
+    </select>
+    <label className={style.textInput}>Tipo</label>
+  </div>
+  <div style={{textAlign:"justify", margin:"0 auto", width:"700px"}}>
+  {type == 1 && <p className={style.consen}><h3>INDICACIONES DE CUIDADOS PRE y POST-OPERATORIOS PARA PACIENTES ORTODONTICOS CON MINI IMPLANTES</h3>
                 estimado paciente, como es de su conocimiento , para el exito de lis mini implantes, son necesarios algunos
                 cuidados entre los cuales figuran:
 
@@ -63,11 +120,11 @@ const Consentimiento = ({ fn, paciente, id }) => {
 
                 Â» CONTROLES: Concurrir a las consultas de control, establecidas.</p>}
 
-            {consentimiento?.type == 2 && <p className={style.consen}><h3>CONSENTIMIENTO INFORMADO DE ENDODONCIA</h3>
+            {type == 2 && <p className={style.consen}><h3>CONSENTIMIENTO INFORMADO DE ENDODONCIA</h3>
 
-                Ciudad: <input value={paciente.ciudad} disabled type="text" className={style.inputCon} /> fecha : <input type="text" value={consentimiento?.date} disabled className={style.inputCon} /> Yo: <input value={paciente.name} disabled type="text" className={style.inputCon} /> identificado con CC <input value={paciente.cedula} disabled type="text" className={style.inputCon} />
+                Ciudad: <input value={paciente.ciudad} disabled type="text" className={style.inputCon} /> fecha : <input type="date" name="date" onChange={handleForm} className={style.inputCon} /> Yo: <input value={paciente.name} disabled type="text" className={style.inputCon} /> identificado con CC <input value={paciente.cedula} disabled type="text" className={style.inputCon} />
                 actuando en nombre propio o como representante legal del menor de edad o persona con incapacidad mental para tomar
-                decisiones cuyo nombre es: <input type="text" value={consentimiento?.menorname} disabled className={style.inputCon} /> con documento de identidad No. <input type="text" value={consentimiento?.menorcedula} disabled className={style.inputCon} />
+                decisiones cuyo nombre es: <input type="text" name="menorname" onChange={handleForm} className={style.inputCon} /> con documento de identidad No. <input type="text" onChange={handleForm} name="menorcedula" className={style.inputCon} />
 
                 <h4>DECLARO QUE SE ME HA INFORMADO</h4>
 
@@ -102,11 +159,11 @@ const Consentimiento = ({ fn, paciente, id }) => {
                 *Realizar la restauración definitiva del diente tratado con endodoncia a mas tardar un mes después de terminado el tratamiento.
                 *En tratamientos de endodoncia, no interrumpir el tratamiento y cumplir las citas hasta finalizar el tratamiento. </p>}
 
-            {consentimiento?.type == 3 && <p className={style.consen}><h3>CONSENTIMIENTO INFORMADO PARA PACIENTES ORTODONTICOS CON MINI-IMPLANTES</h3>
+            {type == 3 && <p className={style.consen}><h3>CONSENTIMIENTO INFORMADO PARA PACIENTES ORTODONTICOS CON MINI-IMPLANTES</h3>
 
-                NOMBRE Y APELLIDO DEL PROFESIONAL:<input type="text" value={consentimiento?.profesional} disabled className={style.inputCon} />
+                NOMBRE Y APELLIDO DEL PROFESIONAL:<input type="text" name="profesional" onChange={handleForm} value={`${user?.name} ${user?.lastname}`} disabled className={style.inputCon} />
 
-                CONSULTORIO":<input type="text" value={consentimiento?.consultorio} disabled className={style.inputCon} />
+                CONSULTORIO":<input type="text" name="consultorio" onChange={handleForm} className={style.inputCon} />
 
                 ¿Que son los mini-Implantes?
                 Los miniimplantes son pequeñostornillos de titanio que pueden ser empleados en el tratamiento ortodontico
@@ -160,13 +217,13 @@ const Consentimiento = ({ fn, paciente, id }) => {
                 publicaciones SI( )NO( ).
 
                 Nombre y apellido del paciente:<input type="text" value={paciente.name} disabled className={style.inputCon} /> Edad: <input type="text" value={paciente.edad} disabled className={style.inputCon} />
-                Fecha: <input type="text" value={consentimiento?.date} disabled className={style.inputCon} />
+                Fecha: <input type="date" onChange={handleForm} className={style.inputCon} />
             </p>}
-            {consentimiento?.type == 4 && <p className={style.consen}><h3>CONSENTIMIENTO INFORMADO DE OPERATORIA DENTAL</h3>
+            {type == 4 && <p className={style.consen}><h3>CONSENTIMIENTO INFORMADO DE OPERATORIA DENTAL</h3>
 
-                Ciudad: <input value={paciente.ciudad} disabled type="text" className={style.inputCon} /> fecha : <input type="text" value={consentimiento?.date} disabled className={style.inputCon} /> Yo: <input value={paciente.name} disabled type="text" className={style.inputCon} /> identificado con CC <input value={paciente.cedula} disabled type="text" className={style.inputCon} />
+                Ciudad: <input value={paciente.ciudad} disabled type="text" className={style.inputCon} /> fecha : <input type="date" name="date" onChange={handleForm} className={style.inputCon} /> Yo: <input value={paciente.name} disabled type="text" className={style.inputCon} /> identificado con CC <input value={paciente.cedula} disabled type="text" className={style.inputCon} />
                 actuando en nombre propio o como representante legal del menor de edad o persona con incapacidad mental para tomar
-                decisiones cuyo nombre es: <input type="text" value={consentimiento?.menorname} disabled className={style.inputCon} /> con documento de identidad No. <input type="text" value={consentimiento?.menorcedula} disabled className={style.inputCon} />
+                decisiones cuyo nombre es: <input type="text" name="menorname" onChange={handleForm} className={style.inputCon} /> con documento de identidad No. <input type="text" name="menorcedula" onChange={handleForm} className={style.inputCon} />
 
                 DECLARO QUE SE ME HA INFORMADO
 
@@ -209,21 +266,21 @@ const Consentimiento = ({ fn, paciente, id }) => {
                 ocurre reacciones (brotes, rasquiña, dolor estomacal)debe suspenderlos y consultar con el odontólogo.
                 *Acudir al odontólogo si presenta dolor agudo o fuerte.
             </p>}
-            {consentimiento?.type == 5 && <p className={style.consen}>
+            {type == 5 && <p className={style.consen}>
 
                 <h3>FORMULARIO DE CONSENTIMIENTO INFORMADO PARA ANESTESIA LOCAL</h3>
 
                 {paciente.edad > 17 ? <p>El Sr(a)<input type="text" disabled value={paciente.name} className={style.inputCon} />  de <input type="text" value={paciente.edad} disabled className={style.inputCon} />años de edad,
                     con cedula de ciudadanía No. <input value={paciente.cedula} disabled type="text" className={style.inputCon} /> de <input type="text" value={paciente.departamento} disabled className={style.inputCon} /> con domicilio en la <input value={paciente.direccion} disabled type="text" className={style.inputCon} /> de <input value={paciente.ciudad} disabled type="text" className={style.inputCon} /></p>
                     :
-                    <p>El Sr(a) <input type="text" disabled className={style.inputCon} /> de <input type="text" disabled className={style.inputCon} /> años de edad,  con cedula
-                        de ciudadania No. <input type="text" disabled className={style.inputCon} /> de <input type="text" disabled className={style.inputCon} /> con domicilio  en la <input type="text" className={style.inputCon} /> de <input type="text" className={style.inputCon} /> en calidad de
-                        acudiente de el Sr(a) <input type="text" value={consentimiento?.menorname} disabled className={style.inputCon} />.</p>}
+                    <p>El Sr(a) <input type="text" value={paciente.name} disabled className={style.inputCon} /> de <input type="text" disabled value={paciente.edad} className={style.inputCon} /> años de edad,  con cedula
+                        de ciudadania No. <input type="text" disabled value={paciente.cedula} className={style.inputCon} /> de <input type="text" value={paciente.departamento} disabled className={style.inputCon} /> con domicilio  en la <input type="text" value={paciente.direccion} className={style.inputCon} /> de <input type="text" value={paciente.ciudad} className={style.inputCon} /> en calidad de
+                        acudiente de el Sr(a) <input type="text" name="menorname" onChange={handleForm} className={style.inputCon} />.</p>}
 
 
                 DECLARO
 
-                Que el/la Dr.(a) <input type="text" value={consentimiento?.profesional} disabled className={style.inputCon} /> me ha
+                Que el/la Dr.(a) <input type="text" name="profesional" onChange={handleForm} value={`${user?.name} ${user?.lastname}`} disabled className={style.inputCon} /> me ha
                 explicado que el tratamiento que voy a recibir Implica a administración de ANESTESIA LOCAL.
 
                 * El propósito principal de la anestesia es interrumpir transitoriamente la función
@@ -256,10 +313,10 @@ const Consentimiento = ({ fn, paciente, id }) => {
                 El/la profesional me ha explicado que de acuerdoa mis antecedentes personales
                 Aqui firman el paciente y el doctor!!
             </p>}
-            {consentimiento?.type == 6 && <p className={style.consen}><h3>CONSENTIMIENTO INFORMADO PARA URGENCIAS ODONTOLOGICAS</h3>
+            {type == 6 && <p className={style.consen}><h3>CONSENTIMIENTO INFORMADO PARA URGENCIAS ODONTOLOGICAS</h3>
 
 
-                Ciudad:<input type="text" value={paciente.ciudad} className={style.inputCon} />      fecha: <input type="text" value={consentimiento?.date} disabled className={style.inputCon} />
+                Ciudad:<input type="text" value={paciente.ciudad} className={style.inputCon} />      fecha: <input type="text" className={style.inputCon} />
 
 
                 Yo:<input type="text" value={paciente.name} disabled className={style.inputCon} />  identificado con  CC <input type="text" disabled value={paciente.cedula} className={style.inputCon} />
@@ -316,21 +373,28 @@ const Consentimiento = ({ fn, paciente, id }) => {
 
                 *Ingestión de piezas dentarias o de instrumentaria. </p>}
 
-            <CanvasDraw
+            {/* <CanvasDraw
                 // onChange={handleSave}
                 lazyRadius={0}
                 disabled
                 // imgSrc={foto}
                 brushRadius={1.5}
                 hideInteenablePanAndZoom={true}
-                ref={firma}
+                // ref={firma}
                 brushColor="black"
                 loadTimeOffset={0}
                 style={{ width: "400px", height: "180px", margin: "0 auto" }}
-            />
-            <button onClick={fn} className={style.button}>Volver</button>
+            /> */}
+
+    </div>  
+  <div className={style.buttons}>
+  <button className={style.button} onClick={() => {setNewConsen(false); crearConsen()}}>Firmar</button>
+  <button className={style.button} onClick={() => setNewConsen(false)}>Volver</button>
+  </div>
+    </div>
+        }
         </>
     )
 }
 
-export default Consentimiento
+export default ConsentimientoTable

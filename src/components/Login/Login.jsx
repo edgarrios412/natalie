@@ -25,7 +25,6 @@ const Login = () => {
   const auth = async () => {
     if(!localStorage.getItem("token")) return
     const {data} = await axios.post("/user/auth", {token:localStorage.getItem("token")})
-    console.log(data)
       if(data.status) {
         navigate("/panel")
         localStorage.setItem("user",JSON.stringify(data.user))

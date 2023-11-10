@@ -36,7 +36,6 @@ const Pacientes = ({find}) => {
     }
   },[find])
 
-console.log(filterP)
   return(
     <>
     <Toaster position="top-center"/>

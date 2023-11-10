@@ -130,7 +130,6 @@ const Panel = () => {
   }
 
   const saveChangePass = async () => {
-    console.log(formPass)
     if(formPass.newpass !== formPass.newpass2) return toast.error("Las contraseñas no coinciden")
     const {data} = await axios.put("/user", formPass)
     setChangePass(false)
@@ -148,7 +147,6 @@ const Panel = () => {
   useEffect(() => {
     const dateSelect = date.find(d => d.id == changeDate)
     setDateSelected(dateSelect)
-    console.log(dateSelect)
   },[changeDate])
 
   const [visible, setVisible] = useState(false)

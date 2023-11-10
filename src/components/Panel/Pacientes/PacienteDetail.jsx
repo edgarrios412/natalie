@@ -9,6 +9,7 @@ import { HexColorPicker } from 'react-colorful';
 import axios from "axios"
 import toast, { Toaster } from "react-hot-toast"
 import Consentimiento from './Consentimiento';
+import ConsentimientoTable from './ConsentimientoTable';
 // import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 // import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
@@ -31,7 +32,6 @@ const PacienteDetail = ({pacienteId, back}) => {
       const res = await axios.post("https://api.cloudinary.com/v1_1/dftvenl2z/auto/upload", dato)
       // await axios.put("/user", {id:JSON.parse(localStorage.getItem("user")).id, image:res.data.secure_url})
       // localStorage.setItem("image", res.data.secure_url)
-      console.log(res.data.secure_url)
       setFormEvo({...formEvo, url:res.data.secure_url})
     }
 
@@ -48,7 +48,6 @@ const PacienteDetail = ({pacienteId, back}) => {
 
       const handleFormEvo = (e) => {
         const {name,value} = e.target
-        console.log(value)
         setFormEvo({...formEvo, [name]:value})
       }
 
@@ -70,7 +69,7 @@ const PacienteDetail = ({pacienteId, back}) => {
     
       const [consenId, setConsenId] = useState()
 
-      if(consen) return <Consentimiento fn={() => setConsen(false)} firma={refCanvaFirm} paciente={paciente} id={consenId}/>
+      if(consen) return <ConsentimientoTable fn={() => setConsen(false)} firma={refCanvaFirm} paciente={paciente} id={consenId}/>
 
     return (
         <>
@@ -227,12 +226,7 @@ const PacienteDetail = ({pacienteId, back}) => {
               <input readOnly value={paciente?.especialista} onChange={null} type="text" className={style.input} placeholder=' '></input>
               <label className={style.textInput}>Especialista</label>
             </div>
-            <h4 onClick={() => {setConsen(true); setConsenId(1)}}>Consentimiento 1</h4>
-            <h4 onClick={() => {setConsen(true); setConsenId(2)}}>Consentimiento 2</h4>
-            <h4 onClick={() => {setConsen(true); setConsenId(3)}}>Consentimiento 3</h4>
-            <h4 onClick={() => {setConsen(true); setConsenId(4)}}>Consentimiento 4</h4>
-            <h4 onClick={() => {setConsen(true); setConsenId(5)}}>Consentimiento 5</h4>
-            <h4 onClick={() => {setConsen(true); setConsenId(6)}}>Consentimiento 6</h4>
+            <button className={style.button} onClick={() => {setConsen(true)}}>Ver consentimientos</button>
         </div>
         <br></br>
         <button className={style.button} onClick={back}>Guardar</button>

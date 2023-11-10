@@ -70,15 +70,9 @@ const Financiero = () => {
     const month = pago.date?.split("-")[1];
     const year = pago.date?.split("-")[0];
 
-    // console.log(today.getDate() >= day)
-    // console.log(day > today.getDate() - 3)
-    console.log(day)
-    console.log(today.getDate() - 3)
     if (year == new Date().getUTCFullYear() && month == new Date().getMonth() + 1) {
       if (today.getDate() >= day && day > today.getDate() - 3) {
-        console.log(pago)
         const existingMonth = accumulator.find((item) => item.name === day);
-        console.log(accumulator)
         if (existingMonth) {
           if (existingMonth[pago.tipo] === undefined) {
             existingMonth[pago.tipo] = 0; // Inicializa como 0 si es undefined

@@ -24,7 +24,6 @@ const PacienteForm = ({ back }) => {
   const handleFormCheck = (e) => {
     const {name,checked} = e.target
     formCheck[name] = checked
-    console.log(formCheck)
   }
 
   useEffect(() => {
