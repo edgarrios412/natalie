@@ -16,6 +16,18 @@ const PacienteForm = ({ back }) => {
   const [form, setForm] = useState()
   var formCheck = []
 
+  const uploadImage = async (e) => {
+    const files = e.target.files;
+    const dato = new FormData();
+    dato.append("file", files[0]);
+    dato.append("upload_preset","natalie")
+    dato.append("api_key","612393625364863")
+    dato.append("timestamp", 0)
+    const res = await axios.post("https://api.cloudinary.com/v1_1/dftvenl2z/image/upload", dato)
+    setForm({...form, image:res.data.secure_url})
+    console.log(res.data.secure_url)
+  }
+
   const handleForm = (e) => {
     const {name,value} = e.target
     setForm({...form, [name]: value})
@@ -69,6 +81,9 @@ const PacienteForm = ({ back }) => {
             <div className={style.inputContainer}>
               <input value={form?.nacimiento} type="date" name="nacimiento" onChange={handleForm} className={style.input} placeholder=' '></input>
               <label className={style.textInput}>Fecha de nacimiento</label>
+            </div>
+            <div className={style.inputContainer}>
+              <input type="file" name="image" onChange={uploadImage} className={style.input} placeholder=' '></input>
             </div>
           </div>
           <div className={style.column}>
