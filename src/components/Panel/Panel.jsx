@@ -11,6 +11,7 @@ import axios from "axios"
 import {HiMenu} from "react-icons/hi"
 import {GrClose} from "react-icons/gr"
 import toast , { Toaster } from 'react-hot-toast';
+import Cotizacion from './Cotizacion/Cotizacion';
 
 const Panel = () => {
 
@@ -310,6 +311,7 @@ const Panel = () => {
           {page == 3 && <Agenda fn={editarEvento} date={date} newDate={() => setNewDate(true)} />}
           {page == 4 && <Control />}
           {page == 5 && <Pacientes find={find} />}
+          {page == 6 && <Cotizacion />}
         </div>
       </div>
     </>

@@ -162,109 +162,116 @@ const ConsentimientoTable = ({fn, paciente}) => {
             {type == 3 && <p className={style.consen}><h3>CONSENTIMIENTO INFORMADO PARA PACIENTES ORTODONTICOS CON MINI-IMPLANTES</h3>
 
                 NOMBRE Y APELLIDO DEL PROFESIONAL:<input type="text" name="profesional" onChange={handleForm} value={`${user?.name} ${user?.lastname}`} disabled className={style.inputCon} />
+                <br></br>
+                CONSULTORIO:<input type="text" name="consultorio" onChange={handleForm} className={style.inputCon} />
 
-                CONSULTORIO":<input type="text" name="consultorio" onChange={handleForm} className={style.inputCon} />
-
-                ¿Que son los mini-Implantes?
-                Los miniimplantes son pequeñostornillos de titanio que pueden ser empleados en el tratamiento ortodontico
+                <h4>¿Que son los mini-Implantes?</h4>
+                Los mini-implantes son pequeños tornillos de titanio que pueden ser empleados en el tratamiento ortodontico
                 con el objetivo de apoyar en la base osea (maxilar o mandibula) las fuerzas necesarias para mover los dientes
 
 
-                Ventajas del uso de estos dispositivos en su tratamiento:
+                <h4>Ventajas del uso de estos dispositivos en su tratamiento:</h4>
                 Cuando utilizamos, evitamos apoyar las fuerzas en los dientes que no queremos mover, lo que acelera el tratamiento
-                y evita efects indeseados en estos dientes. Con los mini-implantes ampliamos las posibilidades de movimientos.
+                y evita efectos indeseados en estos dientes. Con los mini-implantes ampliamos las posibilidades de movimientos.
 
 
-                ¿Como se instalan los mini-mplantes?
+                <h4>¿Como se instalan los mini-implantes?</h4>
                 Luego de la planificación bucal por medio de un examen clínico, radiográfico/tomográfico, se selecciona el sitio de colocación.
-                La Instalación del min implante es quirúrgica, por lo general, rápida y con anestésta local.
+                La Instalación del mini-implante es quirúrgica, por lo general, rápida y con anestesia local.
 
-                Riesgos por el uso de mini-implantes:
+                <h4>Riesgos por el uso de mini-implantes:</h4>
 
-                1-Perdida del mini-mplante por falta de higienación de la zona por parte del paciente, por una calidad
-                inadecuada de hueso en el sitio (no siem. determinar antes de la colocación) o por la fuerza aplicada.
-
+                1-Perdida del mini-implante por falta de higienización de la zona por parte del paciente, por una calidad
+                inadecuada de hueso en el sitio (no siempre determinar antes de la colocación) o por la fuerza aplicada.
+                    <br></br>
                 2-Necesidad de reposicionamiento del mini-implante en función del movimiento (para evitar el contacto
                 de la raiz del diente en el movimiento)
-
-                3-Contacto del mini-mplante con la raÃ­z del diente en la instalacion (En caso puede ser necesario
+                <br></br>
+                3-Contacto del mini-implante con la raiz del diente en la instalacion (En caso puede ser necesario
                 reinstalar el mini-implante)
-
+                <br></br>
                 4-Fractura del mini-implante durante la instalación, el tratamiento o la remoción. En caso de fractura
-                del mintimplante, puede haber necesidad de un control radiográfico del dispositivo, mantener el fragmento o
-                evaluar si es necesario extraerlo por medio de una cirugía),
-
-                5- Si se prevé la aparición de Inflamación o dolor, puede estar indicado el uso de antinflamatorios o
+                del mini-implante, puede haber necesidad de un control radiográfico del dispositivo, mantener el fragmento o
+                evaluar si es necesario extraerlo por medio de una cirugía
+                <br></br>
+                5- Si se prevee la aparición de Inflamación o dolor, puede estar indicado el uso de antinflamatorios o
                 analgésicos
-
+                <br></br>
                 6-Falta de firmeza del mini-implante y necesidad de ajustarlo o reposicionarlo nuevamente.
-
+                <br></br>
                 7-Aftas, inflamación en el sitio de la colocación, crecimiento de la mucosa que rodea al mini-implante o,
                 en casos mas raros, infecciones locales u óseas (osteomielitis)
-
+                <br></br><br></br>
                 ¿Usted sabia que el uso de mini-mplantes plantea riesgos?
-
-                ()si (In
-
+                <br></br>
+                Si ( ) No ( )
+                <br></br><br></br>
                 Certifico que he leído y comprendido la información, el profesional ha discutido el tratamiento conmigo
                 y tuve la oportunidad de preguntarle todas mis dudas sobre los mini-implantes y sobre la Información
                 contenida en el folleto explicativo. Estoy consciente de la necesidad de Higienización correcta y de las
-                citas regulares para control y evaluación de los mini-Implantes, además de reconocer que no hay
+                citas regulares para control y evaluación de los mini-implantes, además de reconocer que no hay
                 garantías de éxito en el uso de los dispositivos, pues depende de la respuesta del organismo. Autorizo el
-                uso de mini-Implantes en el paciente citado a continuación.
+                uso de mini-implantes en el paciente citado a continuación.
+                <br></br>
                 Si ( ) No ( )
-                Autorizo también la utilización de fotografías y radiografías en medios de divulgación cientÃ­fica y
-                publicaciones SI( )NO( ).
-
-                Nombre y apellido del paciente:<input type="text" value={paciente.name} disabled className={style.inputCon} /> Edad: <input type="text" value={paciente.edad} disabled className={style.inputCon} />
+                <br></br><br></br>
+                Autorizo también la utilización de fotografías y radiografías en medios de divulgación cientifica y
+                publicaciones 
+                <br></br>
+                Si ( ) No ( )
+                <br></br><br></br>
+                Nombre y apellido del paciente:<input type="text" value={paciente.name} disabled className={style.inputCon} /> 
+                <br></br>
+                Edad: <input type="text" value={paciente.edad} disabled className={style.inputCon} />
+                <br></br>
                 Fecha: <input type="date" onChange={handleForm} className={style.inputCon} />
             </p>}
             {type == 4 && <p className={style.consen}><h3>CONSENTIMIENTO INFORMADO DE OPERATORIA DENTAL</h3>
 
-                Ciudad: <input value={paciente.ciudad} disabled type="text" className={style.inputCon} /> fecha : <input type="date" name="date" onChange={handleForm} className={style.inputCon} /> Yo: <input value={paciente.name} disabled type="text" className={style.inputCon} /> identificado con CC <input value={paciente.cedula} disabled type="text" className={style.inputCon} />
-                actuando en nombre propio o como representante legal del menor de edad o persona con incapacidad mental para tomar
+                Ciudad: <input value={paciente.ciudad} disabled type="text" className={style.inputCon} /> 
+                <br></br>
+                Fecha: <input type="date" name="date" onChange={handleForm} className={style.inputCon} /> 
+                <br></br><br></br>
+                Yo: <input value={paciente.name} disabled type="text" className={style.inputCon} /> identificado con CC <input value={paciente.cedula} disabled type="text" className={style.inputCon} /> actuando en nombre propio o como representante legal del menor de edad o persona con incapacidad mental para tomar
                 decisiones cuyo nombre es: <input type="text" name="menorname" onChange={handleForm} className={style.inputCon} /> con documento de identidad No. <input type="text" name="menorcedula" onChange={handleForm} className={style.inputCon} />
+                <br></br>
+                <br></br>
+                <h4>DECLARO QUE SE ME HA INFORMADO</h4>
+                <br></br>
 
-                DECLARO QUE SE ME HA INFORMADO
-
-                *Mi responsabilidad como usuario de asistir a las citas de revision o control programadas.
+                * Mi responsabilidad como usuario de asistir a las citas de revision o control programadas.
+                <br></br>
                 * En caso de recibir anestesia, la recomendación de evitar morder el labio o carrillo de la(s) área(s) anestesiada(s).
-                *Se requiere informar la odontólogo, en caso de alergico(a) a algun medicamento o tenido antecedentes de alergias a la anestesia local
-                *La necesidad de presentar Información verídica y real sobre antecedentes al odontólogo y cualquier cambio en el estado de la salud.
+                <br></br>
+                * Se requiere informar la odontólogo, en caso de alergico(a) a algun medicamento o tenido antecedentes de alergias a la anestesia local
+                <br></br>
+                * La necesidad de presentar Información verídica y real sobre antecedentes al odontólogo y cualquier cambio en el estado de la salud.
 
-
-                DECLARO QUE SE ME HA INFORMADO
-
-                *Mi responsabilidad como usuario de asistir a las citas de revision o control programadas.
-                * En caso de recibir anestesia, la recomendación de evitar morder el labio o carrillo de la(s) área(s) anestesiada(s).
-                *Se requiere informar la odontólogo, en caso de alergico(a) a algun medicamento o tenido antecedentes de alergias a la anestesia local
-                *La necesidad de presentar Información verídica y real sobre antecedentes al odontólogo y cualquier cambio en el estado de la salud.
-
-
+                <br></br><br></br>
                 Operatoria: actividades realizadas en las superficies de los dientes que tiene como finalidad eliminar la caries o
-                reconstruir superficies fracturada, incluye la eliminacionde las partes de la estructura dentaria o en su defecto la remodelación adecuada para recibir
+                reconstruir superficies fracturada, incluye la eliminacion de las partes de la estructura dentaria o en su defecto la remodelación adecuada para recibir
                 posteriormente los materiales restauradores. Dichos materiales pueden ser temporales o definitivos (calza o cemento temporal)
-
-                RIESGOS Y/O COMPLICACIONES
-
-                *Fractura de la restauración debido a su extensión:
-                *Desalojo de la restauración debido a su extensión y/o dificil retención
-                *Fractura de la estructura dental permanente cuando la perdida sea mayor al 65% o por debilidad de las paredes.
-                *Sensibilidad dental leve a cambios térmicos (calor 0 frio) que disminuya con el tiempo
-                *Sangrado, laceraciones de tejidos orales con fresa o instrumentos utilizados en el procedimiento.
-                *Posibilidad de requerir tratamiento endodontico y/o protésico posterior.
-                *Cambio de color en la restauración.
-                *Ingestión de materiales o instrumentos utilizados durante el procedimiento.
-
-                RECOMENDACIONES QUE APLICAN
-
-                *Acatar las instrucciones sobre técnicas e implementos para mantener una higiene oral.
-                *No consumir alimentos durante las primeras dos horas
-                *No consumir alimentos duros o pegajosos las primeras 72 horas.
-                *Evitar golpes en los dientes.
-                *Tomar los medicamentos ordenados por el odontólogo como esta en la prescripción, si
-                ocurre reacciones (brotes, rasquiña, dolor estomacal)debe suspenderlos y consultar con el odontólogo.
-                *Acudir al odontólogo si presenta dolor agudo o fuerte.
+                <br></br><br></br>
+                <h4>RIESGOS Y/O COMPLICACIONES</h4>
+                <br></br>
+                * Fractura de la restauración debido a su extensión:<br></br>
+                * Desalojo de la restauración debido a su extensión y/o dificil retención<br></br>
+                * Fractura de la estructura dental permanente cuando la perdida sea mayor al 65% o por debilidad de las paredes.<br></br>
+                * Sensibilidad dental leve a cambios térmicos (calor o frio) que disminuya con el tiempo<br></br>
+                * Sangrado, laceraciones de tejidos orales con fresa o instrumentos utilizados en el procedimiento.<br></br>
+                * Posibilidad de requerir tratamiento endodontico y/o protésico posterior.<br></br>
+                * Cambio de color en la restauración.<br></br>
+                * Ingestión de materiales o instrumentos utilizados durante el procedimiento.<br></br>
+                <br></br><br></br>
+                <h4>RECOMENDACIONES QUE APLICAN</h4>
+                <br></br>
+                * Acatar las instrucciones sobre técnicas e implementos para mantener una higiene oral.<br></br>
+                * No consumir alimentos durante las primeras dos horas<br></br>
+                * No consumir alimentos duros o pegajosos las primeras 72 horas.<br></br>
+                * Evitar golpes en los dientes.<br></br>
+                * Tomar los medicamentos ordenados por el odontólogo como esta en la prescripción, si
+                ocurre reacciones (brotes, rasquiña, dolor estomacal) debe suspenderlos y consultar con el odontólogo.<br></br>
+                * Acudir al odontólogo si presenta dolor agudo o fuerte.<br></br>
             </p>}
             {type == 5 && <p className={style.consen}>
 
@@ -276,27 +283,26 @@ const ConsentimientoTable = ({fn, paciente}) => {
                     <p>El Sr(a) <input type="text" value={paciente.name} disabled className={style.inputCon} /> de <input type="text" disabled value={paciente.edad} className={style.inputCon} /> años de edad,  con cedula
                         de ciudadania No. <input type="text" disabled value={paciente.cedula} className={style.inputCon} /> de <input type="text" value={paciente.departamento} disabled className={style.inputCon} /> con domicilio  en la <input type="text" value={paciente.direccion} className={style.inputCon} /> de <input type="text" value={paciente.ciudad} className={style.inputCon} /> en calidad de
                         acudiente de el Sr(a) <input type="text" name="menorname" onChange={handleForm} className={style.inputCon} />.</p>}
-
-
-                DECLARO
-
+                        <br></br>
+                        <h4>DECLARO</h4>
+                <br></br>
                 Que el/la Dr.(a) <input type="text" name="profesional" onChange={handleForm} value={`${user?.name} ${user?.lastname}`} disabled className={style.inputCon} /> me ha
                 explicado que el tratamiento que voy a recibir Implica a administración de ANESTESIA LOCAL.
-
+                <br></br><br></br>
                 * El propósito principal de la anestesia es interrumpir transitoriamente la función
                 sensitiva con el fin de realizar el tratamiento sin dolor.
-
-                * Le enestesia consiste en proporcionar, mediante una inyección, sustancias que
+                <br></br>
+                * Le anestesia consiste en proporcionar, mediante una inyección, sustancias que
                 provocan un bloqueo reversible de los impulsos nervioso, de tal manera que se
                 interrumpa transitoriamente la función sensitiva.
-
+                <br></br>
                 * El/la profesional me ha explicado que voy a tener la sensación de adormecimiento del
                 labio o de la cara, que normalmente van a desaparecer espontáneamente entre una y
                 cuatro horas, de acuerdo con la velocidad que mi organismo metabolice el anestésico,
                 durante este tiempo debo cuidarme de no morderme ni lastimarme, para no crear
                 lesiones traumáticas por mordeduras ya que por el adormecimiento presente en los
                 tejidos puedo auto lastimarme sin darme cuenta.
-
+                <br></br>
                 * También me ha explicado que la administración de la anestesia puede provocar, en el
                 lugar o zona en que se administre la inyección, ulceración de la mucosa y dolor y con
                 menos frecuencia, limitaciones en el momento de apertura o cierre en la boca
@@ -304,88 +310,76 @@ const ConsentimientoTable = ({fn, paciente}) => {
                 Una baja en la presión arterial o sensación de mareo Y en muy pocas ocasiones puede
                 provocar una parestesia prolongada (sensación de adormecimiento), que puede ir de
                 unos días hasta varios meses, en caso de pincharse un nervio.
-
-                *Comprendo que, aunque según se me ha explicado, de mis antecedentes personales
+                <br></br>
+                * Comprendo que, aunque según se me ha explicado, de mis antecedentes personales
                 no se deducen posibles alergias o hipersensibilidad al agente anestésico. La anestesia
                 puede provocar urticaria, dermatitis por contacto o generar, asma, edema
                 angioneurotico, que en caso extremos, puede fequerir tratamiento URGENTE ,
-
-                El/la profesional me ha explicado que de acuerdoa mis antecedentes personales
-                Aqui firman el paciente y el doctor!!
+                <br></br><br></br>
+                El/la profesional me ha explicado que de acuerdo a mis antecedentes personales<br></br><br></br>
             </p>}
             {type == 6 && <p className={style.consen}><h3>CONSENTIMIENTO INFORMADO PARA URGENCIAS ODONTOLOGICAS</h3>
 
 
-                Ciudad:<input type="text" value={paciente.ciudad} className={style.inputCon} />      fecha: <input type="text" className={style.inputCon} />
+                Ciudad:<input type="text" value={paciente?.ciudad} disabled className={style.inputCon} />
+                <br></br>
+                Fecha: <input type="date" name="date" className={style.inputCon} />
+                <br></br><br></br>
 
-
-                Yo:<input type="text" value={paciente.name} disabled className={style.inputCon} />  identificado con  CC <input type="text" disabled value={paciente.cedula} className={style.inputCon} />
+                Yo: <input type="text" value={paciente.name} disabled className={style.inputCon} />  identificado con  CC <input type="text" disabled value={paciente.cedula} className={style.inputCon} />
                 Actuando en nombre propio  o como represent legal del menor de edad o de la persona con
                 incapacidad mental para tomar decisiones cuyo nombre es: <input type="text" className={style.inputCon} />
-                con documento de identidad No <input type="text" className={style.inputCon} />.
-
-                DECLARO QUE SE ME HA INFORMADO
-
-                *Mi responsabilidad como usuario de asistir cumplidamente a las citas de remisión y/o
+                con documento de identidad No <input type="text" className={style.inputCon} />
+                <br></br><br></br>
+                <h4>DECLARO QUE SE ME HA INFORMADO</h4>
+                <br></br>
+                * Mi responsabilidad como usuario de asistir cumplidamente a las citas de remisión y/o
                 control posteriores a la atencion de urgencias.
-
-                *En caso de requirir anestesia, la recomendaciones para evitar morderme el labio o
+                <br></br>
+                * En caso de requirir anestesia, la recomendaciones para evitar morderme el labio o
                 carrillo del (las) áreas(s) anestestada(s).
-
-                *Solicitar cita en caso de presentarse signos o síntomas posteriores a la realización del
+                <br></br>
+                * Solicitar cita en caso de presentarse signos o síntomas posteriores a la realización del
                 tratamiento.
-
-                *Necesidad de informar al odontólogo, en caso de ser alérgico(a) a algún medicamento o
+                <br></br>
+                * Necesidad de informar al odontólogo, en caso de ser alérgico(a) a algún medicamento o
                 teniendo antecedentes de alergia a la anestesia local.
-
+                <br></br>
                 * La necesidad de presentar la información verídica y real sobre antecedentes médicos,
                 odontológicos y cualquier cambio en el estado de la salud.
-
+                <br></br>
                 * Seguir recomendaciones pre quirúrgicas, suspensión o tomas de medicamentos,
                 exámenes de laboratorio, dietas recomendadas etc. En caso de ser remitido a una
                 intervención quirúrgica o procedimiento programado posteriormente.
-
-                * - Asistir cumplidamente a las citas de control
-
-                ATENCION DE URGENCIAS
-
+                <br></br>
+                * Asistir cumplidamente a las citas de control
+                <br></br><br></br>
+                <h4>ATENCION DE URGENCIAS</h4>
+                <br></br>
                 Atención de urgencias: atención clínica que requiere y recibe un paciente por presentar una
                 condición clínica aguda, o de aparición súbita, que no da espera a la consulta programada o
                 electiva como solución de procesos agudos, dolorosos, hemorrágicos, traumáticos o
                 infecciosos. En esta atención se brinda la solución preliminar del caso clínico sin practicar el
                 tratamiento definitivo, salvo cuando la condición clínica permite practicar el mismo.
-
+                <br></br>
                 Urgencia no accidental: entendido como la atención urgida por causa de un dolor, edema,
                 sangrado o situación que amerite atención inmediata, siendo eliminado el dolor o el factor
                 inicial del evento sin realizar tratamiento definitivo.
-
+                <br></br>
                 Urgencia accidental: entendida esta por la lesión causada por un accidente sobre los tejidos
                 propios del paciente.
-
-                RIESGOS Y/O COMPLICACIONES
-
-                *Hemorragias, infección, alveoltis, edemas, perdida de la sensibilidad dental o de zonas
+                <br></br><br></br>
+                <h4>RIESGOS Y/O COMPLICACIONES</h4>
+                <br></br>
+                * Hemorragias, infección, alveoltis, edemas, perdida de la sensibilidad dental o de zonas
                 de cavidad oral y cara
-
-                *Fracturas Oseas, comunicación con seno, Paretesa, equimosis, rismos, Imitación de la apertura, fractura dental
-
-                *Desplazamiento de las piezas dentales al interior del tejido, laceracion de los tejidos.
-
-                *Ingestión de piezas dentarias o de instrumentaria. </p>}
-
-            {/* <CanvasDraw
-                // onChange={handleSave}
-                lazyRadius={0}
-                disabled
-                // imgSrc={foto}
-                brushRadius={1.5}
-                hideInteenablePanAndZoom={true}
-                // ref={firma}
-                brushColor="black"
-                loadTimeOffset={0}
-                style={{ width: "400px", height: "180px", margin: "0 auto" }}
-            /> */}
-
+                <br></br>
+                * Fracturas Oseas, comunicación con seno, Paretesa, equimosis, rismos, Imitación de la apertura, fractura dental
+                <br></br>
+                * Desplazamiento de las piezas dentales al interior del tejido, laceracion de los tejidos.
+                <br></br>
+                * Ingestión de piezas dentarias o de instrumentaria. </p>}
+                <br></br>
     </div>  
   <div className={style.buttons}>
   <button className={style.button} onClick={() => {setNewConsen(false); crearConsen()}}>Firmar</button>

@@ -70,7 +70,6 @@ const PacienteDetail = ({pacienteId, back}) => {
       const [consenId, setConsenId] = useState()
 
       if(consen) return <ConsentimientoTable fn={() => setConsen(false)} firma={refCanvaFirm} paciente={paciente} id={consenId}/>
-
     return (
         <>
         <Toaster/>
@@ -79,6 +78,10 @@ const PacienteDetail = ({pacienteId, back}) => {
           <br></br>
           <br></br>
         <button className={style.button} onClick={back}>Volver</button>
+        <br></br><br></br><br></br>
+            <img className={style.imageClient} src={paciente?.image}/>
+            <br></br>
+            <button className={style.button} onClick={() => setEvolucion(true)}>Evolucion</button>
             <div className={style.clinicHistory}>
           <div className={style.row} style={window.innerWidth > 1300 ? {flexDirection:"row"} : {flexDirection:"column"}}>
           <div className={style.column}>
@@ -87,7 +90,6 @@ const PacienteDetail = ({pacienteId, back}) => {
             <p><b>Edad:</b> {paciente ? paciente.edad : <span style={{color:"grey"}}>Cargando..</span>}</p>
             <p><b>Sexo:</b> {paciente ? paciente.sexo : <span style={{color:"grey"}}>Cargando..</span>}</p>
             <p><b>Fecha nacimiento:</b> {paciente ? paciente.nacimiento : <span style={{color:"grey"}}>Cargando..</span>}</p></>}
-            <button className={style.button} onClick={() => setEvolucion(true)}>Evolucion</button>
           </div>
           <div className={style.column}>
           { JSON.parse(localStorage.getItem("user"))?.role >= 2 && <><p><b>Direccion:</b> {paciente ? paciente.direccion : <span style={{color:"grey"}}>Cargando..</span>}</p>
