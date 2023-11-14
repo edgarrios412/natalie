@@ -31,8 +31,10 @@ const Perfil = ({fn, createUser}) => {
         <img src={image ? image : natalie} className={style.img}/>
         </div>
         <div className={style.dataUser}>
-          <p>Doc. {user.name} {user.lastname}</p>
-          <p>Administradora</p>
+          {user.role == 1 && <p>Doc. {user.name} {user.lastname}</p>}
+          {user.role == 2 && <p>{user.name} {user.lastname}</p>}
+          {user.role == 2 && <p>Administrador</p>}
+          {user.role == 1 && <p>Especialista</p>}
           <p>Odontologa Estetica</p>
           <p>Tarjeta profesional XXXXX</p>
           <p>{user.email}</p>
@@ -40,7 +42,7 @@ const Perfil = ({fn, createUser}) => {
       </div>
       <div className={style.perfilContainerBottom}>
         <button className={style.button} onClick={fn}>Cambiar contraseña</button>
-        <button className={style.button} onClick={createUser}>Crear usuario</button>
+        {/* <button className={style.button} onClick={createUser}>Crear usuario</button> */}
       </div>
       </div>
     </>

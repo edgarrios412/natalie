@@ -12,6 +12,7 @@ import {HiMenu} from "react-icons/hi"
 import {GrClose} from "react-icons/gr"
 import toast , { Toaster } from 'react-hot-toast';
 import Cotizacion from './Cotizacion/Cotizacion';
+import Usuarios from './Usuarios/Usuarios';
 
 const Panel = () => {
 
@@ -282,7 +283,8 @@ const Panel = () => {
             <li className={page == 3 ? style.liSelected : style.li} onClick={() => {setPage(3); setVisible(false)}}>Agenda</li>
             <li className={page == 4 ? style.liSelected : style.li} onClick={() => {setPage(4); setVisible(false)}}>Control ambiental y limpieza</li>
             <li className={page == 5 ? style.liSelected : style.li} onClick={() => {setPage(5); setVisible(false)}}>Pacientes</li>
-            <li className={page == 6 ? style.liSelected : style.li} onClick={() => {setPage(6); setVisible(false)}}>Cotizaciones</li>
+            <li className={page == 6 ? style.liSelected : style.li} onClick={() => {setPage(6); setVisible(false)}}>Usuarios</li>
+            <li className={page == 7 ? style.liSelected : style.li} onClick={() => {setPage(7); setVisible(false)}}>Cotizaciones</li>
             <li className={style.li} onClick={logout}>Cerrar sesion</li>
         </ul>
       </nav> : <h1 className={style.close} onClick={() => setVisible(true)}><HiMenu/></h1>)}
@@ -301,17 +303,19 @@ const Panel = () => {
             <li className={page == 3 ? style.liSelected : style.li} onClick={() => setPage(3)}>Agenda</li>
             <li className={page == 4 ? style.liSelected : style.li} onClick={() => setPage(4)}>Control ambiental y limpieza</li>
             <li className={page == 5 ? style.liSelected : style.li} onClick={() => setPage(5)}>Pacientes</li>
-            <li className={page == 6 ? style.liSelected : style.li} onClick={() => setPage(6)}>Cotizaciones</li>
+            <li className={page == 6 ? style.liSelected : style.li} onClick={() => setPage(6)}>Usuarios</li>
+            <li className={page == 7 ? style.liSelected : style.li} onClick={() => setPage(7)}>Cotizaciones</li>
             <li className={style.li} onClick={logout}>Cerrar sesion</li>
           </ul>
         </div>}
         <div className={style.panelContainer}>
-          {page == 1 && <Perfil createUser={() => setCreateUser(true)} fn={() => setChangePass(true)} />}
+          {page == 1 && <Perfil fn={() => setChangePass(true)} />}
           {page == 2 && <Financiero />}
           {page == 3 && <Agenda fn={editarEvento} date={date} newDate={() => setNewDate(true)} />}
           {page == 4 && <Control />}
           {page == 5 && <Pacientes find={find} />}
-          {page == 6 && <Cotizacion />}
+          {page == 6 && <Usuarios createUser={() => setCreateUser(true)}/>}
+          {page == 7 && <Cotizacion />}
         </div>
       </div>
     </>

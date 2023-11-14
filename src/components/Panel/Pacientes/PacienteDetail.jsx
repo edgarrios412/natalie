@@ -20,6 +20,8 @@ const PacienteDetail = ({pacienteId, back}) => {
     const refCanvaFirm = useRef(null)
     const refCanva = useRef(null)
 
+
+    const [category, setCategory] = useState(1)
     const [color, setColor] = useState("#aabbcc");
 
     const uploadUserImage = async (e) => {
@@ -53,6 +55,8 @@ const PacienteDetail = ({pacienteId, back}) => {
 
       const newEvolution = () => {
         axios.post("/client/evolucion", {...formEvo, clientId:pacienteId})
+        .then(() => reloadUser())
+        axios.post("/financiero", {user:paciente.name, date:formEvo.date, monto:formEvo.abono, reason:formEvo.evolucion, tipo:"Bancolombia"})
         .then(() => reloadUser())
         axios.put("/client", {ulpro:formEvo.date, id:pacienteId})
         .then(() => reloadUser())
@@ -281,7 +285,93 @@ const PacienteDetail = ({pacienteId, back}) => {
             <label className={style.textInput}>Evolucion</label>
           </div>
           <div className={style.inputContainer}>
-            <input type="number" name="abono" onChange={handleFormEvo} className={style.input} placeholder=' '></input>
+          <select onChange={(e) => setCategory(e.target.value)} className={style.input}>
+            <option value={1}>Prevencion</option>
+            <option value={2}>Operatoria en posteriores</option>
+            <option value={3}>Operatoria en interiores</option>
+            <option value={4}>Protesis Flexis</option>
+            <option value={5}>Nucleos </option>
+            <option value={6}>Corona Metal Porcelana</option>
+            <option value={7}>Corona libre Metal </option>
+            <option value={8}>Cirugía oral</option>
+          </select>
+          <label className={style.textInput}>Categoria</label>
+          </div>
+          <div className={style.inputContainer}>
+          {category == 1 && <select onChange={(e) => setFormEvo({...formEvo, abono:e.target.value})} className={style.input}>
+          <option value="30000">Valoración</option>
+          <option value="90000">Destartraje</option>
+          <option value="50000">profilaxis</option>
+          <option value="20000">Flour</option>
+          <option value="70000">Resina preventiva </option>
+          <option value="110000">Sesion de Fluor 3M</option>
+          </select>}
+          {category == 2 && <select className={style.input} onChange={(e) => setFormEvo({...formEvo, abono:e.target.value})}>
+          <option  value="30000">Cemento temporal</option>
+          <option  value="80000">Urgencia</option>
+          <option  value="95000">Resina 1  superficie</option>
+          <option  value="120000">Resina 2 superficie</option>
+          <option  value="150000">Resina 3  superficie</option>
+          <option  value="180000">Reconstrucción</option>
+          <option  value="250000">Reconstrucción + poste fibra</option>
+          <option  value="280000">Incrustación técnica indirecta</option>
+          <option  value="40000">Lonomero vidrio </option>
+          </select>}
+          {category == 3 && <select className={style.input} onChange={(e) => setFormEvo({...formEvo, abono:e.target.value})}>
+          <option  value="80000">Resina ángulo incisal</option>
+          <option  value="120000">Resina 2 superficies</option>
+          <option  value="150000">Resina 3 superficies</option>
+          <option  value="120000">Bordes incisales</option>
+          <option  value="680000">Bordent total </option>
+          <option  value="640000">Brodent Parcial</option>
+          </select>}
+          {category == 4 && <select className={style.input} onChange={(e) => setFormEvo({...formEvo, abono:e.target.value})}>
+          <option  value="1040000">Brodent </option>
+          <option  value="1120000">Super C</option>
+          <option  value="1200000">Duratone</option>
+          <option  value="680000">Acker Brodent</option>
+          <option  value="720000">Acker Super C</option>
+          <option  value="800000">Acker Duratone</option>
+          <option  value="1760000">Isoiid Total</option>
+          </select>}
+          {category == 5 && <select className={style.input} onChange={(e) => setFormEvo({...formEvo, abono:e.target.value})}>
+          <option  value="280000">Metal base </option>
+          <option  value="320000">Metal base con apacador </option>
+          <option  value="0000">En oro</option>
+          </select>}
+          {category == 6 && <select className={style.input} onChange={(e) => setFormEvo({...formEvo, abono:e.target.value})}>
+          <option  value="600000">Corona IPS Style </option>
+          <option  value="780000">Coronas IPS Style + Hombro ceramico</option>
+          </select>}
+          {category == 7 && <select className={style.input} onChange={(e) => setFormEvo({...formEvo, abono:e.target.value})}>
+          <option  value="1400000">Zirconio </option>
+          <option  value="1200000">E-max</option>
+          <option  value="640000">Ceromero</option>
+          </select>}
+          {category == 8 && <select className={style.input} onChange={(e) => setFormEvo({...formEvo, abono:e.target.value})}>
+          <option  value="180000">Gingivectomía convencional</option>
+          <option  value="350000">Gingivectomía con fresado</option>
+          <option  value="90000">Exodoncia simple</option>
+          <option  value="170000">Exodoncia + regeneración ósea</option>
+          <option  value="0000">Diseños de sonrisa</option>
+          <option  value="250000">Blanqueamiento 3 sesiones</option>
+          <option  value="500000">Cantos en cerámica</option>
+          <option  value="1000000">Cementacion Corona Unidad con Fosfato</option>
+          <option  value="1120000">Empress alto estética</option>
+          <option  value="180000">Carillas Renna convencional </option>
+          <option  value="80000">Cuellos</option>
+          <option  value="30000">Cementacion Corona Unidad con Fosfato</option>
+          <option  value="50000">Con lanomero</option>
+          <option  value="450000">Diseño de sonrisa Blanqueamento 3 sesiones</option>
+          <option  value="520000">Diseño de sonrisa Carillas en Ceromero</option>
+          <option  value="1000000">Diseño de sonrisa Carillas en E-max monoliticas </option>
+          <option  value="1120000">Diseño de sonrisa Carillas en E-max estratificadas</option>
+          <option  value="280000">Diseño de sonrisa Carillas en E-max Alta estetica</option>
+          </select>}
+          <label className={style.textInput}>Procedimiento</label>
+          </div>
+          <div className={style.inputContainer}>
+            <input type="number" name="abono" value={formEvo?.abono} onChange={handleFormEvo} disabled className={style.input} placeholder=' '></input>
             <label className={style.textInput}>Abono</label>
           </div>
           <input type="file" onChange={uploadUserImage} style={{width:"200px"}}></input>

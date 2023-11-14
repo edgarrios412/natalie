@@ -30,7 +30,6 @@ const Cotizacion = () => {
         <br></br>
         <div className={style.buttons}>
         <button className={style.button}>Agregar</button>
-        <button className={style.button}>Volver</button>
         </div>
         </div>
     )
