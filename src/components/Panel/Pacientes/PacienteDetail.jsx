@@ -46,6 +46,8 @@ const PacienteDetail = ({pacienteId, back}) => {
       reloadUser()
       },[])
   
+      const [tipo, setTipo] = useState(1)
+
       const [formEvo, setFormEvo] = useState()
 
       const handleFormEvo = (e) => {
@@ -54,13 +56,23 @@ const PacienteDetail = ({pacienteId, back}) => {
       }
 
       const newEvolution = () => {
-        axios.post("/client/evolucion", {...formEvo, clientId:pacienteId})
-        .then(() => reloadUser())
-        axios.post("/financiero", {user:paciente.name, date:formEvo.date, monto:formEvo.abono, reason:formEvo.evolucion, tipo:"Bancolombia"})
-        .then(() => reloadUser())
-        axios.put("/client", {ulpro:formEvo.date, id:pacienteId})
-        .then(() => reloadUser())
-        toast.success("Evolucion creada con exito")
+        if(tipo == 2){
+          axios.post("/client/evolucion", {...formEvo,evolucion:"Procedimiento", abono:null,precio:formEvo.abono, clientId:pacienteId})
+          .then(() => reloadUser())
+          axios.put("/client", {ulpro:formEvo.date, id:pacienteId, saldo:paciente.saldo-formEvo.abono})
+          .then(() => reloadUser())
+          setFormEvo({})
+          toast.success("Evolucion creada con exito")
+        }else{
+          axios.post("/client/evolucion", {...formEvo, clientId:pacienteId})
+          .then(() => reloadUser())
+          axios.put("/client", {ulpro:formEvo.date, id:pacienteId, saldo:Number(paciente.saldo)+Number(formEvo.abono)})
+          .then(() => reloadUser())
+          axios.post("/financiero", {user:paciente.name, date:formEvo.date, monto:formEvo.abono, reason:formEvo.evolucion, tipo:"Bancolombia"})
+          .then(() => reloadUser())
+          setFormEvo({})
+          toast.success("Evolucion creada con exito")
+        }
       }
 
       const [consen, setConsen] = useState(false)
@@ -251,7 +263,7 @@ const PacienteDetail = ({pacienteId, back}) => {
           <td className={style.topTd}>Hora</td>
           <td className={style.topTd}>Evolucion</td>
           <td className={style.topTd}>Abono</td>
-          {/* <td className={style.topTd}>Firma</td> */}
+          <td className={style.topTd}>Precio</td>
           <td className={style.topTd}>Url</td>
           </tr>
           {paciente?.evolucions?.map(e => <tr>
@@ -259,11 +271,12 @@ const PacienteDetail = ({pacienteId, back}) => {
           <td className={style.td}>{e.time}</td>
           <td className={style.td}>{e.evolucion}</td>
           <td className={style.td}>${Number(e.abono).toLocaleString()}</td>
-          {/* <td className={style.td}>FIRMA</td> */}
+          <td className={style.td}>${Number(e.precio).toLocaleString()}</td>
           <td className={style.td}><a className={style.button} href={e.url} target='blank'>Ver</a></td>
           </tr>)}
         </table>
         <br></br>
+        <p>Saldo: {paciente?.saldo}</p>
         <div className={style.buttons}>
         <button className={style.button} onClick={() => setNuevaEvolucion(true)}>Agregar</button>
         <button className={style.button} onClick={() => setEvolucion(false)}>Volver</button>
@@ -272,6 +285,16 @@ const PacienteDetail = ({pacienteId, back}) => {
         :   
             <div className={style.form}>
                 <h1 onClick={() => setNuevaEvolucion(false)}>Nueva evolucion</h1>
+                <label>
+                <input type='radio' onClick={(e) => setTipo(1)} name="tipo"/>
+                Abono
+                </label>
+                <br></br>
+                <label>
+                <input type='radio' onClick={(e) => setTipo(2)} name="tipo"/>
+                Procedimiento
+                </label>
+                {tipo == 1 && <div>
                 <div className={style.inputContainer}>
             <input type="date" name="date" onChange={handleFormEvo} className={style.input} placeholder=' '></input>
             <label className={style.textInput}>Fecha</label>
@@ -283,6 +306,21 @@ const PacienteDetail = ({pacienteId, back}) => {
           <div className={style.inputContainer}>
             <input name="evolucion" onChange={handleFormEvo} className={style.input} placeholder=' '></input>
             <label className={style.textInput}>Evolucion</label>
+          </div>
+          <div className={style.inputContainer}>
+            <input type="number" name="abono" value={formEvo?.abono} onChange={handleFormEvo} className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Abono</label>
+          </div>
+          <input type="file" onChange={uploadUserImage} style={{width:"200px"}}></input>
+                </div>}
+                {tipo == 2 && <div>
+                <div className={style.inputContainer}>
+            <input type="date" name="date" onChange={handleFormEvo} className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Fecha</label>
+          </div>
+          <div className={style.inputContainer}>
+            <input type="time" name="time" step="60" onChange={handleFormEvo} className={style.input} placeholder=' '></input>
+            <label className={style.textInput}>Hora</label>
           </div>
           <div className={style.inputContainer}>
           <select onChange={(e) => setCategory(e.target.value)} className={style.input}>
@@ -372,9 +410,10 @@ const PacienteDetail = ({pacienteId, back}) => {
           </div>
           <div className={style.inputContainer}>
             <input type="number" name="abono" value={formEvo?.abono} onChange={handleFormEvo} disabled className={style.input} placeholder=' '></input>
-            <label className={style.textInput}>Abono</label>
+            <label className={style.textInput}>Precio</label>
           </div>
           <input type="file" onChange={uploadUserImage} style={{width:"200px"}}></input>
+                </div>}
           <br></br><br></br>
           
           <div className={style.buttons}>

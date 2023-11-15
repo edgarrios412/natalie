@@ -44,7 +44,7 @@ const Usuarios = ({find, createUser}) => {
     <>
     <Toaster position="top-center"/>
       <div className={style.pacientes}>
-      <><h1>Pacientes</h1>
+      <><h1>Usuarios</h1>
       {window.innerWidth < 1300 ? <Table className={style.tabla}>
       <Thead>
         <Tr>

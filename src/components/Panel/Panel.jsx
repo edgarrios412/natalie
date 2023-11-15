@@ -54,8 +54,14 @@ const Panel = () => {
   const [date, setDate] = useState([{id:"a"},{id:1}])
 
   const getDates = async () => {
-    const {data} = await axios.get("/calendar")
-    const fechas = data?.map(d => {
+    var data;
+    if(JSON.parse(localStorage.getItem("user"))?.role == 2) {
+      data = await axios.get("/calendar/all")
+    }else{
+      data = await axios.get("/calendar/"+JSON.parse(localStorage.getItem("user"))?.id)
+    }
+    console.log(data)
+    const fechas = data?.data?.map(d => {
       return{
         id:d.id,
         title:d.title,
@@ -73,7 +79,8 @@ const Panel = () => {
       title: form.title,
       start: new Date(form.start + "T" + form.hour + ":" + form.min),
       end: new Date(form.start + "T" + form.endhour + ":" + form.endmin),
-      procedimiento: form.procedimiento
+      procedimiento: form.procedimiento,
+      especialista:form.especialista
     })
     toast.success("Cita creada con exito")
     getDates()
@@ -90,8 +97,8 @@ const Panel = () => {
     hour:"01",
     min:"00",
     endhour:"01",
-    endmin:"00"
-    // id: 10,
+    endmin:"00",
+    especialista: 1,
   })
 
   const [formPass, setFormPass] = useState({
@@ -142,9 +149,12 @@ const Panel = () => {
 
   useEffect(() => {
     axios.get("/client/all").then(({ data }) => setPacientes(data))
+    axios.get("/user").then(({ data }) => setEspecialista(data))
   }, [])
 
   const [dateSelected, setDateSelected] = useState()
+
+  const [especialista, setEspecialista] = useState()
 
   useEffect(() => {
     const dateSelect = date.find(d => d.id == changeDate)
@@ -257,6 +267,13 @@ const Panel = () => {
           <div className={style.inputContainer}>
           <input type="time" className={style.input} name="endhour" onChange={(e) => handleForm(e.target.name, e.target.value)}/>
           <label className={style.textInput}>Hora fin</label>
+          </div>
+          <div className={style.inputContainer}>
+            <select name="especialista" onChange={(e) => handleForm(e.target.name, e.target.value)} className={style.input} placeholder=' '>
+              <option selected value={null}>Seleccionar</option>
+              {especialista.filter(e => e.role == 1).map(p => <option value={p.id}>{p.name} {p.lastname}</option>)}
+            </select>
+            <label className={style.textInput}>Especialista</label>
           </div>
             <button className={style.button} onClick={() => {nuevaFecha(); setNewDate(false)}}>Guardar</button>
             <button className={style.buttonDelete} onClick={() => setNewDate(false)}>Cerrar</button>
