@@ -1,18 +1,27 @@
 import { Toaster } from "react-hot-toast"
 import style from "./CotizacionDetail.module.css"
 import { Table, Tbody, Td, Th, Thead, Tr } from "react-super-responsive-table"
+import { useEffect, useState } from "react"
+import axios from "axios"
 
 const CotizacionDetail = ({volver,id}) => {
+
+  const [coti, setCoti] = useState()
+
+  useEffect(() => {
+    axios.get("/client/cotizacion/"+3).then(({data}) => {setCoti(data); console.log(data)})
+  },[])
+
     return(
         <>
         <Toaster position="top-center"/>
           <div className={style.pacientes}>
-          <><h1>Detalles de la cotizacion #1</h1>
+          <><h1>Detalles de la cotizacion #{coti?.id}</h1>
           <br></br><br></br>
           <div className={style.header}>
           <p>Paciente: Yina Garzon</p>
           <p>Telefono: 311-8268264</p>
-          <p>Fecha: 04/05/23</p>
+          <p>Fecha: {coti?.date}</p>
           <p>Tratamiento: No definido</p>
           </div>
           {window.innerWidth < 1300 ? <Table className={style.tabla}>
@@ -26,13 +35,16 @@ const CotizacionDetail = ({volver,id}) => {
             </Tr>
           </Thead>
           <Tbody>
+            {coti?.proced.map(p => {
+            return(
               <Tr className={style.tr}>
-              <Td className={style.td}>1</Td>
-              <Td className={style.td}>Rayos X</Td>
-              <Td className={style.td}>$1,000,000</Td>
+              <Td className={style.td}></Td>
+              <Td className={style.td}>{p.label}</Td>
+              <Td className={style.td}>${p.value}</Td>
               <Td className={style.td}>2</Td>
               <Td className={style.td}>$2,000,000</Td>
-              </Tr>
+              </Tr>)
+            })}
           </Tbody>
         </Table>:<table className={style.tabla}>
               <tr>
@@ -42,13 +54,15 @@ const CotizacionDetail = ({volver,id}) => {
               <td className={style.topTd}>Cantidad</td>
               <td className={style.topTd}>Total</td>
               </tr>
+              {coti?.proced.map(p => {
+                return(
               <tr className={style.tr}>
-              <td className={style.td}>1</td>
-              <td className={style.td}>Rayos X</td>
-              <td className={style.td}>$1,000,000</td>
+              <td className={style.td}></td>
+              <td className={style.td}>{p.label}</td>
+              <td className={style.td}>${p.value}</td>
               <td className={style.td}>2</td>
               <td className={style.td}>$2,000,000</td>
-              </tr>
+              </tr>)})}
             </table>}
         <br></br>
         <div className={style.footer}>

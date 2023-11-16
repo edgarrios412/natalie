@@ -247,7 +247,7 @@ const Panel = () => {
           <h2 className={style.title}>Nuevo evento</h2>
           <div className={style.inputContainer}>
             <select name="title" onChange={(e) => handleForm(e.target.name, e.target.value)} className={style.input} placeholder=' '>
-              <select selected value={null}>Seleccionar</select>
+              <option selected value={null}>Seleccionar</option>
               {pacientes.map(p => <option value={`${p.name}`}>{p.name}</option>)}
             </select>
             <label className={style.textInput}>Paciente</label>

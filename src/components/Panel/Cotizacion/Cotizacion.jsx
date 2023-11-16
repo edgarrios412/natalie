@@ -1,13 +1,21 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import style from '../Pacientes/Pacientes.module.css'
 import CotizacionDetail from './CotizacionDetail'
+import CotizacionCrear from './CotizacionCrear'
+import axios from 'axios'
 
 const Cotizacion = () => {
 
     const [id, setId] = useState(null)
+    const [creator, setCreator] = useState(null)
+    const [coti, setCoti] = useState()
+
+    useEffect(() => {
+      axios.get("/client/cotizaciones").then(({data}) => {setCoti(data); alert("Datos listos")})
+    },[])
 
     if(id) return <CotizacionDetail id={id} volver={() => setId(null)}/>
-
+    if(creator) return <CotizacionCrear volver={() => setCreator(null)}/>
     return(
         <div>
         <h1 style={{textAlign:"center"}}>Cotizaciones</h1> 
@@ -19,17 +27,19 @@ const Cotizacion = () => {
           <td className={style.topTd}>Items</td>
           <td className={style.topTd}>Precio</td>
           </tr>
-          <tr onClick={() => setId(1)}>
-          <td className={style.td}>1</td>
-          <td className={style.td}>02/02/23</td>
-        <td className={style.td}>Yina Garzon</td>
-          <td className={style.td}>10</td>
+          {coti?.map (c => {
+          <tr onClick={() => setId(c.id)}>
+          <td className={style.td}>{c.id}</td>
+          <td className={style.td}>{c.date}</td>
+          <td className={style.td}>{c.clientId}</td>
+          <td className={style.td}>{c.proced.lenght}</td>
           <td className={style.td}>$10.000.000</td>
           </tr>
+          })}
         </table>
         <br></br>
         <div className={style.buttons}>
-        <button className={style.button}>Agregar</button>
+        <button className={style.button} onClick={() => setCreator(true)}>Agregar</button>
         </div>
         </div>
     )
