@@ -7,38 +7,27 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 const Usuarios = ({find, createUser}) => {
 
-  const [pacienteId, setPacienteId] = useState(null)
-  const [create, setCreate] = useState(false)
+  // const [pacienteId, setPacienteId] = useState(null)
+  // const [create, setCreate] = useState(false)
 
 
-  const [pacientes, setPacientes] = useState()
+  // const [pacientes, setPacientes] = useState()
   
-  const [paciente, setPaciente] = useState()
+  // const [paciente, setPaciente] = useState()
   const [filterP, setFilterP] = useState()
   
-  const newClient = () => {
-    setPacienteId(null); 
-  }
   
   useEffect(() => {
     axios.get("/user")
-    .then(({data}) => {setPacientes(data); setFilterP(data)})
+    .then(({data}) => {setFilterP(data)})
   },[])
   
   const deleteUser = async (id) => {
     await axios.delete("/user/"+id)
     alert("Eliminado con exito")
     axios.get("/user")
-    .then(({data}) => {setPacientes(data); setFilterP(data)})
+    .then(({data}) => {setFilterP(data)})
   }
-
-  useEffect(() => {
-    if(!find?.length){
-      return setFilterP(pacientes)
-    }else{
-      setFilterP(pacientes?.filter(p => p.cedula == find))
-    }
-  },[find])
 
   return(
     <>

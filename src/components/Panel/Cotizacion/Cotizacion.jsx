@@ -11,7 +11,7 @@ const Cotizacion = () => {
     const [coti, setCoti] = useState()
 
     useEffect(() => {
-      axios.get("/client/cotizaciones").then(({data}) => {setCoti(data); alert("Datos listos")})
+      axios.get("/client/cotizaciones/all").then(({data}) => {setCoti(data)})
     },[])
 
     if(id) return <CotizacionDetail id={id} volver={() => setId(null)}/>
@@ -27,15 +27,15 @@ const Cotizacion = () => {
           <td className={style.topTd}>Items</td>
           <td className={style.topTd}>Precio</td>
           </tr>
-          {coti?.map (c => {
+          {coti?.map (c => 
           <tr onClick={() => setId(c.id)}>
           <td className={style.td}>{c.id}</td>
           <td className={style.td}>{c.date}</td>
-          <td className={style.td}>{c.clientId}</td>
-          <td className={style.td}>{c.proced.lenght}</td>
-          <td className={style.td}>$10.000.000</td>
+          <td className={style.td}>{c.client.name}</td>
+          <td className={style.td}>{c.proced.length}</td>
+          <td className={style.td}>${Number(c.price).toLocaleString()}</td>
           </tr>
-          })}
+          )}
         </table>
         <br></br>
         <div className={style.buttons}>

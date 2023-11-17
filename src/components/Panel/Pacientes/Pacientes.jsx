@@ -15,7 +15,6 @@ const Pacientes = ({find}) => {
 
   const [pacientes, setPacientes] = useState()
   
-  const [paciente, setPaciente] = useState()
   const [filterP, setFilterP] = useState()
   
   const newClient = () => {
@@ -32,7 +31,7 @@ const Pacientes = ({find}) => {
     if(!find?.length){
       return setFilterP(pacientes)
     }else{
-      setFilterP(pacientes?.filter(p => p.cedula == find))
+      setFilterP(pacientes?.filter(p => p.cedula.includes(find)))
     }
   },[find])
 

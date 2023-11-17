@@ -1,16 +1,8 @@
-// import style from './CotizacionCrear.module.css'
+import style from './CotizacionCrear.module.css'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Select from 'react-select';
-
-const data =
-    [
-        { value: 1000, label: 'Chocolate' },
-        { value: 250, label: 'Strawberry' },
-        { value: 290, label: 'Vanilla' }
-    ]
-
-
+import precios from '../../../precios';
 
 const CotizacionCrear = ({volver}) => {
     const [pacientes, setPacientes] = useState()
@@ -38,23 +30,36 @@ const CotizacionCrear = ({volver}) => {
     } 
 
     const newCoti = () => {
-        axios.post("/client/cotizacion", {...form, proced:proce}).then(() => volver())
+        console.log(form)
+        axios.post("/client/cotizacion", {...form, price:valor, proced:proce}).then(() => volver())
     }
 
     return (
         <>
+                <h1 style={{textAlign:"center", marginBottom:"40px"}}>Nueva cotizacion</h1>
+            <div className={style.form}>
+            <div className={style.inputContainer}>
+              <input type="date" name="date" onChange={handleForm} className={style.input} placeholder=' '></input>
+              <label className={style.textInput}>Fecha</label>
+            </div>
+            <div className={style.inputContainer}>
+            <select name="clientId" className={style.input} onChange={handleForm}>
+                <option className={style.input} value={null}>Seleccionar</option>
+                {pacientes?.map(p => <option value={`${p.id}`}>{p.name}</option>)}
+            </select>
+            <label className={style.textInput}>Paciente</label>
+            </div>
+            </div>
+            <div className={style.selectMulti}>
+            <h4>Procedimientos</h4>
             <Select
                 onChange={(e) => calcValor(e)}
                 isMulti
-                options={data}
+                options={precios}
             />
-            Total: {valor}
-            <input name="date" onChange={handleForm} type="date" />
-            <select name="clientId" onChange={handleForm}>
-                <option value={null}>Seleccionar</option>
-                {pacientes?.map(p => <option value={`${p.id}`}>{p.name}</option>)}
-            </select>
-            <button onClick={newCoti}>Crear</button>
+        </div>
+            <p className={style.valor}><b>Total:</b> {valor}</p>
+            <button onClick={newCoti} className={style.button}>Crear</button>
         </>
     )
 }
