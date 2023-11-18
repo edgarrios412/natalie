@@ -16,6 +16,14 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from 'react-responsive-carousel';
 import fotocelular from "../../assets/celularfoto.jpg"
 
+import a1 from "../../assets/a1.jpeg"
+import a2 from "../../assets/a2.jpeg"
+import a3 from "../../assets/a3.jpeg"
+import a4 from "../../assets/a4.jpeg"
+import a5 from "../../assets/a5.jpeg"
+import a6 from "../../assets/a6.jpeg"
+import a7 from "../../assets/a7.jpeg"
+
 import { Fade } from "react-awesome-reveal";
 import { useNavigate } from 'react-router-dom'
 
@@ -116,8 +124,31 @@ const Home = () => {
         <div className={style.disenoSonrisa2}>
         <Fade triggerOnce direction='left' fraction={0.5}>
           <div className={style.containerTlf}>
+        {/* <img className={style.imgTlf} src={fotocelular}/> */}
+          <Carousel className={style.carrusel2} style={{backgroundColor:"transparent"}} renderThumbs={() => null} width="200px" infiniteLoop={true} interval="2500" autoPlay={true} showStatus={false}>
+                <div>
+                    <img src={fotocelular} />
+                </div>
+                <div>
+                    <img src={a1} />
+                </div>
+                <div>
+                    <img src={a3} />
+                </div>
+                <div>
+                    <img src={a4} />
+                </div>
+                <div>
+                    <img src={a5} />
+                </div>
+                <div>
+                    <img src={a6} />
+                </div>
+                <div>
+                    <img src={a7} />
+                </div>
+            </Carousel>
         <img className={style.carrusel} style={{backgroundColor:"transparent"}} src={telefono}/>
-        <img className={style.imgTlf} src={fotocelular}/>
           </div>
         </Fade>
         <Fade triggerOnce direction='right' fraction={0.5}>

@@ -41,6 +41,16 @@
     /* background-color: red; */
 }
 
+.carrusel2{
+    min-width: 300px;
+    height: 450px;
+    position: absolute;
+    z-index: 4;
+    margin-left: 50px;
+    margin-top: 150px;
+    /* background-color: red; */
+}
+
 .noLink{
     text-decoration: none;
     color: white;
@@ -260,7 +270,13 @@ background: linear-gradient(90deg, rgba(255, 255, 255, 0.509) 0%, rgba(0, 0, 0, 
 .carrusel{
     min-width: 300px;
     height: 450px;
-    background-color: red;
+    /* background-color: red; */
+}
+.carrusel2{
+    min-width: 300px;
+    height: 450px;
+    /* margin-left: 100px; */
+    /* background-color: red; */
 }
 
 .disenoSonrisa{
