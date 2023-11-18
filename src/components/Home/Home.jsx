@@ -51,10 +51,10 @@ const Home = () => {
         </div>
         <div className={style.pantallaNegra} style={{zIndex:"1"}}></div>
         <Carousel infiniteLoop={true} renderIndicator={() => {}} renderThumbs={() => {}} renderArrowNext={() => {}} renderArrowPrev={() => {}} interval="6000" autoPlay={true} showStatus={false}>
-                <div>
+                <div style={{minWidth:"1000px"}}>
                 <img className={style.img} alt="Natalie" src={natalie}/>
                 </div>
-                <div>
+                <div style={{minWidth:"1000px"}}>
                 <img className={style.img} alt="Natalie" src={natalie4}/>
                 </div>
 
