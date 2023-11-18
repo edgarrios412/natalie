@@ -49,8 +49,8 @@ const Usuarios = ({find, createUser}) => {
           <Tr className={style.tr}>
           <Td className={style.td}>{u.id}</Td>
           <Td className={style.td}>{u.name} {u.lastname}</Td>
-          <Td className={style.td}>{u.role}</Td>
-          <Td className={style.td}>{u.email}</Td>
+          {u.role == 1 && <Td className={style.td}>Especialista</Td>}
+          {u.role == 2 && <Td className={style.td}>Administrador</Td>}
           <Td className={style.td} onClick={() => deleteUser(u.id)}>Borrar</Td>
           </Tr>)}
       </Tbody>
