@@ -33,16 +33,20 @@ const Home = () => {
     </ul>
     </nav>
       <div className={style.container}>
+        <div className={style.inicio}>
+        <div className={style.inicioTitle}>
         <h1 className={style.titleName}>Natalie Ariza</h1>
         <h2 className={style.titleProfesion}>ODONTOLOGA</h2>
         <button className={style.buttonReserva}><a className={style.noLink} target="_blank" href="https://wa.link/sdh5gu">Reserva tu valoracion</a></button>
+        </div>
         <img className={style.logoNata} src={logoNata2}/>
+        </div>
         <div className={style.pantallaNegra} style={{zIndex:"1"}}></div>
-        <Carousel width="100%" infiniteLoop={true} renderIndicator={() => {}} renderThumbs={() => {}} renderArrowNext={() => {}} renderArrowPrev={() => {}} interval="6000" autoPlay={true} showStatus={false}>
-                <div>
+        <Carousel infiniteLoop={true} renderIndicator={() => {}} renderThumbs={() => {}} renderArrowNext={() => {}} renderArrowPrev={() => {}} interval="6000" autoPlay={true} showStatus={false}>
+                <div style={{minWidth:"1100px"}}>
                 <img className={style.img} alt="Natalie" src={natalie}/>
                 </div>
-                <div>
+                <div style={{minWidth:"1100px"}}>
                 <img className={style.img} alt="Natalie" src={natalie4}/>
                 </div>
 
@@ -62,7 +66,7 @@ const Home = () => {
             </div>
             <div className={style.especialidad}>
             <img className={style.espeImg} src={ortodoncia}/>
-              <h1 className={style.espeTitle}>Ortografia</h1>
+              <h1 className={style.espeTitle}>Ortodoncia</h1>
             </div>
             <div className={style.especialidad}>
             <img className={style.espeImg} src={ortodoncia}/>
@@ -109,7 +113,7 @@ const Home = () => {
         </div>
       </div>
       <div className={style.resumeContainer}>
-        <div className={style.disenoSonrisa}>
+        <div className={style.disenoSonrisa2}>
         <Fade triggerOnce direction='left' fraction={0.5}>
           <div className={style.containerTlf}>
         <img className={style.carrusel} style={{backgroundColor:"transparent"}} src={telefono}/>
@@ -118,7 +122,7 @@ const Home = () => {
         </Fade>
         <Fade triggerOnce direction='right' fraction={0.5}>
         <div className={style.texto}>
-          <p className={style.descTexto} style={{fontSize:"2em", textAlign:"center"}}>
+          <p className={style.descTexto} style={{ textAlign:"center"}}>
 Bienvenidos al consultorio dental de la Dra. Natalie Ariza y su equipo de especialistas, donde no solo diseñamos sonrisas, te devolvemos la seguridad y la tranquilidad al reír y masticar.</p>
           <button className={style.buttonValoracion}><a className={style.noLink} target="_blank" href="https://wa.link/sdh5gu">Pide tu valoracion</a></button>
         </div>

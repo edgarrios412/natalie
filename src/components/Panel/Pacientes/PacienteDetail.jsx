@@ -276,7 +276,7 @@ const PacienteDetail = ({pacienteId, back}) => {
           </tr>)}
         </table>
         <br></br>
-        <p>Saldo: {paciente?.saldo}</p>
+        <p><b>Saldo:</b> ${Number(paciente?.saldo).toLocaleString()}</p>
         <div className={style.buttons}>
         <button className={style.button} onClick={() => setNuevaEvolucion(true)}>Agregar</button>
         <button className={style.button} onClick={() => setEvolucion(false)}>Volver</button>

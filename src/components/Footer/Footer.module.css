@@ -27,3 +27,12 @@
     text-decoration: none;
     color: white;
 }
+
+@media screen and (max-width:900px){
+    .david{
+        display: none;
+    }
+    .creadorDavid{
+        display: none;
+    }
+}

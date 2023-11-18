@@ -58,7 +58,7 @@ const CotizacionCrear = ({volver}) => {
                 options={precios}
             />
         </div>
-            <p className={style.valor}><b>Total:</b> {valor}</p>
+            <p className={style.valor}><b>Total:</b> ${Number(valor).toLocaleString()}</p>
             <button onClick={newCoti} className={style.button}>Crear</button>
         </>
     )
