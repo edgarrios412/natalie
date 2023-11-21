@@ -37,7 +37,7 @@ const Home = () => {
         <img className={style.logoMini} src={logoMini}/>
     <ul className={style.ul}>
         <li className={style.li}>Inicio</li>
-        <li onClick={() => navigate("/login")} className={style.li}>Ingresar</li>
+        {/* <li onClick={() => navigate("/login")} className={style.li}>Ingresar</li> */}
     </ul>
     </nav>
       <div className={style.container}>

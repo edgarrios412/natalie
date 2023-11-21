@@ -61,7 +61,7 @@ const Agenda = ({fn, newDate, date}) => {
       onSelectEvent={(e) => fn(e.id)}
       style={{ height: 400, width:window.innerWidth > 1000 ? 600 : null }}
     />
-    {JSON.parse(localStorage.getItem("user"))?.role == 2 && <button className={style.button} onClick={newDate}>Nuevo evento</button>}
+    {JSON.parse(localStorage.getItem("user"))?.role >= 2 && <button className={style.button} onClick={newDate}>Nuevo evento</button>}
     </div>
       </div>
     </>

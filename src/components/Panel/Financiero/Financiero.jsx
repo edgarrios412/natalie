@@ -3,6 +3,8 @@ import style from './Financiero.module.css'
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import FinancieroPDF from './FinancieroPDF';
 
 
 const Financiero = () => {
@@ -175,12 +177,16 @@ const Financiero = () => {
 
   const [desde, setDesde] = useState("2022-10-20")
   const [hasta, setHasta] = useState("2025-10-20")
+  const [tipo, setTipo] = useState("Todos")
   const [pagoFilter, setPagoFilter] = useState(pagos)
 
 
   const filtradoPago = () => {
-    const fechasEnRango = pagos.filter((pago) => pago.date >= desde && pago.date <= hasta);
-    setPagoFilter(fechasEnRango)
+    var fechasEnRango = pagos.filter((pago) => pago.date >= desde && pago.date <= hasta);
+    if(tipo !== "Todos"){
+      fechasEnRango = fechasEnRango.filter(pago => pago.tipo == tipo)
+    }
+    return setPagoFilter(fechasEnRango)
   }
 
   return (
@@ -358,7 +364,19 @@ const Financiero = () => {
           <input type="date" name="user" onChange={(e) => setHasta(e.target.value)} className={style.input} placeholder=' '></input>
           <label className={style.textInput}>Hasta</label>
         </div>
-        <button className={style.button} onClick={filtradoPago}>Filtrar</button>
+        <div className={style.inputContainer}>
+          <select className={style.input} onChange={(e) => setTipo(e.target.value)}>
+            <option value="Todos" selected>Todos</option>
+            <option value="Bancolombia">Bancolombia</option>
+            <option value="TDC">TDC</option>
+            <option value="Efectivo">Efectivo</option>
+          </select>
+          <label className={style.textInput}>Tipo de pago</label>
+        </div>
+        <button className={style.button} onClick={filtradoPago}>Filtrar</button><br></br><br></br>
+        <PDFDownloadLink document={<FinancieroPDF financiero={pagoFilter} desde={desde} hasta={hasta} tipo={tipo}/>} fileName='registrofinanciero.pdf'>
+          <button className={style.button}>Descargar PDF</button>
+        </PDFDownloadLink>
         <br></br><br></br>
         <table className={style.tabla}>
           <tr>

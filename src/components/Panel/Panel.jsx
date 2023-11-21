@@ -13,6 +13,7 @@ import {GrClose} from "react-icons/gr"
 import toast , { Toaster } from 'react-hot-toast';
 import Cotizacion from './Cotizacion/Cotizacion';
 import Usuarios from './Usuarios/Usuarios';
+import precios from '../../precios';
 
 const Panel = () => {
 
@@ -22,6 +23,8 @@ const Panel = () => {
   const [newDate, setNewDate] = useState(false)
   const [find, setFind] = useState(null)
   const [createUser, setCreateUser] = useState(false)
+  const [usuarios, setUsuarios] = useState()
+
 
   const navigate = useNavigate()
 
@@ -167,6 +170,9 @@ const Panel = () => {
     if(formCreateUser.newpass !== formCreateUser.newpass2) return alert("Las contraseñas no coinciden")
     await axios.post("/user", {...formCreateUser, password:formCreateUser.newpass})
     setCreateUser(false)
+    const {data} = await axios.get("/user")
+    setUsuarios(data) 
+    console.log(data)
     alert("Creado con exito")
   }
 
@@ -214,6 +220,7 @@ const Panel = () => {
           <option selected>Selecciona un rol</option>
             <option value="1">Especialista</option>
             <option value="2">Administrador</option>
+            <option value="3">Super admin</option>
             </select>
           <label className={style.textInput}>Rol</label>
         </div>
@@ -253,12 +260,14 @@ const Panel = () => {
             <label className={style.textInput}>Paciente</label>
           </div>
           <div className={style.inputContainer}>
-            <input name="procedimiento" onChange={(e) => handleForm(e.target.name, e.target.value)} className={style.input} placeholder=' '></input>
+            <select name="procedimiento" onChange={(e) => handleForm(e.target.name, e.target.value)} className={style.input}>
+              {precios?.map (p => <option value={p.label}>{p.label}</option>)}
+            </select>
             <label className={style.textInput}>Procedimiento</label>
           </div>
           <div className={style.inputContainer}>
             <input type="date" name="start" onChange={(e) => handleForm(e.target.name, e.target.value)} className={style.input} placeholder=' '></input>
-            <label className={style.textInput}>Fecha inicio</label>
+            <label className={style.textInput}>Fecha</label>
           </div>
           <div className={style.inputContainer}>
           <input type="time" className={style.input} name="hour" onChange={(e) => handleForm(e.target.name, e.target.value)}/>
@@ -271,7 +280,7 @@ const Panel = () => {
           <div className={style.inputContainer}>
             <select name="especialista" onChange={(e) => handleForm(e.target.name, e.target.value)} className={style.input} placeholder=' '>
               <option selected value={null}>Seleccionar</option>
-              {especialista.filter(e => e.role == 1).map(p => <option value={p.id}>{p.name} {p.lastname}</option>)}
+              {especialista.filter(e => e.role == 1 || e.role == 3).map(p => <option value={p.id}>{p.name} {p.lastname}</option>)}
             </select>
             <label className={style.textInput}>Especialista</label>
           </div>
@@ -296,12 +305,12 @@ const Panel = () => {
         <h3 className={style.titleMobile} onClick={() => setVisible(false)}><GrClose/></h3>
         <ul className={style.ul}>
         <li className={page == 1 ? style.liSelected : style.li} onClick={() => {setPage(1); setVisible(false)}}>Perfil</li>
-            {JSON.parse(localStorage.getItem("user"))?.role == 2 && <li className={page == 2 ? style.liSelected : style.li} onClick={() => {setPage(2); setVisible(false)}}>Control financiero</li>}
+            {JSON.parse(localStorage.getItem("user"))?.role >= 2 && <li className={page == 2 ? style.liSelected : style.li} onClick={() => {setPage(2); setVisible(false)}}>Control financiero</li>}
             <li className={page == 3 ? style.liSelected : style.li} onClick={() => {setPage(3); setVisible(false)}}>Agenda</li>
-            {JSON.parse(localStorage.getItem("user"))?.role == 2 && <li className={page == 4 ? style.liSelected : style.li} onClick={() => {setPage(4); setVisible(false)}}>Control ambiental y limpieza</li>}
+            {JSON.parse(localStorage.getItem("user"))?.role >= 2 && <li className={page == 4 ? style.liSelected : style.li} onClick={() => {setPage(4); setVisible(false)}}>Control ambiental y limpieza</li>}
             <li className={page == 5 ? style.liSelected : style.li} onClick={() => {setPage(5); setVisible(false)}}>Pacientes</li>
-            {JSON.parse(localStorage.getItem("user"))?.role == 2 && <li className={page == 6 ? style.liSelected : style.li} onClick={() => {setPage(6); setVisible(false)}}>Usuarios</li>}
-            {JSON.parse(localStorage.getItem("user"))?.role == 2 && <li className={page == 7 ? style.liSelected : style.li} onClick={() => {setPage(7); setVisible(false)}}>Cotizaciones</li>}
+            {JSON.parse(localStorage.getItem("user"))?.role >= 2 && <li className={page == 6 ? style.liSelected : style.li} onClick={() => {setPage(6); setVisible(false)}}>Usuarios</li>}
+            {JSON.parse(localStorage.getItem("user"))?.role >= 2 && <li className={page == 7 ? style.liSelected : style.li} onClick={() => {setPage(7); setVisible(false)}}>Cotizaciones</li>}
             <li className={style.li} onClick={logout}>Cerrar sesion</li>
         </ul>
       </nav> : <h1 className={style.close} onClick={() => setVisible(true)}><HiMenu/></h1>)}
@@ -316,12 +325,12 @@ const Panel = () => {
         {window.innerWidth > 1300 && <div className={style.navigator}>
           <ul className={style.ul}>
             <li className={page == 1 ? style.liSelected : style.li} onClick={() => setPage(1)}>Perfil</li>
-            {JSON.parse(localStorage.getItem("user"))?.role == 2 && <li className={page == 2 ? style.liSelected : style.li} onClick={() => setPage(2)}>Control financiero</li>}
+            {JSON.parse(localStorage.getItem("user"))?.role >= 2 && <li className={page == 2 ? style.liSelected : style.li} onClick={() => setPage(2)}>Control financiero</li>}
             <li className={page == 3 ? style.liSelected : style.li} onClick={() => setPage(3)}>Agenda</li>
-            {JSON.parse(localStorage.getItem("user"))?.role == 2 && <li className={page == 4 ? style.liSelected : style.li} onClick={() => setPage(4)}>Control ambiental y limpieza</li>}
+            {JSON.parse(localStorage.getItem("user"))?.role >= 2 && <li className={page == 4 ? style.liSelected : style.li} onClick={() => setPage(4)}>Control ambiental y limpieza</li>}
             <li className={page == 5 ? style.liSelected : style.li} onClick={() => setPage(5)}>Pacientes</li>
-            {JSON.parse(localStorage.getItem("user"))?.role == 2 && <li className={page == 6 ? style.liSelected : style.li} onClick={() => setPage(6)}>Usuarios</li>}
-            {JSON.parse(localStorage.getItem("user"))?.role == 2 && <li className={page == 7 ? style.liSelected : style.li} onClick={() => setPage(7)}>Cotizaciones</li>}
+            {JSON.parse(localStorage.getItem("user"))?.role >= 2 && <li className={page == 6 ? style.liSelected : style.li} onClick={() => setPage(6)}>Usuarios</li>}
+            {JSON.parse(localStorage.getItem("user"))?.role >= 2 && <li className={page == 7 ? style.liSelected : style.li} onClick={() => setPage(7)}>Cotizaciones</li>}
             <li className={style.li} onClick={logout}>Cerrar sesion</li>
           </ul>
         </div>}
@@ -331,7 +340,7 @@ const Panel = () => {
           {page == 3 && <Agenda fn={editarEvento} date={date} newDate={() => setNewDate(true)} />}
           {page == 4 && <Control />}
           {page == 5 && <Pacientes find={find} />}
-          {page == 6 && <Usuarios createUser={() => setCreateUser(true)}/>}
+          {page == 6 && <Usuarios users={usuarios} createUser={() => setCreateUser(true)}/>}
           {page == 7 && <Cotizacion />}
         </div>
       </div>

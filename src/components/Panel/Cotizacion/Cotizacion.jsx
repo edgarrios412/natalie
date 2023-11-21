@@ -14,8 +14,12 @@ const Cotizacion = () => {
       axios.get("/client/cotizaciones/all").then(({data}) => {setCoti(data)})
     },[])
 
+    const updateCoti = () => {
+      axios.get("/client/cotizaciones/all").then(({data}) => {setCoti(data)})
+    }
+
     if(id) return <CotizacionDetail id={id} volver={() => setId(null)}/>
-    if(creator) return <CotizacionCrear volver={() => setCreator(null)}/>
+    if(creator) return <CotizacionCrear volver={() => {setCreator(null); updateCoti()}}/>
     return(
         <div>
         <h1 style={{textAlign:"center"}}>Cotizaciones</h1> 
@@ -31,7 +35,7 @@ const Cotizacion = () => {
           <tr onClick={() => setId(c.id)}>
           <td className={style.td}>{c.id}</td>
           <td className={style.td}>{c.date}</td>
-          <td className={style.td}>{c.client.name}</td>
+          <td className={style.td}>{c.client?.name}</td>
           <td className={style.td}>{c.proced.length}</td>
           <td className={style.td}>${Number(c.price).toLocaleString()}</td>
           </tr>

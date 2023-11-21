@@ -26,6 +26,10 @@ const Pacientes = ({find}) => {
     .then(({data}) => {setPacientes(data); setFilterP(data)})
   },[])
   
+  const updateUsers = () => {
+    axios.get("/client/all")
+    .then(({data}) => {setPacientes(data); setFilterP(data)})
+  }
 
   useEffect(() => {
     if(!find?.length){
@@ -100,7 +104,7 @@ const Pacientes = ({find}) => {
         <br></br>
         <button onClick={() => setCreate(true)} className={style.button}>Nuevo paciente</button>
         </>} */}
-        {create && <PacienteForm back={() => setCreate(false)}/>}
+        {create && <PacienteForm updateUsers={() => updateUsers()} back={() => setCreate(false)}/>}
         {pacienteId !== null && <PacienteDetail pacienteId={pacienteId} back={() => newClient()}/>}
         <br></br>
       </div>

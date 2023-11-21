@@ -31,8 +31,9 @@ const Perfil = ({fn, createUser}) => {
         <img src={image ? image : natalie} className={style.img}/>
         </div>
         <div className={style.dataUser}>
-          {user.role == 1 && <p>Doc. {user.name} {user.lastname}</p>}
+          {(user.role == 1 || user.role == 3) && <p>Doc. {user.name} {user.lastname}</p>}
           {user.role == 2 && <p>{user.name} {user.lastname}</p>}
+          {user.role == 3 && <p>Super admin</p>}
           {user.role == 2 && <p>Administrador</p>}
           {user.role == 1 && <p>Especialista</p>}
           <p>Odontologa Estetica</p>

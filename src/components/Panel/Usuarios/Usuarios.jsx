@@ -5,15 +5,8 @@ import toast, {Toaster} from "react-hot-toast"
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
-const Usuarios = ({find, createUser}) => {
+const Usuarios = ({find, createUser, users}) => {
 
-  // const [pacienteId, setPacienteId] = useState(null)
-  // const [create, setCreate] = useState(false)
-
-
-  // const [pacientes, setPacientes] = useState()
-  
-  // const [paciente, setPaciente] = useState()
   const [filterP, setFilterP] = useState()
   
   
@@ -21,7 +14,16 @@ const Usuarios = ({find, createUser}) => {
     axios.get("/user")
     .then(({data}) => {setFilterP(data)})
   },[])
+
+  useEffect(() => {
+    setFilterP(users)
+  },[users])
   
+  // const reloadUser = () => {
+  //   axios.get("/user")
+  //   .then(({data}) => {setFilterP(data)})
+  // }
+
   const deleteUser = async (id) => {
     await axios.delete("/user/"+id)
     alert("Eliminado con exito")
@@ -51,6 +53,7 @@ const Usuarios = ({find, createUser}) => {
           <Td className={style.td}>{u.name} {u.lastname}</Td>
           {u.role == 1 && <Td className={style.td}>Especialista</Td>}
           {u.role == 2 && <Td className={style.td}>Administrador</Td>}
+          {u.role == 3 && <Td className={style.td}>Super admin</Td>}
           <Td className={style.td} onClick={() => deleteUser(u.id)}>Borrar</Td>
           </Tr>)}
       </Tbody>
@@ -66,8 +69,10 @@ const Usuarios = ({find, createUser}) => {
           <tr className={style.tr}>
           <td className={style.td}>{u.id}</td>
           <td className={style.td}>{u.name} {u.lastname}</td>
+          {!u.role && <Td className={style.td}>Indefinido</Td>}
           {u.role == 1 && <td className={style.td}>Especialista</td>}
           {u.role == 2 && <td className={style.td}>Administrador</td>}
+          {u.role == 3 && <Td className={style.td}>Super admin</Td>}
           <td className={style.td}>{u.email}</td>
           <td className={style.td} onClick={() => deleteUser(u.id)}>Borrar</td>
           </tr>)}

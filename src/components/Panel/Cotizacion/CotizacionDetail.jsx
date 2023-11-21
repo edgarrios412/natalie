@@ -3,6 +3,8 @@ import style from "./CotizacionDetail.module.css"
 import { Table, Tbody, Td, Th, Thead, Tr } from "react-super-responsive-table"
 import { useEffect, useState } from "react"
 import axios from "axios"
+import { PDFDownloadLink } from "@react-pdf/renderer"
+import CotizacionPDF from "./CotizacionPDF"
 
 const CotizacionDetail = ({volver,id}) => {
 
@@ -19,8 +21,9 @@ const CotizacionDetail = ({volver,id}) => {
           <><h1>Detalles de la cotizacion #{coti?.id}</h1>
           <br></br><br></br>
           <div className={style.header}>
-          <p>Paciente: {coti?.client.name}</p>
-          <p>Telefono: {coti?.client.celular}</p>
+          <p>Paciente: {coti?.client?.name}</p>
+          <p>CC: {coti?.client?.cedula}</p>
+          <p>Telefono: {coti?.client?.celular}</p>
           <p>Fecha: {coti?.date}</p>
           {/* <p>Tratamiento: No definido</p> */}
           </div>
@@ -83,6 +86,10 @@ const CotizacionDetail = ({volver,id}) => {
             <h5>Oferta valida por 5 dias a partir de la emision</h5>
             </>
             <button className={style.button} onClick={volver}>Volver</button>
+            <br></br><br></br>
+            <PDFDownloadLink document={<CotizacionPDF coti={coti}/>} fileName={`cotizacion${coti?.id}.pdf`}>
+            <button className={style.button}>Descargar PDF</button>
+            </PDFDownloadLink>
             <br></br>
           </div>
         </>
