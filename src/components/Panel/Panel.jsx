@@ -36,7 +36,7 @@ const Panel = () => {
     if(!localStorage.getItem("token")) return navigate("/login")
     const {data} = await axios.post("/user/auth", {token:localStorage.getItem("token")})
       if(data.status){
-        localStorage.setItem("image", data.user.image)
+        localStorage.setItem("image", data.user?.image)
         localStorage.setItem("user",JSON.stringify(data.user))
         return
       }
@@ -317,7 +317,7 @@ const Panel = () => {
 
       {window.innerWidth > 1300 && <nav className={style.nav}>
         <img className={style.logo} src={logo} />
-        <h1 className={style.saludo}>Hola {JSON.parse(localStorage.getItem("user")).name}! 👋</h1>
+        <h1 className={style.saludo}>Hola {JSON.parse(localStorage.getItem("user"))?.name}! 👋</h1>
         <input placeholder="Buscar paciente" onChange={(e) => {setFind(e.target.value); setPage(5)}} className={style.findInput} />
         {/* <button onClick={() => setPage(5)}>Buscar</button> */}
       </nav>}

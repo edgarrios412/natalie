@@ -26,6 +26,7 @@ import a7 from "../../assets/a7.jpeg"
 
 import { Fade } from "react-awesome-reveal";
 import { useNavigate } from 'react-router-dom'
+import {Element, Link} from "react-scroll" 
 
 const Home = () => {
 
@@ -36,7 +37,7 @@ const Home = () => {
       <nav className={style.nav}>
         <img className={style.logoMini} src={logoMini}/>
     <ul className={style.ul}>
-        <li className={style.li}>Inicio</li>
+        {/* <li className={style.li}>Inicio</li> */}
         {/* <li onClick={() => navigate("/login")} className={style.li}>Ingresar</li> */}
     </ul>
     </nav>
@@ -59,7 +60,7 @@ const Home = () => {
                 </div>
 
             </Carousel>
-      </div>
+      </div>      
     <div className={style.navDiv}></div>
       <div className={style.resumeContainer}>
         <div className={style.especialidades}>
