@@ -65,28 +65,36 @@ const Home = () => {
         <div className={style.especialidades}>
            <Fade damping="0.2" direction='right' triggerOnce={true} cascade={true}>
             <div className={style.especialidad}>
-              <img className={style.espeImg} src={ortodoncia}/>
+              <img className={style.espeImg} src="https://drjoselora.com/wp-content/uploads/2021/02/rehabilitacion-copia.jpg"/>
+              <h1 className={style.espeTitle}>Rehabilitacion Oral</h1>
+            </div>
+            <div className={style.especialidad}>
+            <img className={style.espeImg} src="https://estudidentalbarcelona.com/wp-content/uploads/2018/04/soluciones-estetica-dental.jpg"/>
+              <h1 className={style.espeTitle}>Estetica Dental</h1>
+            </div>
+            <div className={style.especialidad}>
+            <img className={style.espeImg} src="https://dentalcarralero.com/wp-content/uploads/2021/04/ortodoncia-tradicional.jpg"/>
               <h1 className={style.espeTitle}>Ortodoncia</h1>
             </div>
             <div className={style.especialidad}>
-            <img className={style.espeImg} src={ortodoncia}/>
+            <img className={style.espeImg} src="https://www.claudiamadrid.co/fotossubsecciones/macro_subseccion2017_07_19_15_38_11_20.JPG"/>
+              <h1 className={style.espeTitle}>Ortopedia Maxilar</h1>
+            </div>
+            <div className={style.especialidad}>
+            <img className={style.espeImg} src="https://staticnew-prod.topdoctors.cl/files/Image/large/ad2f2fffea02ddb26d351e0a884989b7.jpg"/>
+              <h1 className={style.espeTitle}>Periodoncia</h1>
+            </div>
+            <div className={style.especialidad}>
+            <img className={style.espeImg} src="https://images.squarespace-cdn.com/content/v1/5b91733c9772ae9bb38e47c0/1600647328055-54A27ABC4DEA07QNAWB7/Cirug%C3%ADa+Dental.jpg"/>
+              <h1 className={style.espeTitle}>Cirugia Oral</h1>
+            </div>
+            <div className={style.especialidad}>
+            <img className={style.espeImg} src="https://www.smysecret.com/blog/wp-content/uploads/2020/08/que-es-una-endodoncia-scaled.jpg"/>
               <h1 className={style.espeTitle}>Endodoncia</h1>
             </div>
             <div className={style.especialidad}>
-            <img className={style.espeImg} src={ortodoncia}/>
-              <h1 className={style.espeTitle}>Ortodoncia</h1>
-            </div>
-            <div className={style.especialidad}>
-            <img className={style.espeImg} src={ortodoncia}/>
-              <h1 className={style.espeTitle}>Ortopediatra</h1>
-            </div>
-            <div className={style.especialidad}>
-            <img className={style.espeImg} src={ortodoncia}/>
-              <h1 className={style.espeTitle}>Ortopediatra</h1>
-            </div>
-            <div className={style.especialidad}>
-            <img className={style.espeImg} src={ortodoncia}/>
-              <h1 className={style.espeTitle}>Ortopediatra</h1>
+            <img className={style.espeImg} src="https://vitaluna.es/wp-content/uploads/2019/03/implantologia.jpg"/>
+              <h1 className={style.espeTitle}>Implantologia</h1>
             </div>
             </Fade>
 
@@ -97,13 +105,13 @@ const Home = () => {
           <Fade triggerOnce direction='left' fraction={0.5}>
         <Carousel width="400px" infiniteLoop={true} interval="3000" autoPlay={true} showStatus={false}>
                 <div>
-                    <img src={ortodoncia} />
+                    <img src="https://img.freepik.com/foto-gratis/sonrisa-perfecta-dientes-blancos-primer-plano_144627-29225.jpg?size=626&ext=jpg&ga=GA1.1.1016474677.1696550400&semt=ais" />
                 </div>
                 <div>
-                    <img src={ortodoncia} />
+                    <img src="https://www.cronica.com.mx/uploads/2021/09/27/6153c40d3ec9e.jpeg" />
                 </div>
                 <div>
-                    <img src={ortodoncia} />
+                    <img src="https://savannaodontologia.com/wp-content/uploads/2020/02/891.jpg" />
                 </div>
             </Carousel>
           </Fade>
@@ -175,7 +183,7 @@ Bienvenidos al consultorio dental de la Dra. Natalie Ariza y su equipo de especi
           </div>
           <div className={style.numero}>
           <HiOutlineMail className={style.iconitos}/>
-          <p className={style.textoYina}>natasger1988@gmail.com</p>
+          <p className={style.textoYina}>nataliearizaeo@gmail.com</p>
           </div>
           <div className={style.numero}>
           <MdOutlineLocationOn className={style.iconitos}/>

@@ -242,15 +242,20 @@ background: linear-gradient(90deg, rgba(255, 255, 255, 0.509) 0%, rgba(0, 0, 0, 
     height: 200px;
 }
 
+.especialidad{
+    width: 300px;
+    text-align: center;
+}
+
 .especialidades{
     display: flex;
     flex-wrap: wrap;
-    width: 900px;
+    width: 1250px;
     gap: 150px;
     row-gap: 10px;
     margin-left: 50%;
     transform: translateX(-50%);
-    margin-top: 10%;
+    margin-top: 5%;
 }
 
 .espeImg{
@@ -284,6 +289,7 @@ background: linear-gradient(90deg, rgba(255, 255, 255, 0.509) 0%, rgba(0, 0, 0, 
     align-items: center;
     justify-content: center;
     gap:200px;
+    margin-top: 200px;
 }
 
 .disenoSonrisa2{
@@ -401,7 +407,7 @@ background: linear-gradient(90deg, rgba(255, 255, 255, 0.509) 0%, rgba(0, 0, 0, 
     }
     .disenoSonrisa2{
         flex-direction: column;
-        margin: 200px 0px;
+        margin: 120px 0px 0px 0px;
         padding-bottom: 200px;
         gap: 50px;
     }

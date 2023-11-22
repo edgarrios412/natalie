@@ -36,8 +36,8 @@ const Perfil = ({fn, createUser}) => {
           {user.role == 3 && <p>Super admin</p>}
           {user.role == 2 && <p>Administrador</p>}
           {user.role == 1 && <p>Especialista</p>}
-          <p>Odontologa Estetica</p>
-          <p>Tarjeta profesional XXXXX</p>
+          {/* <p>Odontologa Estetica</p> */}
+          {/* <p>Tarjeta profesional XXXXX</p> */}
           <p>{user.email}</p>
         </div>
       </div>
