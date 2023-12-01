@@ -250,8 +250,8 @@ background: linear-gradient(90deg, rgba(255, 255, 255, 0.509) 0%, rgba(0, 0, 0, 
 .especialidades{
     display: flex;
     flex-wrap: wrap;
-    width: 1250px;
-    gap: 150px;
+    width: 1300px;
+    gap: 20px;
     row-gap: 10px;
     margin-left: 50%;
     transform: translateX(-50%);

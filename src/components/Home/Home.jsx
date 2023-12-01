@@ -24,6 +24,9 @@ import a5 from "../../assets/a5.jpeg"
 import a6 from "../../assets/a6.jpeg"
 import a7 from "../../assets/a7.jpeg"
 
+import diseno from "../../assets/diseno.jpg"
+import diseno2 from "../../assets/diseno2.jpg"
+
 import { Fade } from "react-awesome-reveal";
 import { useNavigate } from 'react-router-dom'
 import {Element, Link} from "react-scroll" 
@@ -106,13 +109,10 @@ const Home = () => {
           <Fade triggerOnce direction='left' fraction={0.5}>
         <Carousel width="400px" infiniteLoop={true} interval="3000" autoPlay={true} showStatus={false}>
                 <div>
-                    <img src="https://img.freepik.com/foto-gratis/sonrisa-perfecta-dientes-blancos-primer-plano_144627-29225.jpg?size=626&ext=jpg&ga=GA1.1.1016474677.1696550400&semt=ais" />
+                    <img src={diseno} />
                 </div>
                 <div>
-                    <img src="https://www.cronica.com.mx/uploads/2021/09/27/6153c40d3ec9e.jpeg" />
-                </div>
-                <div>
-                    <img src="https://savannaodontologia.com/wp-content/uploads/2020/02/891.jpg" />
+                    <img src={diseno2} />
                 </div>
             </Carousel>
           </Fade>
