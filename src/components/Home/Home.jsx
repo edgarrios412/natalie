@@ -71,7 +71,7 @@ const Home = () => {
     <div className={style.navDiv}></div>
       <div className={style.resumeContainer}>
         <div className={style.especialidades}>
-           <Fade damping="0.2" direction='right' triggerOnce={true} cascade={true}>
+           <Fade direction='right' triggerOnce>
             <div className={style.especialidad}>
               <img className={style.espeImg} src="https://drjoselora.com/wp-content/uploads/2021/02/rehabilitacion-copia.jpg"/>
               <h1 className={style.espeTitle}>Rehabilitacion Oral</h1>
@@ -108,7 +108,7 @@ const Home = () => {
 
         </div>
       </div>
-          <Fade triggerOnce direction='left' fraction={0.5}>
+          <Fade triggerOnce direction='left'>
       <div className={style.resumeContainer}>
         <div className={style.disenoSonrisa}>
         <Carousel width="400px" infiniteLoop={true} interval="3000" swipeable={false} autoPlay={true} showStatus={false}>
@@ -137,7 +137,7 @@ const Home = () => {
         </div>
       </div>
           </Fade>
-        <Fade triggerOnce direction='left' fraction={0.5}>
+        <Fade triggerOnce direction='left'>
       <div className={style.resumeContainer}>
         <div className={style.disenoSonrisa2}>
           <div className={style.containerTlf}>
