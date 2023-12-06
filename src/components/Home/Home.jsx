@@ -15,6 +15,10 @@ import {MdOutlineLocationOn} from "react-icons/md"
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import fotocelular from "../../assets/celularfoto.jpg"
+import video from "../../assets/video.mp4"
+import diseno3 from "../../assets/diseno3.jpg"
+import diseno4 from "../../assets/diseno4.jpg"
+import diseno5 from "../../assets/diseno5.jpeg"
 
 import a1 from "../../assets/a1.jpeg"
 import a2 from "../../assets/a2.jpeg"
@@ -112,7 +116,10 @@ const Home = () => {
                     <img src={diseno} />
                 </div>
                 <div>
-                    <img src={diseno2} />
+                    <img src={diseno3} />
+                </div>
+                <div>
+                    <img src={diseno4} />
                 </div>
             </Carousel>
           </Fade>
@@ -133,31 +140,9 @@ const Home = () => {
         <div className={style.disenoSonrisa2}>
         <Fade triggerOnce direction='left' fraction={0.5}>
           <div className={style.containerTlf}>
-        {/* <img className={style.imgTlf} src={fotocelular}/> */}
-          <Carousel className={style.carrusel2} style={{backgroundColor:"transparent"}} renderThumbs={() => null} width="200px" infiniteLoop={true} interval="2500" autoPlay={true} showStatus={false}>
-                <div>
-                    <img src={fotocelular} />
-                </div>
-                <div>
-                    <img src={a1} />
-                </div>
-                <div>
-                    <img src={a3} />
-                </div>
-                <div>
-                    <img src={a4} />
-                </div>
-                <div>
-                    <img src={a5} />
-                </div>
-                <div>
-                    <img src={a6} />
-                </div>
-                <div>
-                    <img src={a7} />
-                </div>
-            </Carousel>
-        <img className={style.carrusel} style={{backgroundColor:"transparent"}} src={telefono}/>
+            <video width="100%" height="100%" autoPlay={true}>
+              <source src={video} type="video/mp4" autoPlay/>
+              </video>
           </div>
         </Fade>
         <Fade triggerOnce direction='right' fraction={0.5}>
