@@ -141,7 +141,7 @@ const Home = () => {
       <div className={style.resumeContainer}>
         <div className={style.disenoSonrisa2}>
           <div className={style.containerTlf}>
-            <video width="100%" height="100%" controls autoPlay={window.innerWidth > 1000 ? true : false}>
+            <video width="100%" height="100%" controls={window.innerWidth > 1000 ? false : true} autoPlay={window.innerWidth > 1000 ? true : false}>
               <source src={video} type="video/mp4"/>
               </video>
           </div>
