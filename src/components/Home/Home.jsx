@@ -108,9 +108,9 @@ const Home = () => {
 
         </div>
       </div>
+          <Fade triggerOnce direction='left' fraction={0.5}>
       <div className={style.resumeContainer}>
         <div className={style.disenoSonrisa}>
-          <Fade triggerOnce direction='left' fraction={0.5}>
         <Carousel width="400px" infiniteLoop={true} interval="3000" swipeable={false} autoPlay={true} showStatus={false}>
                 <div>
                     <img src={diseno} />
@@ -121,9 +121,10 @@ const Home = () => {
                 <div>
                     <img src={diseno4} />
                 </div>
+                <div>
+                    <img src={diseno5} />
+                </div>
             </Carousel>
-          </Fade>
-          <Fade triggerOnce direction='right' fraction={0.5}>
         <div className={style.texto}>
           <h1 className={style.titleTexto}>Diseño de sonrisa</h1>
           <p className={style.subtitleTexto}>Ultima tecnologia</p>
@@ -133,27 +134,25 @@ const Home = () => {
           <p className={style.descTexto}>Deseas diseño de sonrisa pero te da temor que no se vea natural ? Que son los laminados cerámicos? Que son las carillas indirectas en resina? En la actualidad el éxito de la estética es lograr resultados lo más parecidos a la naturaleza posible.</p>
           <button className={style.buttonValoracion}><a className={style.noLink} target="_blank" href="https://wa.link/sdh5gu">Pide tu valoracion</a></button>
         </div>
-          </Fade>
         </div>
       </div>
+          </Fade>
+        <Fade triggerOnce direction='left' fraction={0.5}>
       <div className={style.resumeContainer}>
         <div className={style.disenoSonrisa2}>
-        <Fade triggerOnce direction='left' fraction={0.5}>
           <div className={style.containerTlf}>
             <video width="100%" height="100%" autoPlay={true}>
               <source src={video} type="video/mp4" autoPlay/>
               </video>
           </div>
-        </Fade>
-        <Fade triggerOnce direction='right' fraction={0.5}>
         <div className={style.texto}>
           <p className={style.descTexto} style={{ textAlign:"center"}}>
 Bienvenidos al consultorio dental de la Dra. Natalie Ariza y su equipo de especialistas, donde no solo diseñamos sonrisas, te devolvemos la seguridad y la tranquilidad al reír y masticar.</p>
           <button className={style.buttonValoracion}><a className={style.noLink} target="_blank" href="https://wa.link/sdh5gu">Pide tu valoracion</a></button>
         </div>
-        </Fade>
         </div>
       </div>
+        </Fade>
         <div className={style.final}>
         <div className={style.izquierda}>
         <img className={style.logoNatalie} src={logoNata}/>
