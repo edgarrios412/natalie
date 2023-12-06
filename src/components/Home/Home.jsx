@@ -111,7 +111,7 @@ const Home = () => {
       <div className={style.resumeContainer}>
         <div className={style.disenoSonrisa}>
           <Fade triggerOnce direction='left' fraction={0.5}>
-        <Carousel width="400px" infiniteLoop={true} interval="3000" autoPlay={true} showStatus={false}>
+        <Carousel width="400px" infiniteLoop={true} interval="3000" swipeable={false} autoPlay={true} showStatus={false}>
                 <div>
                     <img src={diseno} />
                 </div>
