@@ -141,11 +141,9 @@ const Home = () => {
       <div className={style.resumeContainer}>
         <div className={style.disenoSonrisa2}>
           <div className={style.containerTlf}>
-            {window.innerWidth < 800 ? <video width="100%" height="100%" controls>
+            <video width="100%" height="100%" controls>
               <source src={video} type="video/mp4"/>
-              </video>:<video width="100%" height="100%" autoPlay>
-              <source src={video} type="video/mp4"/>
-              </video>}
+              </video>
           </div>
         <div className={style.texto}>
           <p className={style.descTexto} style={{ textAlign:"center"}}>
